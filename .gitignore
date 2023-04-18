@@ -1,0 +1,4 @@
+#SoundSieve gitignore
+SoundSieve-Front/node-modules/
+SoundSieve-Front/dist/
+SoundSieve-Back/node-modules/
