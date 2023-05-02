@@ -13,7 +13,7 @@ const newUser = async (req, res = response) => {
     try {
 
         // Verify if the email exists
-        let user = await User.findOne({ email });
+        const user = await User.findOne({ email });
         if(user) {
             return res.status(400).json({
                 ok: false,
@@ -40,33 +40,80 @@ const newUser = async (req, res = response) => {
             firstName,
             lastName,
             token,
-        })
+        });
 
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             ok: false,
             msg: 'Server error'
-        })
+        });
     }
 };
 
-const loginUser = (req, res = response) => {
+const loginUser = async (req, res = response) => {
 
     const { email, password } = req.body;
 
-    return res.json({
-        ok: true,
-        msg: 'Login usuario /login'
-    })
+    try {
+
+        // Verify if the email exists
+        const dbUser = await User.findOne({ email });
+        if(!dbUser) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Username or password are not correct'
+            });
+        }
+
+        // Verify if the password matches
+        const validPassword = bcrypt.compareSync( password, dbUser.password );
+        if(!validPassword) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Username or password are not correct'
+            });
+        }
+
+        // Generate JWT
+        const token = await generateJWT(dbUser.id, dbUser.firstName, dbUser.lastName);
+
+        // Return succesful response
+        return res.status(201).json({
+            ok: true,
+            uid: dbUser.id,
+            firstName: dbUser.firstName,
+            lastName: dbUser.lastName,
+            token,
+        });
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Server error'
+        });
+    }
 };
 
-const renew = (req, res = response) => {
-    
-    return res.json({
+const renew = async (req, res = response) => {
+
+
+    const { uid, firstName, lastName } = req;
+
+
+
+    // Generate JWT
+    token = await generateJWT(uid, firstName, lastName);
+
+    // Return succesful response
+    return res.status(201).json({
         ok: true,
-        msg: 'Renew token /renew'
-    })
+        uid,
+        firstName: firstName,
+        lastName: lastName,
+        token,
+    });
 };
 
 module.exports = {
