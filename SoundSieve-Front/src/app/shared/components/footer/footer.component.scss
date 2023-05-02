@@ -1,0 +1,21 @@
+@import './../../../../assets/base';
+
+
+footer a {
+    font-weight: 400;
+    font-size: .7rem;
+}
+
+.copy {
+    margin: 0 auto;
+}
+
+.footer-space {
+    width: 20%;
+}
+
+.language-selector {
+    font-size: .7rem;
+    text-decoration: none;
+    color: $light;
+}
