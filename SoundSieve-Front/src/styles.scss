@@ -1,2 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/base';
+
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+app-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+a {
+    color: $light;
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+
+    &:hover {
+        color: $primary-color;
+    }
+
+    &.btn-r {
+        color: $dark;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    &.btn-reverse {
+        background: $primary-color;
+        color: $light;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+}
+
+.btn-r,
+.btn-reverse {
+    border: none;
+    border-radius: 25rem;
+    padding: .3rem 1.8rem;
+}

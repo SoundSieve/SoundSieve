@@ -1,0 +1,32 @@
+@import './../../../../assets/base';
+
+.navbar {
+    background: $dark-transparent;
+}
+
+.logo__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.search__bar {
+    width: 40%;
+}
+
+#searchbar {
+    border-radius: 25rem;
+    background: #efefef3b;
+    border: none !important;
+    font-size: .8rem;
+
+    &::placeholder {
+        color: #c0c0c0;
+    }
+
+    &:focus {
+        box-shadow: 0;
+        background: $light;
+        color: $dark;
+    }
+}
