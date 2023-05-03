@@ -1,30 +1,25 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- Container wrapper -->
-    <div class="container-fluid align-items-center mx-3" fxFlexLayout="row">  
-      <!-- Collapsible wrapper -->
-        <!-- Navbar brand -->
-        <a class="navbar-brand" fxFlex href="#">
-            <div class="brand-logo d-flex align-items-center gap-2">
-                <img
-                src="../../../../assets/images/svg/SoundSieve_Logo.svg"
-                height="40"
-                alt="SoundSieve-logo"
-                loading="lazy"
-              />
-              <p class="logo__title">SoundSieve</p>
-            </div>
-        </a>
-        <div class="search__bar" fxFlex="40">
-          <input type="search" id="searchbar" class="form-control" placeholder="Discover new music sheets..."/>
-        </div>
-        <div class="right__links d-flex align-items-center gap-3" fxFlex="30">
-            <a [routerLink]="[publicHeader[0].route]">Pricing</a>
-            <div class="auth__btns d-flex align-items-center gap-2">
-                <a class="btn btn-light btn-r" [routerLink]="[publicHeader[1].route]">Signin</a>
-                <a class="btn btn-light btn-reverse" [routerLink]="[publicHeader[2].route]">Signup</a>
-            </div>
-        </div>
+<nav class="navbar navbar-expand-lg">
+  <!-- Container wrapper -->
+  <div class="container-fluid align-items-center mx-4" fxFlexLayout="row">
+    <!-- Collapsible wrapper -->
+    <!-- Navbar brand -->
+    <a class="navbar-brand" fxFlex href="#">
+      <div class="brand-logo d-flex align-items-center gap-2">
+        <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
+        <p class="logo__title">SoundSieve</p>
+      </div>
+    </a>
+    <div class="search__bar" fxFlex="40">
+      <input type="search" id="searchbar" class="form-control" placeholder="Discover new music sheets..." />
     </div>
-  </nav>
-  <!-- Navbar -->
+    <div class="right__links d-flex align-items-center gap-5" fxFlex="30">
+      <a [routerLink]="[publicHeader[0].route]">Pricing</a>
+      <div class="auth__btns d-flex align-items-center gap-3">
+        <a class="btn btn-light btn-r" [routerLink]="[publicHeader[1].route]">Signin</a>
+        <a class="btn btn-light btn-reverse" [routerLink]="[publicHeader[2].route]">Signup</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->

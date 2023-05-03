@@ -1,0 +1,8 @@
+@use './variables' as v;
+
+@mixin glass-bg {
+    background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.0));
+    box-shadow: 0px 4px 4px 0px v.$shadow;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
