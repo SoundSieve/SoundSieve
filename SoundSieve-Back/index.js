@@ -1,21 +1,31 @@
 /* Index.js */
 // Imports
 const express = require('express');
+const bodyParser = require("body-parser");
+const cors = require('cors');
 const { dbConnection } = require('./db/config');
 require('dotenv').config();
 
-// Create the express server/app
+/** Setting App */
 const app = express();
+
+/** Setting bodyparser */
+app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
+app.use(bodyParser.json());
+
+/** CORS */
+app.use( cors() );
+
 
 // Database connection
 dbConnection();
 
-app.get('/', ( req, res ) => {
-    res.json({
-        ok: true,
-        msg: 'Success'
-    });
-});
+// Routes
+app.use( '/api/v1/auth', require('./routes/auth') );
 
 app.listen( process.env.PORT, () => {
     console.log(`Server running on port ${ process.env.PORT } 🚀. Click on 'http://localhost:4000'. Documentation on 'http://localhost:4000/api/v1/docs'📝`);
