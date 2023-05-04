@@ -1,1 +1,62 @@
-<p>login works!</p>
+<section class="m-0 p-0">
+    <div class="container py-3 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 form-bg br-2">
+            <h2 class="text-center my-5 card-title">Sign up!</h2>
+          <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="login()">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="email">Email</label>
+                <input type="text" id="email" formControlName="email" class="form-control form-control-lg" />
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" formControlName="password" class="form-control form-control-lg" />
+            </div>
+  
+            <div class="d-flex align-items-center justify-content-end mb-4">
+              <!-- Forgot password link -->
+              <a class="forgot-pass me-4" routerLink="/auth/forgot-password">Forgot password?</a>
+            </div>
+  
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-reverse w-100">
+                Sign in
+            </button>
+
+            <!-- OR -->
+            <div class="d-flex align-items-center justify-content-center my-5">
+              <p class="text-center or">OR</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="d-flex align-items-center justify-content-center my-3">
+                <div class="divider"></div>
+            </div>
+            
+            <!-- Google and Facebook -->
+            <div class="d-flex flex-column align-items-center justify-content-center gap-4 my-5">
+                <a class="btn btn-light btn-r w-100 d-flex align-items-center gap-2" href="#!"
+                role="button">
+                <div class="brand-icon me-1">
+                    <i class="fa-brands fa-google"></i>
+                </div>
+                Continue with Google</a>
+                <a class="btn btn-light btn-r w-100 d-flex align-items-center gap-2" href="#!"
+                role="button">
+                <div class="brand-icon me-1">
+                    <i class="fa-brands fa-facebook"></i>
+                </div>
+                Continue with Facebook</a>
+            </div>
+            <!-- Change to signin -->
+            <div class="d-flex flex-column align-items-center justify-content-center gap-4">
+                <p class="text text-center">Do not you have an account yet?<a routerLink="/auth/sign-in">Sign in</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,60 @@
+@import './../../../../assets/base';
+
+
+.form-bg {
+    padding: 3rem 3rem 0 3rem;
+    margin: 4rem 0;
+    height: 700px;
+    @include glass-bg;
+}
+
+.card-title {
+    color: $light;
+    font-weight: $fw-7;
+    margin-bottom: 6rem !important;
+}
+
+.form-label {
+    color: $light;
+    font-size: $fs-2;
+}
+
+.form-outline {
+    input {
+        background: $dark-medium;
+        color: $light;
+        border-radius: $br-all;
+        border: none;
+    }
+}
+
+.forgot-pass {
+    font-size: $fs-2;
+    text-align: end;
+}
+
+.or {
+    color: $light-medium;
+    font-size: $fs-4;
+    margin-bottom: 0;
+}
+
+.btn-r {
+    padding: 8px 10px;
+}
+
+.text {
+    font-size: $fs-2;
+    color: $light-medium;
+
+    a {
+        font-size: $fs-2;
+        font-weight: $fw-5;
+        color: $primary-color;
+        margin-left: .5rem;
+
+        &:hover {
+            color: $light;
+        }
+    }
+}

@@ -1,13 +1,15 @@
 @import './../../../../assets/base';
 
 .navbar {
-    background: $dark-transparent;
+    height: 80px;
+    @include glass-bg;
 }
 
 .logo__title {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: $fs-4;
+    font-weight: $fw-6;
     margin-bottom: 0;
+    color: $light;
 }
 
 .search__bar {
@@ -16,12 +18,14 @@
 
 #searchbar {
     border-radius: 25rem;
-    background: #efefef3b;
+    background: $dark-medium;
     border: none !important;
-    font-size: .8rem;
+    font-size: $fs-3;
+    padding-left: 1rem;
 
     &::placeholder {
-        color: #c0c0c0;
+        color: $light-medium;
+        
     }
 
     &:focus {

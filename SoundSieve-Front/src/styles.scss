@@ -2,10 +2,21 @@
 @import './assets/base';
 
 /* Google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
 
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: $ff-poppins;
+    box-sizing: border-box;
+}
+
+html {
+    /* changes a default 16px font size to 10px */
+    font-size: 62.5%; 
+}
+
+body {
+    background: $dark;
 }
 
 app-root {
@@ -14,31 +25,68 @@ app-root {
     flex-direction: column;
 }
 
-.content {
+app-main {
     flex-grow: 1;
 }
 
-a {
+/* Headings */
+
+h1,h2,h3,h4 {
+    font-family: $ff-poppins;
+    color: $light;
+}
+
+h1 {
+    font-size: $h1;
+    font-weight: $fw-7;
+}
+
+h2 {
+    font-size: $h2;
+    font-weight: $fw-5;
+}
+
+h3 {
+    font-size: $h3;
+    font-weight: $fw-5;
+}
+
+h4 {
+    font-size: $h4;
+    font-weight: $fw-4;
+}
+
+/* Utilities */
+
+/* Links & Buttons */
+a,button {
     color: $light;
     text-decoration: none;
-    font-size: .8rem;
-    font-weight: 600;
+    font-size: $fs-3;
+    font-weight: $fw-5;
+    font-family: $ff-inter;
 
     &:hover {
         color: $primary-color;
     }
 
     &.btn-r {
+        font-family: $ff-inter;
         color: $dark;
-        font-size: .8rem;
-        font-weight: 600;
+        font-size: $fs-3;
+        font-weight: $fw-7;
     }
 
     &.btn-reverse {
+        font-family: $ff-inter;
         background: $primary-color;
         color: $light;
-        font-size: .8rem;
-        font-weight: 600;
+        font-size: $fs-3;
+        font-weight: $fw-7;
+        &:hover {
+            background: $hover-primary-color; 
+            color: $light;
+        }
     }
 }
 
@@ -46,5 +94,71 @@ a {
 .btn-reverse {
     border: none;
     border-radius: 25rem;
-    padding: .3rem 1.8rem;
+    padding: 8px 34px;
+}
+
+/* Border radius */
+
+.br-1 {
+    border-radius: $br-1;
+}
+
+.br-2 {
+    border-radius: $br-2;
+}
+
+.br-3 {
+    border-radius: $br-3;
+}
+
+.br-4 {
+    border-radius: $br-4;
+}
+
+.br-5 {
+    border-radius: $br-5;
+}
+
+.br-all {
+    border-radius: $br-all;
+}
+
+/* Background patterns */
+
+.bg-img1 {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: -10%;
+    bottom: 50%;
+    z-index: -1;
+
+    opacity: 0.3;
+}
+
+.bg-img2 {
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+    z-index: -1;
+    
+    opacity: 0.3;
+}
+
+/* Divider */
+
+.divider {
+    height: 1px;
+    width: 90%;
+    background: $light-medium;
+}
+
+.brand-icon {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $light-medium;
+    border-radius: 50%;
 }
