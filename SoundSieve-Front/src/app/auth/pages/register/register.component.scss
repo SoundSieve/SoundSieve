@@ -1,0 +1,113 @@
+/*form styles*/
+@import './../../../../assets/base';
+
+
+.form-bg {
+    padding: 3rem 3rem 0 3rem;
+    margin: 4rem 0;
+    height: 700px;
+    @include glass-bg;
+}
+
+.card-title {
+    color: $light;
+    font-weight: $fw-7;
+    margin-bottom: 6rem !important;
+}
+
+.form-label {
+    color: $light;
+    font-size: $fs-2;
+    &.checkbox {
+        font-size: $fs-1;
+        margin-bottom: 0;
+        max-width: 230px;
+    }
+}
+
+.form-outline {
+    input {
+        background: $dark-medium;
+        color: $light;
+        border-radius: $br-all;
+        border: none;
+    }
+}
+
+.forgot-pass {
+    font-size: $fs-2;
+    text-align: end;
+}
+
+.or {
+    color: $light-medium;
+    font-size: $fs-4;
+    margin-bottom: 0;
+}
+
+.btn-r {
+    padding: 8px 10px;
+}
+
+.text {
+    font-size: $fs-2;
+    color: $light-medium;
+
+    a {
+        font-size: $fs-2;
+        font-weight: $fw-5;
+        color: $primary-color;
+        margin-left: .5rem;
+
+        &:hover {
+            color: $light;
+        }
+    }
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*progressbar*/
+#progressbar {
+    position: relative;
+    bottom: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+#progressbar li {
+    list-style-type: none;
+    width: 5%;
+    float: left;
+    position: relative;
+    color: transparent;
+}
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 8px;
+    height: 8px;
+    display: block;
+    background: $light;
+    border-radius: 25px;
+    margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: $primary-color;
+}
+#progressbar li.inactive:before{
+    background: $light;
+}

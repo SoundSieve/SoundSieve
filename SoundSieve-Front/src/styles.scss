@@ -88,10 +88,32 @@ a,button {
             color: $light;
         }
     }
+    &.btn-reverse-secondary {
+        font-family: $ff-inter;
+        background: $secondary-color;
+        color: $light;
+        font-size: $fs-3;
+        font-weight: $fw-7;
+        &:hover {
+            background: $hover-secondary-color; 
+            color: $light;
+        }
+    }
+
+    &.link-small {
+        font-family: $ff-inter;
+        color: $primary-color;
+        font-size: $fs-1;
+        font-weight: $fw-7;
+        &:hover {
+            color: $hover-primary-color;
+        }
+    }
 }
 
 .btn-r,
-.btn-reverse {
+.btn-reverse,
+.btn-reverse-secondary {
     border: none;
     border-radius: 25rem;
     padding: 8px 34px;
