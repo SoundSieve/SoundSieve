@@ -11,7 +11,7 @@ export class AuthService {
 
   private readonly _baseUrl: string = environment.baseUrl;
   private _http = inject( HttpClient );
-  private _currentUser = signal<User|null>(null);
+  private _currentUser! : User;
 
   get user() {
     return { ...this._currentUser };

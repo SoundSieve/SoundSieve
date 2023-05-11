@@ -65,7 +65,7 @@
     }
 }
 /*Hide all except first fieldset*/
-#msform fieldset:not(:first-of-type) {
+.msform fieldset:not(:first-of-type) {
     display: none;
 }
 

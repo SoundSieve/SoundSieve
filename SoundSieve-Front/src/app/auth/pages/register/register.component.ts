@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +18,9 @@ export class RegisterComponent implements OnInit {
   step_3 = false;
   step = 1;
 
-  constructor( private _fb: FormBuilder ) {}
+  constructor( private _fb: FormBuilder,
+    private _authService: AuthService,
+    private _router: Router ) {}
 
   ngOnInit(): void {
     this.step1Form = this._fb.group({

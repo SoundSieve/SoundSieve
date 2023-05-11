@@ -3,7 +3,7 @@
         <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 form-bg br-2">
                 <!-- first step form -->
-                <form [formGroup]="step1Form" id="msform">
+                <form [formGroup]="step1Form" class="msform">
                     <!-- fieldsets -->
                     <fieldset *ngIf="step == 1">
                         <h2 class="text-center my-5 card-title">Join us!</h2>
@@ -24,7 +24,7 @@
                     </fieldset>
                 </form>
                 <!-- second step form -->
-                <form [formGroup]="step2Form" id="msform">
+                <form [formGroup]="step2Form" class="msform">
                     <!-- fieldsets -->
                     <fieldset *ngIf="step == 2">
                         <h2 class="text-center my-5 card-title">Introduce yourself!</h2>
@@ -54,14 +54,14 @@
                     </fieldset>
                 </form>
                 <!-- third step form -->
-                <form [formGroup]="step3Form" id="msform">
+                <form [formGroup]="step3Form" class="msform">
                     <!-- fieldsets -->
                     <fieldset *ngIf="step == 3">
                         <h2 class="text-center my-5 card-title">Last step!</h2>
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="password">Password</label>
-                            <input type="text" formControlName="password" placeholder="Password"
+                            <input type="password" formControlName="password" placeholder="Password"
                                 class="form-control form-control-lg" />
                             <div *ngIf="step_3 && step3Form.controls['password'].errors">
                                 <div *ngIf="step3['password'].errors?.['required']">Password is required</div>
@@ -70,7 +70,7 @@
                         <!-- Password Confirm input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="passwordConfirm">Confirm password</label>
-                            <input type="text" formControlName="passwordConfirm" placeholder="Confirm password"
+                            <input type="password" formControlName="passwordConfirm" placeholder="Confirm password"
                                 class="form-control form-control-lg" />
                             <div *ngIf="step_3 && step3Form.controls['passwordConfirm'].errors">
                                 <div>Password does not match</div>
@@ -84,10 +84,10 @@
                         <!-- TOS Checkbox input -->
                         <div class="form-outline mb-4 me-5 d-flex align-items-center justify-content-between">
                             <label class="form-label checkbox mx-3" for="updates">By checking this box, you agree to our <a class="link-small" routerLink="/es/tos">Terms of Service</a> and <a class="link-small" routerLink="/es/privacy">Privacy Policy</a></label>
-                            <input type="checkbox" name="updates" id="updates-checkbox">
+                            <input type="checkbox" name="updates" id="tos-checkbox">
                         </div>
                         <!-- Previous-Next button -->
-                        <button (click)="submit()" type="submit" name="submit" class="btn btn-reverse w-100 mt-5 mb-4">Continue</button>
+                        <button (click)="submit()" type="submit" name="submit" class="btn btn-reverse w-100 mt-5 mb-4" [disabled]="step1Form.valid || step2Form.valid || step3Form.valid">Continue</button>
                         <button (click)="previous()" type="button" name="previous"
                         class="btn btn-reverse-secondary w-100 mb-5">Back</button>
                     </fieldset>
