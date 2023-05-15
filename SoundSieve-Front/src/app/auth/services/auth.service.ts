@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { LoginBody, AuthResponse, User } from './auth.interface';
+import { RegisterBody } from './../interfaces/register.interface';
 import { environment } from 'src/environments/environment';
 import { catchError, map, of, tap, Observable } from 'rxjs';
 
@@ -41,7 +42,25 @@ export class AuthService {
       );
   }
 
-
+  register( body: RegisterBody ) {
+    const url = `${ this._baseUrl }/auth/new`;
+    console.log(body);
+    return this._http.post<AuthResponse>(url, body)
+      .pipe(
+        tap( resp => {
+          if(resp.ok) {
+            localStorage.setItem('token', resp.token!);
+            this._currentUser = {
+              firstName: resp.firstName,
+              lastName: resp.lastName,
+              uid: resp.uid!,
+            }
+          }
+        }),
+        map( resp => resp.ok),
+        catchError( err => of(err))
+      );
+  }
 
   validateToken(): Observable<boolean> {
     const url = `${ this._baseUrl }/auth/renew`;
@@ -51,6 +70,7 @@ export class AuthService {
     return this._http.get<AuthResponse>(url, { headers })
       .pipe(
         map( resp => {
+          localStorage.setItem('token', resp.token!);
           return resp.ok;
         }),
         catchError( err => of(false))

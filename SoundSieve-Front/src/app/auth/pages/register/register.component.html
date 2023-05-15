@@ -84,10 +84,10 @@
                         <!-- TOS Checkbox input -->
                         <div class="form-outline mb-4 me-5 d-flex align-items-center justify-content-between">
                             <label class="form-label checkbox mx-3" for="updates">By checking this box, you agree to our <a class="link-small" routerLink="/es/tos">Terms of Service</a> and <a class="link-small" routerLink="/es/privacy">Privacy Policy</a></label>
-                            <input type="checkbox" name="updates" id="tos-checkbox">
+                            <input type="checkbox" name="updates" id="tos-checkbox" [checked]="this.step3Form.controls['terms'].value.id" (change)="checkTOS($event)">
                         </div>
                         <!-- Previous-Next button -->
-                        <button (click)="submit()" type="submit" name="submit" class="btn btn-reverse w-100 mt-5 mb-4" [disabled]="step1Form.valid || step2Form.valid || step3Form.valid">Continue</button>
+                        <button (click)="submit()" type="button" name="lastContinue" class="btn btn-reverse w-100 mt-5 mb-4" [disabled]="this.step3Form.invalid || !this.isChecked">Continue</button>
                         <button (click)="previous()" type="button" name="previous"
                         class="btn btn-reverse-secondary w-100 mb-5">Back</button>
                     </fieldset>
