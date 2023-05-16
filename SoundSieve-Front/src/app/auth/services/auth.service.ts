@@ -42,6 +42,25 @@ export class AuthService {
       );
   }
 
+  googleLogin( token: string ) {
+    const url = `${ this._baseUrl }/auth/login/google`;
+    return this._http.post<AuthResponse>(url, { token })
+      .pipe(
+        tap( resp => {
+          if(resp.ok) {
+            localStorage.setItem('token', resp.token!);
+            this._currentUser = {
+              firstName: resp.firstName,
+              lastName: resp.lastName,
+              uid: resp.uid!,
+            }
+          }
+        }),
+        map( resp => resp.ok),
+        catchError( err => of(err))
+      );
+  }
+
   register( body: RegisterBody ) {
     const url = `${ this._baseUrl }/auth/new`;
     console.log(body);

@@ -2,7 +2,7 @@
 // Imports
 const { Router } = require('express');
 // Controllers
-const { newUser, loginUser, renew } = require('../controllers/auth.controller');
+const { newUser, loginUser, googleSignIn, renew } = require('../controllers/auth.controller');
 const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate-fields');
 const { validateJWT } = require('../middlewares/validate-jwt');
@@ -24,6 +24,12 @@ router.post('/login', [
     check('password', 'The password must be at least 6 characters').isLength({ min: 6}),
     validateFields
 ] , loginUser);
+
+// Login Google
+router.post('/login/google', [
+    check('token', 'The google token is mandatory').not().isEmpty(),
+    validateFields
+] , googleSignIn);
 
 // Renew token
 router.get('/renew', [
