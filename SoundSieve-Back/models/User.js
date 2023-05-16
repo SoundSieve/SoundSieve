@@ -14,14 +14,19 @@ const UserSchema = Schema({
     },
     lastName: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
         required: true,
     },
-    Intrument: {
+    img: {
         type: String,
+    },
+    instrument: {
+        type: String,
+    },
+    google: {
+        type: Boolean,
     }
 });
 

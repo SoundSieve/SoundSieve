@@ -20,6 +20,8 @@ app.use(bodyParser.json());
 /** CORS */
 app.use( cors() );
 
+/** Public Dir */
+app.use( express.static('public'));
 
 // Database connection
 dbConnection();
