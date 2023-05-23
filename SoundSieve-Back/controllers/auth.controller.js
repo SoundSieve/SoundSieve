@@ -8,16 +8,25 @@ const { generateJWT } = require("../utilities/jwt");
 
 const newUser = async (req, res = response) => {
 
-    const { email, firstName, lastName, password } = req.body;
+    const { email, username, firstName, lastName, password } = req.body;
 
     try {
 
         // Verify if the email exists
-        const user = await User.findOne({ email });
+        let user = await User.findOne({ email });
         if(user) {
             return res.status(400).json({
                 ok: false,
-                msg: 'User already exists'
+                msg: 'The user already exists'
+            });
+        } 
+        
+        // Verify if the username exists
+        user = await User.findOne({ username });
+        if(user) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'The username is already taken'
             });
         }
 
@@ -37,8 +46,10 @@ const newUser = async (req, res = response) => {
         return res.status(201).json({
             ok: true,
             uid: dbUser.id,
+            username,
             firstName,
             lastName,
+            role: dbUser.role,
             token,
         });
 
@@ -62,7 +73,7 @@ const loginUser = async (req, res = response) => {
         if(!dbUser) {
             return res.status(400).json({
                 ok: false,
-                msg: 'Username or password are not correct'
+                msg: 'Email or password are not correct'
             });
         }
 
@@ -71,7 +82,7 @@ const loginUser = async (req, res = response) => {
         if(!validPassword) {
             return res.status(400).json({
                 ok: false,
-                msg: 'Username or password are not correct'
+                msg: 'Email or password are not correct'
             });
         }
 
@@ -82,8 +93,10 @@ const loginUser = async (req, res = response) => {
         return res.status(201).json({
             ok: true,
             uid: dbUser.id,
+            username: dbUser.username,
             firstName: dbUser.firstName,
             lastName: dbUser.lastName,
+            role: dbUser.role,
             token,
         });
         
