@@ -1,9 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { LoginBody, AuthResponse, User } from './auth.interface';
 import { RegisterBody } from './../interfaces/register.interface';
 import { environment } from 'src/environments/environment';
 import { catchError, map, of, tap, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +15,30 @@ export class AuthService {
 
   private readonly _baseUrl: string = environment.baseUrl;
   private _http = inject( HttpClient );
+  private _router = inject( Router );
+  private _ngZone = inject( NgZone )
   private _currentUser! : User;
+
+  public auth2: any;
 
   get user() {
     return { ...this._currentUser };
   }
 
-  constructor( ) { }
+  constructor() {
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+
+    this.auth2.signOut().then(() => {
+      this._ngZone.run(() => {
+        this._router.navigateByUrl('/auth/login');
+      })
+    });
+    this._router.navigateByUrl('/auth/sign-up');
+      
+  }
 
   login( email: string, password: string) {
 
@@ -44,7 +64,9 @@ export class AuthService {
 
   googleLogin( token: string ) {
     const url = `${ this._baseUrl }/auth/login/google`;
-    return this._http.post<AuthResponse>(url, { token })
+    const headers = new HttpHeaders()
+    .set('token', token);
+    return this._http.post<AuthResponse>(url, { headers })
       .pipe(
         tap( resp => {
           if(resp.ok) {

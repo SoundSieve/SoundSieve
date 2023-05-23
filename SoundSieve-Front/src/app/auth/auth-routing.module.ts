@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'forgot-password',
       loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordModule )
       },
-      { path: '**', redirectTo: 'sign-in' },
+      { path: '**', redirectTo: 'sign-up' },
     ]
   }
 ];

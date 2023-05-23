@@ -18,6 +18,7 @@
       <div class="auth__btns d-flex align-items-center gap-3">
         <a class="btn btn-light btn-r" [routerLink]="[publicHeader[1].route]">Signin</a>
         <a class="btn btn-light btn-reverse" [routerLink]="[publicHeader[2].route]">Signup</a>
+        <a class="btn btn-light btn-r" (click)="logout()">Logout</a>
       </div>
     </div>
   </div>

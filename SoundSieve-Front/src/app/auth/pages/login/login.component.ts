@@ -1,19 +1,20 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-declare const google: any;
+declare const gapi:any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements OnInit {
 
   @ViewChild('googleBtn') googleBtn!: ElementRef;
+  public auth2: any;
 
   myForm: FormGroup = this._fb.group({
     email: ['test1@email.com', [Validators.required, Validators.email]],
@@ -22,31 +23,52 @@ export class LoginComponent implements AfterViewInit {
 
   constructor( private _fb: FormBuilder,
     private _router: Router,
-    private _authService: AuthService ) {
+    private _authService: AuthService,
+    private ngZone: NgZone ) {
 
   }
 
-  ngAfterViewInit(): void {
-    this.googleInit();
+  ngOnInit(): void {
+    this.renderButton()
   }
 
-  private googleInit(){
-    google.accounts.id.initialize({
-      client_id: '1027260749299-6s5bhbp6tu6lqeo9bqsess82dale8of8.apps.googleusercontent.com',
-      callback: (response: any) => this.handleCredentialResponse( response )
+  renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
     });
-    google.accounts.id.renderButton(
-      this.googleBtn.nativeElement,
-      { theme: "flat", size: "large", width: 300 }  // customization attributes
-    );
-    google.accounts.id.prompt(); // also display the One Tap dialog
+
   }
 
-  handleCredentialResponse( response: any) {
-    this._authService.googleLogin( response.credential )
-      .subscribe( resp => {
-        this._router.navigateByUrl('/browse');
-      });
+  async startApp() {
+    
+    await this._authService.googleInit();
+    this.auth2 = this._authService.auth2;
+
+    this.attachSignin( this.googleBtn );
+    
+  };
+
+  attachSignin(element: ElementRef) {
+    
+    this.auth2.attachClickHandler( element, {},
+        (googleUser: any) => {
+            const id_token = googleUser.getAuthResponse().id_token;
+            // console.log(id_token);
+            this._authService.googleLogin( id_token )
+              .subscribe( resp => {
+                // Navegar al Dashboard
+                this.ngZone.run( () => {
+                  this._router.navigateByUrl('/browse');
+                })
+              });
+
+        }, (error) => {
+            alert(JSON.stringify(error, undefined, 2));
+        });
   }
 
   public login() {

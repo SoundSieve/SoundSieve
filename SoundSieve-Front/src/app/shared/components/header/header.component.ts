@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from './header.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -32,4 +34,12 @@ export class HeaderComponent {
       ]
     },
   ];
+
+  constructor( 
+    private _authService: AuthService, 
+  ) { }
+
+  logout() {
+    this._authService.logout();
+  }
 }
