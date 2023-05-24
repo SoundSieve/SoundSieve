@@ -23,6 +23,9 @@ const SheetSchema = Schema({
         type: String,
         default: 'GPL'    
     },
+    pdf: {
+        type: String,
+    },
     genres: {
         type: Array,
     },

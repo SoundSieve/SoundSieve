@@ -10,7 +10,7 @@ const getUsers = async (req, res = response) => {
         const limit = Number(req.query.limit) || 0;
 
         const [users, totalRows ] = await Promise.all([
-            User.find({}, 'username firstName lastName email role google')
+            User.find({}, 'username firstName lastName email role google img')
                 .skip( offset )
                 .limit( limit ),
             User.find().count(),

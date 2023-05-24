@@ -8,7 +8,7 @@ const getSheets = async (req, res = response) => {
 
     try {
         const sheets = await Sheet.find()
-            .populate('author', 'firstName lastName img');
+            .populate('author', 'firstName lastName pdf');
         if(sheets) {
             return res.status(200).json({
                 ok: true,
