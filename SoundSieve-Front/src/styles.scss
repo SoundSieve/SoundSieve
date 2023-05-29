@@ -87,6 +87,10 @@ a,button {
             background: $hover-primary-color; 
             color: $light;
         }
+        &:disabled {
+            background: $disable-primary-color; 
+            color: $light;
+        }
     }
     &.btn-reverse-secondary {
         font-family: $ff-inter;
@@ -96,6 +100,10 @@ a,button {
         font-weight: $fw-7;
         &:hover {
             background: $hover-secondary-color; 
+            color: $light;
+        }
+        &:disabled {
+            background: $disable-secondary-color; 
             color: $light;
         }
     }

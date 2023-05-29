@@ -28,6 +28,15 @@
                     <!-- fieldsets -->
                     <fieldset *ngIf="step == 2">
                         <h2 class="text-center my-5 card-title">Introduce yourself!</h2>
+                        <!-- Username input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text" formControlName="username" placeholder="Username"
+                                class="form-control form-control-lg" />
+                            <div *ngIf="step_2 && step2Form.controls['username'].errors">
+                                <div *ngIf="step2['username'].errors?.['required']">Username is required</div>
+                            </div>
+                        </div>
                         <!-- FirstName input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="firstName">First name</label>

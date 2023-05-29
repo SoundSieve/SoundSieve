@@ -63,7 +63,6 @@ export class AuthService {
 
   register( body: RegisterBody ) {
     const url = `${ this._baseUrl }/auth/new`;
-    console.log(body);
     return this._http.post<AuthResponse>(url, body)
       .pipe(
         tap( resp => {

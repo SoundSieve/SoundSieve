@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
 
   private bodyRequest: RegisterBody = {
     email: '',
+    username: '',
     firstName: '',
     lastName: '',
     password: '',
@@ -49,6 +50,7 @@ export class RegisterComponent implements OnInit {
     });
     
     this.step2Form = this._fb.group({
+      username: ['MayDoubt', [Validators.required, Validators.minLength(3)]],
       firstName: ['Fernando', [Validators.required, Validators.minLength(3)]],
       lastName: ['Pérez', [Validators.required, Validators.minLength(3)]],
     });
@@ -99,6 +101,7 @@ export class RegisterComponent implements OnInit {
         if (!this.step2Form.invalid) {
           this.step++;
           this.step_2 = false;
+          this.bodyRequest.username = this.step2Form.controls['username'].value;
           this.bodyRequest.firstName = this.step2Form.controls['firstName'].value;
           this.bodyRequest.lastName = this.step2Form.controls['lastName'].value;
         }
@@ -123,7 +126,6 @@ export class RegisterComponent implements OnInit {
   submit(){
     if(this.step==3){
       this.step_3 = true;
-      console.log(!this.step3Form.invalid && this.isChecked);
       if (!this.step3Form.invalid && this.isChecked) {
         this.bodyRequest.password = this.step3Form.controls['password'].value;
         this.bodyRequest.newsletter = this.step1Form.controls['newsletter']?.value;

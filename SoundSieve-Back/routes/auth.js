@@ -1,4 +1,7 @@
-/* Auth routing */
+/** 
+ * Auth routing
+ * Main route: '/api/v1/auth'
+ */
 // Imports
 const { Router } = require('express');
 // Controllers
