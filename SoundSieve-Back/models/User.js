@@ -19,7 +19,6 @@ const UserSchema = Schema({
     },
     lastName: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
@@ -36,10 +35,6 @@ const UserSchema = Schema({
     google: {
         type: Boolean,
         default: false,
-    },
-    instrument: {
-        type: String,
-    }
 });
 
 UserSchema.method('toJSON', function() {
