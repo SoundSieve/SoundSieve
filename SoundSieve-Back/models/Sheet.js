@@ -29,6 +29,9 @@ const SheetSchema = Schema({
     genres: {
         type: Array,
     },
+    instruments: {
+        type: Array,
+    }
 });
 
 SheetSchema.method('toJSON', function() {
