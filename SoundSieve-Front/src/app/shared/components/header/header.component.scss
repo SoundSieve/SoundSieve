@@ -15,22 +15,3 @@
 .search__bar {
     width: 40%;
 }
-
-#searchbar {
-    border-radius: 25rem;
-    background: $dark-medium;
-    border: none !important;
-    font-size: $fs-3;
-    padding-left: 1rem;
-
-    &::placeholder {
-        color: $light-medium;
-        
-    }
-
-    &:focus {
-        box-shadow: 0;
-        background: $light;
-        color: $dark;
-    }
-}

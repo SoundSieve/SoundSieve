@@ -1,0 +1,34 @@
+<div *ngIf="cSheet" class="card sheet overflow-hidden">
+    <img src="./../../../../assets/images/example.jpg" class="rounded h-100" alt="...">
+    <div class="card-body ps-2  d-flex flex-column h-auto">
+        <h5 class="card-title">{{cSheet.name}}</h5>
+        <p class="card-author">{{cSheet.author.firstName + ' ' + cSheet.author.lastName}}</p>
+        <div class="card-intruments">
+            <h5 class="card-intruments-title">Instruments:</h5>
+            <ul class="ps-2" >
+                <li class="p-0 m-0" *ngFor="let instrument of cSheet.instruments">
+                    {{instrument}}
+                </li>
+            </ul>
+        </div>
+        <div class="card-interactions flex-shrink-1 d-flex flex-wrap justify-content-end mt-5">
+            <div class="card-likes gx-3 d-flex flex-wrap align-items-center">
+                <img class="like-icon me-2" src="./../../../../assets/images/svg/like.svg" alt="like-icon">
+                <p class="align-middle m-0">223</p>
+            </div>
+            <div class="card-views gx-3 d-flex flex-wrap align-items-center">
+                <img class="view-icon me-2" src="./../../../../assets/images/svg/view.svg" alt="view-icon">
+                <p class="align-middle m-0">1.4k</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="cUser"
+    (click)="goToUser( cUser )"
+    class="card user overflow-hidden">
+    <img [src]="cUser.img | image" referrerpolicy="no-referrer" class="rounded-circle user-img" [alt]="cUser.firstName">
+    <div class="card-body">
+        <h5 class="card-title">{{cUser.username}}</h5>
+        <p class="card-author w-100">{{cUser.firstName + ' ' +cUser.lastName}}</p>
+    </div>
+</div>

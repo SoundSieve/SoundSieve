@@ -7,7 +7,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
-
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TableComponent } from './components/table/table.component';
+import { CardComponent } from './components/card/card.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -15,14 +19,19 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     FooterComponent,
     SearchBarComponent,
     ButtonComponent,
-    DropdownComponent
+    DropdownComponent,
+    TableComponent,
+    CardComponent,
   ],
   exports: [
-    HeaderComponent, FooterComponent, SearchBarComponent, ButtonComponent, DropdownComponent
+    HeaderComponent,
+    FooterComponent,
+    SearchBarComponent,
+    ButtonComponent,
+    DropdownComponent,
+    TableComponent,
+    CardComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedRoutingModule
-  ]
+  imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule],
 })
-export class SharedModule { }
+export class SharedModule {}

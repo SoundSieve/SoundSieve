@@ -1,1 +1,35 @@
-<p>result-list works!</p>
+<div class="container mt-5">
+    <app-search-bar
+        [placeholder]=searchPlaceholder
+    ></app-search-bar>
+    <h3 class="my-5">Aqui irian los filtros de busqueda</h3>
+</div>
+
+
+<div class="container">
+    <div *ngIf="resultSheets.length === 0 && resultUsers.length === 0" class="alert alert-secondary">
+        <p class="mb-0">
+            The search returns no results
+        </p>
+    </div>
+    <div *ngIf="resultSheets.length > 0" class="sheetsResult mt-5">
+        <h3>Score sheets</h3>
+        <div class="results row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-xl-10 row-cols-xxl-8 d-flex mx-0 animated fadeIn fast">
+            <app-card 
+            *ngFor="let sheet of resultSheets"
+            class="col"
+            [cSheet]="sheet"
+            ></app-card>
+        </div>
+    </div>
+    <div *ngIf="resultUsers.length > 0" class="usersResult mt-5">
+        <h3>Users</h3>
+        <div *ngIf="resultUsers" class="results row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-xl-10 row-cols-xxl-8 d-flex mx-0 animated fadeIn fast">
+            <app-card 
+            *ngFor="let user of resultUsers"
+            class="col"
+            [cUser]="user"
+            ></app-card>
+        </div>
+    </div>
+</div>

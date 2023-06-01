@@ -1,0 +1,48 @@
+
+<div class="card-body py-3 mt-5">
+    <div class="table-title d-flex align-items-center">
+        <h3 class="w-100 pt-4">{{tTitle}}</h3>
+        <div class="flex-shrink-1">
+            <img src="../../../../assets/images/svg/filter.svg" alt="filter-icon">
+        </div>
+    </div>
+    <div class="divider mt-2"></div>
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead *ngIf="(tHeaders.length > 0)">
+                <tr *ngFor="let header of tHeaders">
+                    <th>
+                        {{ header }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of tDisplays">
+                <tr class="table-row d-flex align-items-center justify-content-between pe-3">
+                    <td class="flex-shrink-1 ms-3 my-2">
+                        <img class="item-preview" src="https://www.lacasadelajedrez.com/static/img/no-preview.jpg" alt="no-preview">
+                    </td>
+                    <td class="d-flex flex-column w-100 ms-5">
+                        <div class="item-data">
+                            <p class="item-title">{{item.name}}</p>
+                            <small class="item-author">{{item.author.firstName + ' ' + item.author.lastName}}</small>
+                        </div>
+                        <div class="item-interactions d-flex flex-wrap h-100 mt-5">
+                            <div class="item-likes d-flex align-items-center">
+                                <img class="like-icon" src="./../../../../assets/images/svg/like.svg" alt="like-icon">
+                                <p class="align-middle m-0">223</p>
+                            </div>
+                            <div class="item-views d-flex align-items-center flex-shrink-1">
+                                <img class="view-icon" src="./../../../../assets/images/svg/view.svg" alt="view-icon">
+                                <p class="align-middle m-0">1.4k</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="row-btns d-flex align-items-center flex-shrink-1">
+                        <a class="btn btn-light btn-reverse me-3" [routerLink]="">Edit</a>
+                        <a class="btn btn-light btn-outline" [routerLink]="">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

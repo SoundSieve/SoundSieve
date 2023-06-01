@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      { path: '', component: ResultListComponent },
+      { path: ':query', component: ResultListComponent },
       { path: 'details/:id', component: MusicSheetDetailsComponent },
     ]
   }

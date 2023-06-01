@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from './header.interface';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,15 @@ import { MenuItem } from './header.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+  public isSearchPage: boolean = false;
+
+  constructor ( private _router: Router ) { 
+    this._router.events.subscribe((event) => {
+      event instanceof NavigationEnd ? console.log(event.url): null 
+    })
+  }
+
 
   public publicHeader: MenuItem[] = [
     {
