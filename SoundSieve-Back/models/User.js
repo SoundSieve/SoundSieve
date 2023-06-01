@@ -35,6 +35,7 @@ const UserSchema = Schema({
     google: {
         type: Boolean,
         default: false,
+    }
 });
 
 UserSchema.method('toJSON', function() {

@@ -1,0 +1,88 @@
+@import './../../../../assets/base';
+
+
+.card {
+    background-color: transparent !important;
+    border: none !important;
+
+    .card-body {
+        height: 100%;
+    }
+
+    .card-title,
+    .card-author,
+    .card-interactions,
+    .card-intruments,
+    .card-intruments-title { 
+        color: $light;
+        font-size: $fs-1;
+    }
+
+    &.sheet {
+        .card-title {
+            font-weight: $fw-5;
+            @include for-tablet-portrait-up {
+                font-size: $fs-3;
+            }
+        }
+    
+        .card-author {
+            font-weight: $fw-3;
+            @include for-tablet-portrait-up {
+                font-size: $fs-2;
+            }
+        }
+    
+        .card-intruments {
+            .card-intruments-title {
+                font-weight: $fw-5;
+                @include for-tablet-portrait-up {
+                    font-size: $fs-2;
+                }
+            }
+            li {
+                list-style-type: none;
+                font-weight: $fw-3;
+                padding: 0;
+                margin: 0;
+                @include for-tablet-portrait-up {
+                    font-size: $fs-2;
+                }
+            }
+        }
+    
+        .card-interactions {
+            gap: 1rem;
+            img {
+                height: 12px;
+                &.like-icon {
+                    margin-bottom: .3rem;
+                }
+                &.view-icon {
+                    margin-bottom: .1rem;
+                }
+            }
+        }
+    }
+
+    &.user {
+        .user-img {
+            margin: 0 auto;
+            background-size: contain;
+            width: 80px;
+            height: 80px;
+        }
+
+        .card-title {
+            text-align: center;
+            font-size: $fs-3;
+            font-weight: $fw-5;
+        }
+
+        .card-author {
+            text-align: center;
+            font-size: $fs-2;
+            font-weight: $fw-3;
+        }
+    }
+}

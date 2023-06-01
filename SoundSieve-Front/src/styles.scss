@@ -108,6 +108,20 @@ a,button {
         }
     }
 
+    &.btn-outline {
+        font-family: $ff-inter;
+        background: transparent;
+        border: 2px solid $primary-color;
+        color: $light;
+        font-size: $fs-3;
+        font-weight: $fw-7;
+        &:hover {
+            border: 2px solid transparent;
+            background: $light;
+            color: $primary-color
+        }
+    }
+
     &.link-small {
         font-family: $ff-inter;
         color: $primary-color;
@@ -121,7 +135,8 @@ a,button {
 
 .btn-r,
 .btn-reverse,
-.btn-reverse-secondary {
+.btn-reverse-secondary,
+.btn-outline {
     border: none;
     border-radius: 25rem;
     padding: 8px 34px;
@@ -169,7 +184,7 @@ a,button {
 .bg-img2 {
     position: absolute;
     left: 0%;
-    bottom: 0;
+    bottom: 0%;
     z-index: -1;
     
     opacity: 0.3;
