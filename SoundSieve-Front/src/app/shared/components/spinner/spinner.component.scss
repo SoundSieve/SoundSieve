@@ -1,0 +1,18 @@
+@import './../../../../assets/base';
+
+.spinner-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background-color: $dark;
+    color: $light;
+    padding: 5px 10px;
+    border-radius: $br-4;
+    align-items: center;
+    display: flex;
+    box-shadow: 0 0 5px $shadow;
+}
+
+span {
+    margin-left: 5px;
+}

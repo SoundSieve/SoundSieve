@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 
@@ -10,7 +10,7 @@ import { RegisterForm } from '../../interfaces/RegisterForm.interface';
 import { LoginForm } from '../../interfaces/LoginForm.interface';
 import { AuthStatus } from 'src/app/auth/interfaces/auth.interface';
 import { Header } from '../../components/header/header.interface';
-import { ValidateTokenResponse } from '../../interfaces/ValidateToken.interface';
+import { AuthStatusResponse } from '../../interfaces/AuthStatusResponse.interface';
 import { LoginResponse } from '../../interfaces/LoginResponse.interface';
 import { RegisterResponse } from '../../interfaces/RegisterResponse,interface';
 
@@ -23,33 +23,21 @@ declare const gapi: any;
 export class UserService {
 
   public auth2: any;
-  private _currentUser: User;
-  private _authStatus: AuthStatus = AuthStatus.checking;
+  private _currentUser = signal<User|null>(null);
+  private _authStatus = signal<AuthStatus>(AuthStatus.checking);
+
+  public currentUser = computed( () => this._currentUser());
+  public authStatus = computed( () => this._authStatus());
 
   constructor( private readonly _http: HttpClient, 
                 private readonly router: Router,
                 private readonly ngZone: NgZone ) { 
                   // this.googleInit();
+                  this.checkAuthStatus().subscribe();
                  }
 
   get token(): string {
     return localStorage.getItem('token') || '';
-  }
-
-  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
-    return this._currentUser.role;
-  }
-
-  get uid():string {
-    return this._currentUser.uid || '';
-  }
-
-  get currentUser(): User {
-    return this._currentUser;
-  }
-
-  get authStatus(): AuthStatus {
-    return this._authStatus;
   }
 
   get headers() {
@@ -80,7 +68,8 @@ export class UserService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('menu');
-    this._authStatus = AuthStatus.notAuthenticated;
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
 
     this.auth2.signOut().then(() => {
 
@@ -91,17 +80,18 @@ export class UserService {
 
   }
 
-  validateToken(): Observable<boolean> {
+  checkAuthStatus(): Observable<boolean> {
     if(!this.token) {
+      this._authStatus.set(AuthStatus.notAuthenticated);
       return of(false);
     } else {
 
       const url = `${ base_url }/auth/renew`;
       
-      return this._http.get<ValidateTokenResponse>( url, this.headers ).pipe(
+      return this._http.get<AuthStatusResponse>( url, this.headers ).pipe(
         map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
         catchError( error => {
-          this._authStatus = AuthStatus.notAuthenticated;
+          this._authStatus.set(AuthStatus.notAuthenticated);
           return of(false); 
         })
       );
@@ -113,7 +103,7 @@ export class UserService {
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
-                    this._authStatus = AuthStatus.notAuthenticated;
+                    this._authStatus.set(AuthStatus.notAuthenticated);
                     return throwError(() => err.error );
                   })
                 );
@@ -124,7 +114,7 @@ export class UserService {
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
-                    this._authStatus = AuthStatus.notAuthenticated;
+                    this._authStatus.set(AuthStatus.notAuthenticated);
                     return throwError(() => err.error );
                   })
                 );
@@ -135,7 +125,7 @@ export class UserService {
               .pipe(
                 map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                 catchError( err => {
-                  this._authStatus = AuthStatus.notAuthenticated;
+                  this._authStatus.set(AuthStatus.notAuthenticated);
                   return throwError(() => err.error );
                 })
               );
@@ -165,9 +155,9 @@ export class UserService {
   updateUser( data: { email: string, username: string, firstName: string, lastName: string, role: string } ) {
     data = {
       ...data,
-      role: this._currentUser.role
+      // role: this.currentUser.role
     }
-    return this._http.put(`${ base_url }/users/${ this.uid }`, data, this.headers );
+    return this._http.put(`${ base_url }/users/{ this.uid }`, data, this.headers );
   }
 
   saveUser( user: User ) {
@@ -175,8 +165,8 @@ export class UserService {
   }
 
   private setAuthentication( user: User, token: string, menu: Header ): boolean {
-    this._authStatus = AuthStatus.authenticated;
-    this._currentUser = user;
+    this._authStatus.set(AuthStatus.authenticated);
+    this._currentUser.set(user);
     this.saveLocalStorage( token, menu );
     return true;
   }

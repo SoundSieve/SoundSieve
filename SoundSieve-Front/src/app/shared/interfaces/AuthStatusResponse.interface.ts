@@ -1,7 +1,7 @@
 import { User } from "src/app/models/user.model";
 import { Header } from "../components/header/header.interface";
 
-export interface ValidateTokenResponse {
+export interface AuthStatusResponse {
     ok: boolean,
     token: string,
     user: User,

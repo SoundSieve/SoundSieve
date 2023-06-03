@@ -4,13 +4,13 @@
   <div class="container-fluid align-items-center mx-4" fxFlexLayout="row">
     <!-- Collapsible wrapper -->
     <!-- Navbar brand -->
-    <a *ngIf="!isToken" class="navbar-brand" fxFlex href="headerOptions.main[0].url">
+    <a *ngIf="!currentStatus" class="navbar-brand" fxFlex href="headerOptions.main[0].url">
       <div class="brand-logo d-flex align-items-center gap-2">
         <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
         <p class="logo__title">SoundSieve</p>
       </div>
     </a>
-    <a *ngIf="isToken" class="navbar-brand" fxFlex href="headerOptions.main[1].url">
+    <a *ngIf="currentStatus" class="navbar-brand" fxFlex href="headerOptions.main[1].url">
       <div class="brand-logo d-flex align-items-center gap-2">
         <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
         <p class="logo__title">SoundSieve</p>

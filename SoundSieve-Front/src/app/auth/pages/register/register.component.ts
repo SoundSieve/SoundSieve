@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { ValidatorService } from 'src/app/shared/validators/validator.service';
 import { RegisterBody, CheckboxOpt } from '../../interfaces/register.interface';
 import Swal from 'sweetalert2';
@@ -43,7 +42,6 @@ export class RegisterComponent implements OnInit {
   public isDisabledField: boolean = false;
 
   constructor( private readonly _fb: FormBuilder,
-               private readonly _authService: AuthService,
                private readonly _userService: UserService,
                private readonly _router: Router,
                private readonly _validatorService: ValidatorService ) {}
