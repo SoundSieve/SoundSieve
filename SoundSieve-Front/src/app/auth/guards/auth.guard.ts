@@ -1,31 +1,22 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, CanLoad, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { AuthStatus } from '../interfaces/auth.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate, CanLoad {
+export const AuthGuard: CanActivateFn = (route, state) => {
+  
+  const _userService = inject( UserService );
+  const _router = inject( Router );
+  
+  const url = state.url;
+  localStorage.setItem('path', url);
 
-  constructor( private _authService: AuthService,
-    private _router: Router ) {  }
-
-  canActivate(): Observable<boolean> | boolean {
-    return this.validateSession('/auth/sign-up');
-  }
-  canLoad(): Observable<boolean> | boolean {
-    return this.validateSession('/auth/sign-up');
+  
+  if( _userService.authStatus === AuthStatus.authenticated ) {
+    return true;
   }
 
-  validateSession(route: string) : Observable<boolean> {
-    return this._authService.validateToken()
-      .pipe(
-        tap( valid => {
-          if(!valid) {
-            this._router.navigateByUrl(route)
-          }
-        })
-      );
-  }
+  console.log({ status: _userService.authStatus });
+  _router.navigateByUrl('/auth/login');
+  return false;
 }

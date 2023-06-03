@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-explore',
@@ -9,12 +9,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class ExploreComponent {
 
-  get user() {
-    return this._authService.user;
-  }
-
   constructor( private _router: Router,
-    private _authService: AuthService ) {
+    private _userService: UserService ) {
 
   }
 }

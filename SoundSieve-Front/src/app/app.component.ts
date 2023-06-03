@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserService } from './shared/services/user/user.service';
+import { AuthStatus } from './auth/interfaces/auth.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'SoundSieve-Front';
+  private _userService = inject( UserService );
+
+  public finishedAuthCheck(): boolean {
+    if( this._userService.authStatus === AuthStatus.checking) {
+      return false;
+    }
+    return true;
+  };
+  
 }

@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import { ValidatorService } from 'src/app/shared/validators/validator.service';
 import { RegisterBody, CheckboxOpt } from '../../interfaces/register.interface';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { RegisterForm } from 'src/app/shared/interfaces/RegisterForm.interface';
 
 @Component({
   selector: 'app-register',
@@ -28,21 +30,23 @@ export class RegisterComponent implements OnInit {
     value: 'not-selected'
   }
 
-  private bodyRequest: RegisterBody = {
+  private bodyRequest: RegisterForm = {
     email: '',
     username: '',
     firstName: '',
     lastName: '',
     password: '',
+    newsletter: false,
     terms: false,
   };
 
   public isDisabledField: boolean = false;
 
-  constructor( private _fb: FormBuilder,
-    private _authService: AuthService,
-    private _router: Router,
-    private _validatorService: ValidatorService ) {}
+  constructor( private readonly _fb: FormBuilder,
+               private readonly _authService: AuthService,
+               private readonly _userService: UserService,
+               private readonly _router: Router,
+               private readonly _validatorService: ValidatorService ) {}
 
   ngOnInit(): void {
     this.step1Form = this._fb.group({
@@ -60,6 +64,8 @@ export class RegisterComponent implements OnInit {
       passwordConfirm: ['123456', [Validators.required, Validators.minLength(6)]],
       newsletter: [''],
       terms: [this.checkbox],
+    }, {
+      validators: this.samePasswords('password', 'passwordConfirm')
     });
   }
 
@@ -83,6 +89,30 @@ export class RegisterComponent implements OnInit {
         id: false,
         value: 'terms'
       });
+    }
+  }
+
+  checkPassMatches() {
+    const pass1 = this.step3Form.get('password').value;
+    const pass2 = this.step3Form.get('passwordConfirm').value;
+
+    if( pass1 === pass2 ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  samePasswords(pass1: string, pass2: string) {
+    return ( formGroup: FormGroup ) => {
+      const pass1Control = formGroup.get(pass1);
+      const pass2Control = formGroup.get(pass2);
+
+      if( pass1Control.value === pass2Control.value) {
+        pass2Control.setErrors(null);
+      } else {
+        pass2Control.setErrors({passwordsDoNotMatch: true})
+      }
     }
   }
 
@@ -130,15 +160,16 @@ export class RegisterComponent implements OnInit {
         this.bodyRequest.password = this.step3Form.controls['password'].value;
         this.bodyRequest.newsletter = this.step1Form.controls['newsletter']?.value;
         this.bodyRequest.terms = this.step3Form.controls['terms'].value;
-        this._authService.register(this.bodyRequest)
-          .subscribe(ok => {
-            if( ok === true ) {
-              this._router.navigateByUrl('/browse');
-            } else {
-              Swal.fire('Error', ok.error.msg, 'error');  
-            }
-        });;
+        this._userService.newUser(this.bodyRequest)
+          .subscribe({
+            next: () => {
+                // Navegar al Dashboard
+                this._router.navigateByUrl('/browse');
+            }, error: (err) => {
+              // Si sucede un error
+                Swal.fire('Error', err.msg, 'error');
+            }});
+        }
       }
     }
-  }
 }
