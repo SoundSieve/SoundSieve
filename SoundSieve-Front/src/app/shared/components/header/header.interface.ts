@@ -11,4 +11,5 @@ export interface Navigator {
     url?: string,
     type?: string,
     childs?: Navigator[],
+    img?: string,
 }

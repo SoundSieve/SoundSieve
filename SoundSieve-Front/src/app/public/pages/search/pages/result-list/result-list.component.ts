@@ -37,7 +37,6 @@ export class ResultListComponent implements OnInit {
 
     this._searchService.globalSearch( query )
       .subscribe((resp: any) => {
-        console.log(resp);
         this.resultUsers = resp.users;
         this.resultSheets = resp.sheets;
       })

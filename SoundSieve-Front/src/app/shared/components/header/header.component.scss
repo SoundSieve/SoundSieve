@@ -3,6 +3,52 @@
 .navbar {
     height: 80px;
     @include glass-bg;
+
+    .nav-item {
+        button {
+            background-color: transparent;
+            border: none;
+            font-family: $ff-inter;
+            font-size: $fs-3;
+            &:hover {
+                color:$hover-primary-color;
+                font-family: $ff-inter;
+                font-size: $fs-3;
+            }
+        }
+        .dropdown-menu {
+            left: 2.5rem;
+            top: 3rem;
+            // border-radius: 0;
+            padding: 0;
+            margin: 0;
+            .dropdown-item {
+                gap:1rem;
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            li {
+                width: 100%; 
+                a {
+                    padding: 1rem 1.5rem;
+                    width: 100%;
+                }               
+            }
+
+
+        }
+    }
+    .profile {
+        img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid $primary-color;
+        }
+    }
 }
 
 .logo__title {

@@ -5,7 +5,7 @@ import { User } from 'src/app/models/user.model';
 
 import { environment } from '../../../../environments/environment';
 import { UsersResponse } from '../../interfaces/UsersResponse.interface';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, of, tap, throwError } from 'rxjs';
 import { RegisterForm } from '../../interfaces/RegisterForm.interface';
 import { LoginForm } from '../../interfaces/LoginForm.interface';
 import { AuthStatus } from 'src/app/auth/interfaces/auth.interface';
@@ -23,6 +23,7 @@ declare const gapi: any;
 export class UserService {
 
   public auth2: any;
+  private storageSub= new Subject<string>();
   private _currentUser = signal<User|null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
 
@@ -35,6 +36,10 @@ export class UserService {
                   // this.googleInit();
                   this.checkAuthStatus().subscribe();
                  }
+
+  get user(): Observable<User> {
+    return of(this._currentUser());
+  }
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -61,13 +66,13 @@ export class UserService {
   // }
 
   saveLocalStorage( token: string, menu: any ) {
-    localStorage.setItem('token', token );
-    localStorage.setItem('menu', JSON.stringify(menu) );
+    this.setItem('token', token );
+    this.setItem('menu', JSON.stringify(menu) );
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('menu');
+    this.removeItem('token');
+    this.removeItem('menu');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
 
@@ -169,5 +174,32 @@ export class UserService {
     this._currentUser.set(user);
     this.saveLocalStorage( token, menu );
     return true;
+  }
+
+  watchStorage(): Observable<any> {
+    return this.storageSub.asObservable();
+  }
+
+  setItem(key: string, data: any) {
+    localStorage.setItem(key, data);
+    this.storageSub.next('added');
+  }
+
+  removeItem(key) {
+    localStorage.removeItem(key);
+    this.storageSub.next('removed');
+  }
+
+  get imageUrl() {
+
+    if ( !this.currentUser().img ) {
+        return `${ base_url }/upload/users/no-user-image`;
+    } else if ( this.currentUser().img.includes('https') ) {
+        return this.currentUser().img;
+    } else if ( this.currentUser().img ) {
+        return `${ base_url }/upload/users/${ this.currentUser().img }`;
+    } else {
+        return `${ base_url }/upload/users/no-user-image`;
+    }
   }
 }

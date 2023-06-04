@@ -8,18 +8,30 @@ const getMenuFrontend = (role = "USER_ROLE") => {
     links: [
       {
         title: "My music sheets",
-        url: "/browse/my-music-sheets",
         childs: [
-          { title: "Add new sheet", url: "/browse/my-music-sheets/add" },
+          {
+            title: "Project list",
+            url: "/browse/my-music-sheets",
+            img: "../../../../assets/images/svg/list.svg",
+          },
+          {
+            title: "Create new project",
+            url: "/browse/my-music-sheets/add",
+            img: "../../../../assets/images/svg/NewProject.svg",
+          },
         ],
-      }
+      },
     ],
-    buttons: [ 
-      { title: "Sign in", url: "/auth/sign-in", type: 'btn btn-light btn-r' },
-      { title: "Sign up", url: "/auth/sign-up", type: 'btn btn-light btn-reverse' },
+    buttons: [
+      { title: "Sign in", url: "/auth/sign-in", type: "btn btn-light btn-r" },
+      {
+        title: "Sign up",
+        url: "/auth/sign-up",
+        type: "btn btn-light btn-reverse",
+      },
     ],
-    profile: 
-    { title: "Profile",
+    profile: {
+      title: "Profile",
       url: "/profile",
       childs: [{ title: "Logout" }],
     },
@@ -27,15 +39,12 @@ const getMenuFrontend = (role = "USER_ROLE") => {
 
   if (role === "USER_ROLE") {
     menu.links.unshift({ title: "Pricing", url: "/es/pricing" });
-
   }
   if (role === "ADMIN_ROLE") {
-    menu.links.unshift(
-      {
-        title: "User management",
-        url: "/management/users",
-      },
-    );
+    menu.links.unshift({
+      title: "User management",
+      url: "/management/users",
+    });
   }
 
   return menu;

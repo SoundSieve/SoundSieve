@@ -4,36 +4,52 @@
   <div class="container-fluid align-items-center mx-4" fxFlexLayout="row">
     <!-- Collapsible wrapper -->
     <!-- Navbar brand -->
-    <a *ngIf="!currentStatus" class="navbar-brand" fxFlex href="headerOptions.main[0].url">
+    <a class="navbar-brand" fxFlex [href]="headerOptions.main[userWasFound()?1:0].url">
       <div class="brand-logo d-flex align-items-center gap-2">
         <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
         <p class="logo__title">SoundSieve</p>
       </div>
     </a>
-    <a *ngIf="currentStatus" class="navbar-brand" fxFlex href="headerOptions.main[1].url">
-      <div class="brand-logo d-flex align-items-center gap-2">
-        <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
-        <p class="logo__title">SoundSieve</p>
-      </div>
-    </a>
+    <!--Searchbar-->
     <div class="search__bar" fxFlex="40">
       <app-search-bar *ngIf="!currentUrl.includes('search')"></app-search-bar>
     </div>
-    <div ngIf="isToken" class="right__links d-flex align-items-center gap-5" fxFlex="30" *ngFor="let link of headerOptions.links">
-      <a [routerLink]="link.url" [class]="(link.childs)? 'nav-item dropdown': ''">{{(!link.childs)? link.title : ''}}
-        <div>
-          <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{link.title}}
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark" *ngFor="let child of link.childs">
-            <li><a class="dropdown-item" href="child.url">{{child.title}}</a></li>
-          </ul>
-        </div>
-      </a>
-      <div ngIf="!isToken" class="auth__btns d-flex align-items-center gap-3" *ngFor="let button of headerOptions.buttons">
-        <a href="">{{'hola'}}</a>
-        <a [class]="button.type" [routerLink]="button.url">button.title</a>
+    <!--Links & buttons-->
+    <div class="right__links d-flex align-items-center gap-5" fxFlex="30">
+      <!--Links-->
+      <div *ngIf="!isLogged && !userWasFound" class="me-2">
+        <a class="nav-item dropdown" [href]="headerOptions.links[0].url">headerOptions.links[0].title</a>
       </div>
-    </div>
+      <div *ngIf="isLogged && userWasFound()" class="me-2">
+        <div *ngFor="let link of headerOptions.links">
+          <a *ngIf="link.childs" class="nav-item dropdown" href="#">
+            <button class="btn btn-dark dropdown-toggle py-3 px-5" data-bs-toggle="dropdown" aria-expanded="false">
+              {{link.title}}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark" >
+              <li *ngFor="let child of link.childs"><a class="dropdown-item d-flex align-items-center" [href]="child.url"><img [class]="child.type" [src]="child.img" alt="">{{child.title}}</a></li>
+            </ul>
+            <!-- <li><a class="dropdown-item d-flex align-items-center" [href]="child.url"><img [class]="child.type" [src]="child.img" alt="">{{child.title}}</a></li> -->
+          </a>
+        </div>
+      </div>
+      <!--Buttons-->
+      <div *ngIf="!isLogged" class="auth__btns d-flex align-items-center gap-3">
+        <div *ngFor="let button of headerOptions.buttons">
+          <a [class]="button.type" [routerLink]="button.url">{{button.title}}</a>
+        </div>
+      </div>
+      <!--Profile-->
+      <div *ngIf="isLogged && userWasFound()" class="profile d-flex">
+        <a [href]="headerOptions.profile.url+'/'+currentUser().uid" alt="headerOptions.profile.title" class="nav-item dropdown d-flex align-items-center">
+          Hi {{currentUser().username}}!<img [src]="_userService.imageUrl" alt="" class="profile-img ms-4">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark" *ngFor="let child of headerOptions.profile.childs">
+          <li><a class="dropdown-item d-flex align-items-center" (click)="onLogout()"><img [class]="child.type" src="../../../../assets/images/svg/logout_.svg" alt="logout-icon">{{child.title}}</a></li>
+        </ul>
+      </div>
+      </div>
+
   </div>
 </nav>
 <!-- Navbar -->

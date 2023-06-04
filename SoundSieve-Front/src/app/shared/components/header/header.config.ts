@@ -11,7 +11,8 @@ export const DEFAULT_HEADER: Header = {
         title: "My music sheets",
         url: "/browse/my-music-sheets",
         childs: [
-          { title: "Add new sheet", url: "/browse/my-music-sheets/add" },
+          { title: "Project list", url: "/browse/my-music-sheets/add", type: 'new-project-icon', img: "../../../../assets/images/svg/list.svg", },
+          { title: "Create new project", url: "/browse/my-music-sheets/add", type: 'new-project-icon',img: "../../../../assets/images/svg/NewProject.svg", },
         ],
       }
     ],
