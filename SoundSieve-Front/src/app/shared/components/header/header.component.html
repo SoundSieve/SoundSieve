@@ -18,7 +18,7 @@
     <div class="right__links d-flex align-items-center gap-5" fxFlex="30">
       <!--Links-->
       <div *ngIf="!isLogged && !userWasFound" class="me-2">
-        <a class="nav-item dropdown" [href]="headerOptions.links[0].url">headerOptions.links[0].title</a>
+        <a class="nav-item dropdown" [href]="headerOptions.links[0].url">{{headerOptions.links[0].title}}</a>
       </div>
       <div *ngIf="isLogged && userWasFound()" class="me-2">
         <div *ngFor="let link of headerOptions.links">
@@ -40,16 +40,19 @@
         </div>
       </div>
       <!--Profile-->
-      <div *ngIf="isLogged && userWasFound()" class="profile d-flex">
-        <a [href]="headerOptions.profile.url+'/'+currentUser().uid" alt="headerOptions.profile.title" class="nav-item dropdown d-flex align-items-center">
-          Hi {{currentUser().username}}!<img [src]="_userService.imageUrl" alt="" class="profile-img ms-4">
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark" *ngFor="let child of headerOptions.profile.childs">
-          <li><a class="dropdown-item d-flex align-items-center" (click)="onLogout()"><img [class]="child.type" src="../../../../assets/images/svg/logout_.svg" alt="logout-icon">{{child.title}}</a></li>
-        </ul>
+      <div *ngIf="isLogged && userWasFound()">
+        <div class="dropdown profile">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hi {{currentUser().username}}!
+            <img [src]="_userService.imageUrl" height="40" class="profile-img ms-3" alt="profile-photo" loading="lazy" />
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark mt-3">
+            <li><a class="dropdown-item" [href]="headerOptions.profile.childs[0].url + '/' + currentUser().uid">{{headerOptions.profile.childs[0].title}}</a></li>
+            <li><a class="dropdown-item" (click)="onLogout()">{{headerOptions.profile.childs[1].title}}</a></li>
+          </ul>
+        </div>
       </div>
-      </div>
-
+    </div>
   </div>
 </nav>
 <!-- Navbar -->

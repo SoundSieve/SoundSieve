@@ -11,7 +11,7 @@ export const DEFAULT_HEADER: Header = {
         title: "My music sheets",
         url: "/browse/my-music-sheets",
         childs: [
-          { title: "Project list", url: "/browse/my-music-sheets/add", type: 'new-project-icon', img: "../../../../assets/images/svg/list.svg", },
+          { title: "Project list", url: "/browse/my-music-sheets", type: 'new-project-icon', img: "../../../../assets/images/svg/list.svg", },
           { title: "Create new project", url: "/browse/my-music-sheets/add", type: 'new-project-icon',img: "../../../../assets/images/svg/NewProject.svg", },
         ],
       }
@@ -22,7 +22,9 @@ export const DEFAULT_HEADER: Header = {
     ],
     profile: 
     { title: "Profile",
-      url: "/profile",
-      childs: [{ title: "Logout" }],
+      childs: [
+        { title: "View profile", url: 'browse/my-profile' },
+        { title: "Logout" },
+      ],
     },
 }

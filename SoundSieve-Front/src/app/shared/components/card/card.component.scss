@@ -21,14 +21,14 @@
     &.sheet {
         .card-title {
             font-weight: $fw-5;
-            @include for-tablet-portrait-up {
+            @include min-600 {
                 font-size: $fs-3;
             }
         }
     
         .card-author {
             font-weight: $fw-3;
-            @include for-tablet-portrait-up {
+            @include min-600 {
                 font-size: $fs-2;
             }
         }
@@ -36,7 +36,7 @@
         .card-intruments {
             .card-intruments-title {
                 font-weight: $fw-5;
-                @include for-tablet-portrait-up {
+                @include min-600 {
                     font-size: $fs-2;
                 }
             }
@@ -45,7 +45,7 @@
                 font-weight: $fw-3;
                 padding: 0;
                 margin: 0;
-                @include for-tablet-portrait-up {
+                @include min-600 {
                     font-size: $fs-2;
                 }
             }

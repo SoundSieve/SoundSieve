@@ -24,8 +24,23 @@ const UserSchema = Schema({
   lastName: {
     type: String,
   },
+  bio: {
+    type: String,
+  },
+  occupation: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
   img: {
     type: String,
+  },
+  instruments: {
+    type: Array,
   },
   role: {
     type: String,
@@ -35,6 +50,10 @@ const UserSchema = Schema({
   google: {
     type: Boolean,
     default: false,
+  },
+  creationTime: {
+    type: Date,
+    default: new Date(),
   },
 });
 

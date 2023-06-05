@@ -1,1 +1,232 @@
-<p>profile works!</p>
+<section class="bgimage">
+  <div class="container-fluid row">
+    <div class="profile-bg" alt="profile-bg"></div>
+    <div class="row profile d-flex flex-column">
+      <div
+        class="profile-box d-flex flex-column justify-content-center pt-5 px-5"
+      >
+        <h2 class="text-center mb-5 profile-title">Profile</h2>
+        <img
+          [src]="_userService.imageUrl"
+          height="40"
+          class="profile-img"
+          alt="profile-photo"
+          loading="lazy"
+        />
+        <h4 class="text-center mt-5">{{ currentUser().username }}</h4>
+        <div class="d-flex align-items-center justify-content-center mt-3">
+          <img
+            src="../../../../../../assets/images/svg/Location.svg"
+            height="20"
+            class="me-2"
+            alt="location-icon"
+            loading="lazy"
+          />
+          <!-- {{currentUser().location}} -->
+          <p class="location-text">Spain</p>
+        </div>
+        <a class="btn btn-light btn-reverse mt-5" (click)="goToEdit()">{{
+          navigation_urls[0].title
+        }}</a>
+        <a
+          class="btn btn-light btn-reverse mt-4"
+          [routerLink]="navigation_urls[1].url"
+          >{{ navigation_urls[1].title }}</a
+        >
+        <a
+          class="btn btn-light btn-outline mt-4 mb-5"
+          (click)="goToDeleteAccount()"
+          >{{ navigation_urls[2].title }}</a
+        >
+        <div>
+          <p class="creation-time mt-5 mb-3">
+            MEMBER SINCE: {{ formatDate() }}
+          </p>
+        </div>
+      </div>
+      <div class="profile-data-container container-fluid col-4 d-flex p-5 mb-5">
+        <div class="space col-4 col-sm-6 col-lg-5"></div>
+        <div class="profile-data col-4 col-sm-3 mx-5">
+          <form autocomplete="off" [formGroup]="profileForm">
+            <div class="row d-flex gx-5">
+              <div
+                class="field-group firstName-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="firstName">First Name:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="firstName"
+                />
+              </div>
+              <div class="field-group lastName-field col-3 col-lg-3 d-flex flex-column">
+                <label class="profile-label" for="lastName">Last Name:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="lastName"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div
+                class="field-group bio-field col-9 col-sm-11 d-flex flex-column"
+              >
+                <label class="profile-label" for="bio">Bio:</label>
+                <textarea
+                  class="profile-input"
+                  type="text"
+                  formControlName="bio"
+                  id="bio"
+                ></textarea>
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div class="field-group col-4 d-flex flex-column">
+                <label class="profile-label" for="ocupation">Ocupation:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="ocupation"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5 gx-5">
+              <div
+                class="field-group location-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="location">Location:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="location"
+                />
+              </div>
+              <div
+                class="field-group city-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="city">City:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="city"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div class="col-4 field-group d-flex flex-column">
+                <label class="profile-label" for="instruments"
+                  >Instruments:</label
+                >
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="instruments"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="profile-interactions row p-5 mt-5">
+        <div class="feed-header d-flex justify-content-between">
+          <h3 class="feed-title ms-3">Feed</h3>
+          <div class="feed-icons d-flex">
+            <img
+              class="me-4"
+              src="../../../../../../assets/images/svg/filter.svg"
+              alt="filter-icon"
+            />
+            <img
+              class="me-3"
+              src="../../../../../../assets/images/svg/options.svg"
+              alt="options-icon"
+            />
+          </div>
+        </div>
+        <div class="divider w-30 mt-4"></div>
+        <div class="feed-interaction row mt-5 ms-5">
+          <div class="interaction-avatar col-1">
+            <img
+              [src]="_userService.imageUrl"
+              height="40"
+              class="profile-img"
+              alt="profile-photo"
+              loading="lazy"
+            />
+          </div>
+          <div class="interaction-body col-11">
+            <div class="interaction-action d-flex justify-content-between">
+              <p class="interaction-action-user">John Doe mentioned</p>
+              <p class="interaction-action-hour">07:22</p>
+            </div>
+            <p>
+              "Cafe entre deux" is a contemporary music sheet that invites you
+              to immerse yourself in the atmosphere of a cozy café. The smooth
+              and rhythmic melody captures the essence of the moment and takes
+              you on a journey of relaxation and tranquility. The sheet is
+              perfect for intermediate-level pianists, and its moderate tempo
+              allows you to savor every note and enjoy the melody at your own
+              pace. So why not grab a cup of coffee, sit back, and let "Cafe
+              entre deux" transport you to a world of calm and serenity.
+            </p>
+          </div>
+        </div>
+        <div class="feed-interaction row mt-5 ms-5">
+          <div class="interaction-avatar col-1">
+            <img
+              [src]="_userService.imageUrl"
+              height="40"
+              class="profile-img"
+              alt="profile-photo"
+              loading="lazy"
+            />
+          </div>
+          <div class="interaction-body col-11">
+            <div class="interaction-action d-flex justify-content-between">
+              <p class="interaction-action-user">John Doe mentioned</p>
+              <p class="interaction-action-hour">07:22</p>
+            </div>
+            <p>
+              "Cafe entre deux" is a contemporary music sheet that invites you
+              to immerse yourself in the atmosphere of a cozy café. The smooth
+              and rhythmic melody captures the essence of the moment and takes
+              you on a journey of relaxation and tranquility. The sheet is
+              perfect for intermediate-level pianists, and its moderate tempo
+              allows you to savor every note and enjoy the melody at your own
+              pace. So why not grab a cup of coffee, sit back, and let "Cafe
+              entre deux" transport you to a world of calm and serenity.
+            </p>
+          </div>
+        </div>
+        <div class="feed-interaction row mt-5 ms-5">
+          <div class="interaction-avatar col-1">
+            <img
+              [src]="_userService.imageUrl"
+              height="40"
+              class="profile-img"
+              alt="profile-photo"
+              loading="lazy"
+            />
+          </div>
+          <div class="interaction-body col-11">
+            <div class="interaction-action d-flex justify-content-between">
+              <p class="interaction-action-user">John Doe mentioned</p>
+              <p class="interaction-action-hour">07:22</p>
+            </div>
+            <p>
+              "Cafe entre deux" is a contemporary music sheet that invites you
+              to immerse yourself in the atmosphere of a cozy café. The smooth
+              and rhythmic melody captures the essence of the moment and takes
+              you on a journey of relaxation and tranquility. The sheet is
+              perfect for intermediate-level pianists, and its moderate tempo
+              allows you to savor every note and enjoy the melody at your own
+              pace. So why not grab a cup of coffee, sit back, and let "Cafe
+              entre deux" transport you to a world of calm and serenity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

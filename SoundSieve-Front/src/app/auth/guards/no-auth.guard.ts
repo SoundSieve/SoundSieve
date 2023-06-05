@@ -10,8 +10,12 @@ export const NoAuthGuard: CanActivateFn = (route, state) => {
   const _userService = inject( UserService );
   const _router      = inject( Router );
 
+  const url = state.url;
+  localStorage.setItem('path', url);
+
+
   if ( _userService.authStatus() === AuthStatus.authenticated ) {
-    _router.navigateByUrl('/browse');
+      _router.navigateByUrl('/browse');
     return false;
   }
 

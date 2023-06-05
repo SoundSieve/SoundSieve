@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class AppComponent {
   private _userService = inject( UserService );
   private _router = inject( Router );
+  private forbidenUrls = [
+    '/es',
+    '/auth/sign-up',
+    '/auth/sign-in',
+  ]
 
   public finishedAuthCheck = computed<boolean>( () => {
     if ( this._userService.authStatus() === AuthStatus.checking ) {
@@ -27,7 +32,6 @@ export class AppComponent {
         return;
 
       case AuthStatus.authenticated:
-        this._router.navigateByUrl('/browse');
         return;
 
       case AuthStatus.notAuthenticated:

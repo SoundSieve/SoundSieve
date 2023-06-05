@@ -75,13 +75,13 @@ export class UserService {
     this.removeItem('menu');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
-
-    this.auth2.signOut().then(() => {
-
-      this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      })
-    });
+    this.router.navigateByUrl('/auth/sign-up');
+    
+    // this.auth2.signOut().then(() => {
+    //   this.ngZone.run(() => {
+    //     this.router.navigateByUrl('/login');
+    //   })
+    // });
 
   }
 
@@ -142,7 +142,7 @@ export class UserService {
             .pipe(
               map( resp => {
                 const users = resp.users.map( 
-                  user => new User( user.firstName, user.lastName, user.username, user.email, '', user.img, user.google, user.role, user.uid )  
+                  user => new User( user.firstName, user.lastName, user.username, user.email,'', user.img, user.bio, user.occupation, user.location, user.instruments, user.city, user.google, user.role, user.uid, user.creationTime )  
                 );
                 return {
                   total: resp.total,

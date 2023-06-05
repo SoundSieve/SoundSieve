@@ -10,7 +10,7 @@ const routes: Routes = [
       { path: 'my-music-sheets',
         loadChildren: () => import('./pages/my-music-sheets/my-music-sheets.module').then( m => m.MyMusicSheetsModule )
       },
-      { path: 'my-profile',
+      { path: 'my-profile/:id',
         loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfileModule )
       },
     ]

@@ -41,12 +41,34 @@
         }
     }
     .profile {
-        img {
-            width: 64px;
-            height: 64px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid $primary-color;
+        .dropdown-toggle {
+            font-family: $ff-inter;
+            font-size: $fs-3;
+            color: $light;
+            background-color: transparent;
+            border: none;
+            &:focus {
+                border: none;
+            }
+            .profile-img {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 3px solid $primary-color;
+            }
+        }
+        .dropdown-menu {
+            left: 2rem;
+            padding: 0;
+            margin: 0;
+            li {
+                width: 100%; 
+                a {
+                    padding: 1rem 1.5rem;
+                    width: 100%;
+                }               
+            }   
         }
     }
 }

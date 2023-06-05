@@ -69,7 +69,9 @@ const loginUser = async (req, res = response) => {
     if (!dbUser) {
       return res.status(400).json({
         ok: false,
-        msg: "Email or password are not correct",
+        error: {
+          msg: "Email or password are not correct",
+        },
       });
     }
 
@@ -78,7 +80,9 @@ const loginUser = async (req, res = response) => {
     if (!validPassword) {
       return res.status(400).json({
         ok: false,
-        msg: "Email or password are not correct",
+        error: {
+          msg: "Email or password are not correct",
+        },
       });
     }
 
