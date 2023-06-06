@@ -27,7 +27,7 @@ const UserSchema = Schema({
   bio: {
     type: String,
   },
-  occupation: {
+  ocupation: {
     type: String,
   },
   location: {

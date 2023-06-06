@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 
 import { environment } from '../../../../environments/environment';
 import { UsersResponse } from '../../interfaces/UsersResponse.interface';
+import { UserResponse } from '../../interfaces/UserResponse.interface';
 import { Observable, Subject, catchError, map, of, tap, throwError } from 'rxjs';
 import { RegisterForm } from '../../interfaces/RegisterForm.interface';
 import { LoginForm } from '../../interfaces/LoginForm.interface';
@@ -13,6 +14,7 @@ import { Header } from '../../components/header/header.interface';
 import { AuthStatusResponse } from '../../interfaces/AuthStatusResponse.interface';
 import { LoginResponse } from '../../interfaces/LoginResponse.interface';
 import { RegisterResponse } from '../../interfaces/RegisterResponse,interface';
+import { UserUpdateData } from '../../interfaces/UserUpdateData.interface';
 
 const base_url = environment.baseUrl;
 declare const gapi: any;
@@ -142,7 +144,7 @@ export class UserService {
             .pipe(
               map( resp => {
                 const users = resp.users.map( 
-                  user => new User( user.firstName, user.lastName, user.username, user.email,'', user.img, user.bio, user.occupation, user.location, user.instruments, user.city, user.google, user.role, user.uid, user.creationTime )  
+                  user => new User( user.firstName, user.lastName, user.username, user.email,'', user.img, user.bio, user.ocupation, user.location, user.instruments, user.city, user.google, user.role, user.uid, user.creationTime )  
                 );
                 return {
                   total: resp.total,
@@ -152,17 +154,22 @@ export class UserService {
             )
   }
 
+  getUserById(uid: string) {
+    const url = `${ base_url }/users/${uid}`;
+    return this._http.get<UserResponse>( url, this.headers );
+  }
+
   deleteUser( user: User ) {
     const url = `${ base_url }/usuarios/${ user.uid }`;
     return this._http.delete( url, this.headers );
   }
 
-  updateUser( data: { email: string, username: string, firstName: string, lastName: string, role: string } ) {
+  updateUser( uid: string, data: UserUpdateData ) {
     data = {
       ...data,
       // role: this.currentUser.role
     }
-    return this._http.put(`${ base_url }/users/{ this.uid }`, data, this.headers );
+    return this._http.put(`${ base_url }/users/${ uid }`, data, this.headers );
   }
 
   saveUser( user: User ) {

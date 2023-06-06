@@ -50,15 +50,9 @@
                 font-weight: $fw-6;
             }
             .profile-img {
-                width: 120px;
-                height: 120px;
+                width: 150px;
+                height: 150px;
             }
-            .location-text {
-                color: $light;
-                text-align: center;
-                align-items: center;
-                margin: 0;
-            } 
             .creation-time {
                 color: $light;
                 font-size: $fs-2;
@@ -71,7 +65,7 @@
             width: 100%;
             margin-bottom: 7rem;
             @include min-700 {
-                margin-bottom: 0rem !important;
+                margin-bottom: 3rem !important;
             }
             .space {
                 @include max-700 {
@@ -99,9 +93,28 @@
                         font-size: $fs-3;
                         font-weight: $fw-3;
                         color: $light;
-                        pointer-events: none;
+                        pointer-events:none;
                         background: transparent;
                         border: none;
+                    }
+                    .profile-input-edit {
+                        font-size: $fs-3;
+                        font-weight: $fw-3;
+                        color: $light;
+                        background: $dark-medium;
+                        padding: .5rem 1rem;
+                        border: none;
+                        border-radius: $br-1;
+                        width: 49%;
+                        @include max-700 {
+                            width: 90%;
+                        }
+                        &.bio-textarea {
+                            width: 100%;
+                            @include max-700 {
+                                width: 185%;
+                            }
+                        }
                     }
                     textarea { 
                         overflow-x: none;
@@ -170,3 +183,80 @@
     border-radius: 50%;
     border: 3px solid $primary-color;
 }  
+
+.container {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+.outer {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 150px !important; /* any size */
+  max-height: 150px !important; /* any size */
+  margin: auto;
+  border-radius: 100%;
+  position: relative;
+    .inner {
+      border: 3px solid $primary-color;
+      background-color: $light-medium;
+      width: 35px;
+      height: 35px;
+      border-radius: 100%;
+      position: absolute;
+      bottom: 0;
+      right: -3%;
+      .add_icon {
+        background: url(../../../../../../assets/images/svg/add_primary.svg);
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        width: 25px;
+        height: 25px;
+        &:hover {
+            background: url(../../../../../../assets/images/svg/add.svg);
+            background-position: center;
+        }
+
+        .file-input {
+            opacity: 0;
+        }
+      }
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+  
+
+
+
+
+.profile-box-form {
+    input {
+        &.profile-box-location {
+            padding: 0 !important;
+            width: fit-content !important;
+        }
+    }
+
+    .profile-box-input {
+        color: $light;
+        pointer-events: none;
+        background: transparent;
+        border: none;
+    
+        &.location-text {
+            font-size: $fs-3;
+            font-weight: $fw-3;
+        }
+    
+        &.username-text {
+            text-align: center;
+            font-size: $h3;
+            font-weight: $fw-5;
+        }
+    }
+}
