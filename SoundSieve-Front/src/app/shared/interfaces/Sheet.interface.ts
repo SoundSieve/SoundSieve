@@ -1,4 +1,4 @@
-import { User } from "src/app/auth/services/auth.interface";
+import { User } from "src/app/models/user.model";
 
 export interface Sheet {
     name: string,

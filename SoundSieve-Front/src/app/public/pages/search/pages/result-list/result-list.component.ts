@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SearchService } from 'src/app/shared/services/search.service';
+import { SearchService } from 'src/app/shared/services/search/search.service';
 
 import { Sheet } from 'src/app/models/sheet.model';
 import { User } from 'src/app/models/user.model';
@@ -37,7 +37,6 @@ export class ResultListComponent implements OnInit {
 
     this._searchService.globalSearch( query )
       .subscribe((resp: any) => {
-        console.log(resp);
         this.resultUsers = resp.users;
         this.resultSheets = resp.sheets;
       })

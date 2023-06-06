@@ -1,31 +1,22 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, CanLoad, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { AuthStatus } from '../interfaces/auth.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate, CanLoad {
+/** PrivateGuard - PublicGuard  */
 
-  constructor( private _authService: AuthService,
-    private _router: Router ) {  }
+export const AuthGuard: CanActivateFn = (route, state) => {
+  
+  const _userService = inject( UserService );
+  const _router      = inject( Router );
 
-  canActivate(): Observable<boolean> | boolean {
-    return this.validateSession('/auth/sign-up');
+  const url = state.url;
+  localStorage.setItem('path', url);
+
+  if ( _userService.authStatus() === AuthStatus.authenticated ) {
+    return true;
   }
-  canLoad(): Observable<boolean> | boolean {
-    return this.validateSession('/auth/sign-up');
-  }
 
-  validateSession(route: string) : Observable<boolean> {
-    return this._authService.validateToken()
-      .pipe(
-        tap( valid => {
-          if(!valid) {
-            this._router.navigateByUrl(route)
-          }
-        })
-      );
-  }
+  _router.navigateByUrl('/auth/sign-up');
+  return false;
 }

@@ -1,6 +1,4 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<app-spinner *ngIf="!finishedAuthCheck()">Loading...</app-spinner>
+<router-outlet *ngIf="finishedAuthCheck()"></router-outlet>
 <app-footer></app-footer>
-<!-- Background images -->
-<img src="../../../../assets/images/svg/bg_01.svg" class="bg-img1" alt="" srcset="">
-<img src="../../../../assets/images/svg/bg_02.svg" class="bg-img2" alt="" srcset="">

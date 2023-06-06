@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { TableComponent } from './components/table/table.component';
 import { CardComponent } from './components/card/card.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PipesModule } from '../pipes/pipes.module';
     DropdownComponent,
     TableComponent,
     CardComponent,
+    SpinnerComponent,
   ],
   exports: [
     HeaderComponent,
@@ -31,6 +33,7 @@ import { PipesModule } from '../pipes/pipes.module';
     DropdownComponent,
     TableComponent,
     CardComponent,
+    SpinnerComponent,
   ],
   imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule],
 })

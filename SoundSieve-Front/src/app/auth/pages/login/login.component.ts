@@ -1,10 +1,11 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
-declare const google: any;
+
+declare const gapi:any;
 
 @Component({
   selector: 'app-login',
@@ -13,53 +14,84 @@ declare const google: any;
 })
 export class LoginComponent implements AfterViewInit {
 
-  @ViewChild('googleBtn') googleBtn!: ElementRef;
+  public auth2: any;
 
   myForm: FormGroup = this._fb.group({
-    email: ['test1@email.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required, Validators.minLength(6)]]
+    email: [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+    password: ['123456', [Validators.required, Validators.minLength(6)]],
+    remember: [false]
   })
 
-  constructor( private _fb: FormBuilder,
-    private _router: Router,
-    private _authService: AuthService ) {
+  errors: Map<string,string> = new Map<string,string>();
 
-  }
+  constructor( private readonly _fb: FormBuilder,
+               private readonly _router: Router,
+               private readonly _userService: UserService,
+               private readonly _ngZone: NgZone ) { }
 
   ngAfterViewInit(): void {
-    this.googleInit();
-  }
-
-  private googleInit(){
-    google.accounts.id.initialize({
-      client_id: '1027260749299-6s5bhbp6tu6lqeo9bqsess82dale8of8.apps.googleusercontent.com',
-      callback: (response: any) => this.handleCredentialResponse( response )
-    });
-    google.accounts.id.renderButton(
-      this.googleBtn.nativeElement,
-      { theme: "flat", size: "large", width: 300 }  // customization attributes
-    );
-    google.accounts.id.prompt(); // also display the One Tap dialog
-  }
-
-  handleCredentialResponse( response: any) {
-    this._authService.googleLogin( response.credential )
-      .subscribe( resp => {
-        this._router.navigateByUrl('/browse');
-      });
+    // this.renderButton();
   }
 
   public login() {
-    const { email, password } = this.myForm.value;
-
-    this._authService.login( email, password )
-    .subscribe(ok => {
-      if( ok === true ) {
-        this._router.navigateByUrl('/browse');
-      } else {
-        Swal.fire('Error', ok.error.msg, 'error');  
-      }
-    });
+    this._userService.login( this.myForm.value )
+    .subscribe({
+      next: () => {
+        if ( this.myForm.get('remember').value ){ 
+          localStorage.setItem('email', this.myForm.get('email').value );
+        } else {
+          localStorage.removeItem('email');
+        }
+          // Navegar al Dashboard
+          this._router.navigateByUrl('/browse');
+      }, error: (err) => {
+        // Si sucede un error
+        if(err.errors) {
+          let keys = Object.keys(err.errors);
+          for (let i = 0; i < keys.length; i++) {
+            let key = keys[i];
+            this.errors.set(key, err.errors[key].msg);
+          }
+          };
+        if(err.error) {
+          Swal.fire('Error', err.error.msg, 'error');
+        }
+      }});
   }
+
+  // renderButton() {
+  //   gapi.signin2.render('my-signin2', {
+  //     'scope': 'profile email',
+  //     'width': 320,
+  //     'height': 40,
+  //     'longtitle': true,
+  //     'theme': 'flat',
+  //   });
+
+  //   this.startApp();
+
+  // }
+
+  // async startApp() {
+  //   await this._userService.googleInit();
+  //   this.auth2 = this._userService.auth2;
+
+  //   this.attachSignin( document.getElementById('my-signin2') );
+  // };
+
+  // attachSignin(element) {
+  //   this.auth2.attachClickHandler( element, {},
+  //       (googleUser) => {
+  //           const id_token = googleUser.getAuthResponse().id_token;
+  //           this._userService.loginGoogle( id_token )
+  //             .subscribe( resp => {
+  //               this._ngZone.run( () => {
+  //                 this._router.navigateByUrl('/browse');
+  //               })
+  //             });
+  //       }, (error) => {
+  //           alert(JSON.stringify(error, undefined, 2));
+  //       });
+  // }
 
 }

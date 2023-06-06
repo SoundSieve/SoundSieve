@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/guards/auth.guard';
-import { NoAuthGuard } from './auth/guards/no-auth.guard';
+import { AuthGuard, NoAuthGuard } from './auth/guards';
 
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
     canActivate: [ NoAuthGuard ],
-    canLoad: [ NoAuthGuard ],
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
   },
   {
     path: 'es',
@@ -16,13 +14,12 @@ const routes: Routes = [
   },
   {
     path: 'browse',
-    loadChildren: () => import('./protected/protected.module').then( m => m.ProtectedModule ),
     canActivate: [ AuthGuard ],
-    canLoad: [ AuthGuard ],
+    loadChildren: () => import('./protected/protected.module').then( m => m.ProtectedModule ),
   },
   {
     path: '**',
-    redirectTo: 'es'
+    redirectTo: (AuthGuard)?'browse':'es'
   },
 ];
 

@@ -31,7 +31,6 @@ export class CardComponent implements OnChanges {
   }
 
   public goToUser(user : User) {
-    console.log(`es/profile/${user.uid}`);
     this._router.navigateByUrl(`es/profile/${user.uid}`);
   }
 }

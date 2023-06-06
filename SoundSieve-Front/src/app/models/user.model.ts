@@ -10,13 +10,19 @@ export class User {
         public username: string,
         public email: string,
         public password?: string,
+        public bio?: string,
+        public ocupation?: string,
+        public location?: string,
+        public city?: string,
+        public instruments?: string[],
         public img?: string,
         public google?: boolean,
         public role?: 'ADMIN_ROLE' | 'USER_ROLE',
         public uid?: string,
+        public creationTime?: Date,
     ) {}
 
-    get imagenUrl() {
+    get imageUrl() {
 
         if ( !this.img ) {
             return `${ base_url }/upload/users/no-user-image`;
@@ -27,5 +33,5 @@ export class User {
         } else {
             return `${ base_url }/upload/users/no-user-image`;
         }
-    }
+      }
 }

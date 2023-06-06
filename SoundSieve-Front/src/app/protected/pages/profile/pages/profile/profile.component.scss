@@ -1,0 +1,262 @@
+@import './../../../../../../assets/base';
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    .profile-bg {
+        width:100%;
+        height:220px;
+        background: url('../../../../../../assets/images/profile_bg.jpg');
+        background-position: center;
+        background-size:cover;
+        z-index: -100;
+    }
+
+    .profile {
+        background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('../../../../../../assets/images/svg/bg_01.svg');
+        background-color:rgba(0, 0, 0, 0.3);
+        background-position: center;
+        background-size:contain;
+        height: auto;
+        gap: 3rem;
+        margin: 0;
+        padding: 0 5rem;
+        @include min-1000 {
+            gap:6rem;
+        }
+
+        .profile-box{
+            position: absolute;
+            z-index: 10;
+            top: 25%;
+            width: 40%;
+            @include glass-bg;
+            border-radius: $br-1;
+            padding-left: 7rem !important;
+            padding-right: 7rem !important;
+            padding-bottom: 3rem !important;
+            @include min-1000 {
+                width: 35% !important;
+            }
+            @include max-700 {
+                position: inherit;
+                width: 100%;
+                margin-top: -10rem;
+            }
+            .profile-title {
+                font-family: $ff-poppins;
+                font-weight: $fw-6;
+            }
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            .creation-time {
+                color: $light;
+                font-size: $fs-2;
+                font-weight: $fw-3;
+                text-align: center;
+            }
+        }
+    
+        .profile-data-container {
+            width: 100%;
+            margin-bottom: 7rem;
+            @include min-700 {
+                margin-bottom: 3rem !important;
+            }
+            .space {
+                @include max-700 {
+                    width: 0;
+                }
+            }
+            .profile-data {
+                width: 100%;
+                .row {
+                    @include min-700 {
+                        margin-top: 0 !important;
+                    }  
+                }
+                .field-group {
+                    @include min-700 {
+                        margin-bottom: 3rem;
+                    }
+                    height:auto;
+                    .profile-label{
+                        font-size: $fs-4;
+                        font-weight: $fw-5;
+                        color: $light;
+                    }
+                    .profile-input {
+                        font-size: $fs-3;
+                        font-weight: $fw-3;
+                        color: $light;
+                        pointer-events:none;
+                        background: transparent;
+                        border: none;
+                    }
+                    .profile-input-edit {
+                        font-size: $fs-3;
+                        font-weight: $fw-3;
+                        color: $light;
+                        background: $dark-medium;
+                        padding: .5rem 1rem;
+                        border: none;
+                        border-radius: $br-1;
+                        width: 49%;
+                        @include max-700 {
+                            width: 90%;
+                        }
+                        &.bio-textarea {
+                            width: 100%;
+                            @include max-700 {
+                                width: 185%;
+                            }
+                        }
+                    }
+                    textarea { 
+                        overflow-x: none;
+                        overflow-y: hidden;
+                        resize: none;
+                    }
+                } 
+
+                .bio-field {
+                    @include min-700 {
+                        width: 50%;
+                    }
+                }
+
+                .firstName-field,
+                .lastName-field,
+                .location-field,
+                .city-field {
+                    @include min-700 {
+                        width: 100%;
+                    }
+
+                    @include min-1000 {
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+
+    .profile-interactions {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 8rem;
+        margin-bottom: 4rem;
+        padding-bottom: 3rem;
+        @include glass-bg;
+        border-radius: $br-1;
+        @include min-700 {
+            margin-top: 0rem !important;
+        }
+
+        .feed-title {
+            font-size: $fw-1 !important;
+        }
+        .divider {
+            height: 3px;
+            width: 30%;
+        }
+        .interaction-body {
+            color: $light;
+            width: 60%;
+            .interaction-action-user {
+                font-size: $fs-3;
+                font-weight: $fw-6;
+            }
+        }
+    } 
+}
+
+.profile-img {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid $primary-color;
+}  
+
+.container {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+.outer {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 150px !important; /* any size */
+  max-height: 150px !important; /* any size */
+  margin: auto;
+  border-radius: 100%;
+  position: relative;
+    .inner {
+      border: 3px solid $primary-color;
+      background-color: $light-medium;
+      width: 35px;
+      height: 35px;
+      border-radius: 100%;
+      position: absolute;
+      bottom: 0;
+      right: -3%;
+      .add_icon {
+        background: url(../../../../../../assets/images/svg/add_primary.svg);
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        width: 25px;
+        height: 25px;
+        &:hover {
+            background: url(../../../../../../assets/images/svg/add.svg);
+            background-position: center;
+        }
+
+        .file-input {
+            opacity: 0;
+        }
+      }
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+  
+
+
+
+
+.profile-box-form {
+    input {
+        &.profile-box-location {
+            padding: 0 !important;
+            width: fit-content !important;
+        }
+    }
+
+    .profile-box-input {
+        color: $light;
+        pointer-events: none;
+        background: transparent;
+        border: none;
+    
+        &.location-text {
+            font-size: $fs-3;
+            font-weight: $fw-3;
+        }
+    
+        &.username-text {
+            text-align: center;
+            font-size: $h3;
+            font-weight: $fw-5;
+        }
+    }
+}

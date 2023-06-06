@@ -26,6 +26,11 @@
         border-radius: $br-all;
         border: none;
     }
+    .field-alert {
+        font-size: $fs-1;
+        font-weight: $fw-4;
+        color: $hover-primary-color;
+    }
 }
 
 .forgot-pass {
