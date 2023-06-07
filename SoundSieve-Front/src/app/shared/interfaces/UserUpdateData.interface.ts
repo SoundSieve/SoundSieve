@@ -10,4 +10,5 @@ export interface UserUpdateData {
     city?: string,
     instruments?: string[],
     role: 'ADMIN_ROLE' | 'USER_ROLE',
+    enabled: boolean,
 }

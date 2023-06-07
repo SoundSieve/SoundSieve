@@ -160,13 +160,15 @@ const renew = async (req, res = response) => {
   // Get user data
   const user = await User.findById(uid);
 
-  // Return succesful response
-  return res.status(201).json({
-    ok: true,
-    token,
-    user,
-    menu: getMenuFrontend(user.role),
-  });
+  if (user.enabled) {
+    // Return succesful response
+    return res.status(201).json({
+      ok: true,
+      token,
+      user,
+      menu: getMenuFrontend(user.role),
+    });
+  }
 };
 
 module.exports = {

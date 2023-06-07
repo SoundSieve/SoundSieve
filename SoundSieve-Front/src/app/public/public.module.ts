@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PublicRoutingModule } from './public-routing.module';
 import { JoinComponent } from './pages/join/join.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { JoinComponent } from './pages/join/join.component';
   ],
   imports: [
     CommonModule,
-    PublicRoutingModule
+    PublicRoutingModule,
+    SharedModule
   ]
 })
 export class PublicModule { }

@@ -1,0 +1,38 @@
+<div
+  class="sectionContainer d-flex flex-column-reverse flex-sm-row flex-xs-column-reverse gap-xs-5 gap-sm-4 align-items-center"
+  #sectionContainer
+>
+  <img
+    *ngIf="sAlign === 'right' && sImg"
+    class="col-11 col-sm-6 col-lg-5 section-img p-0"
+    [src]="sImgUrl"
+    alt="image"
+  />
+  <div class="section-c col-sm-6 text-sm-start text-center" #sectionContent>
+    <div
+      class="section-content d-flex flex-column align-items-sm-start align-items-center gap-xs-3"
+    >
+      <h1 class="section-title">
+        {{ sHeading }}
+      </h1>
+      <p class="section-text mt-3">
+        {{ sContent }}
+      </p>
+      <button
+        *ngIf="sBtn"
+        [routerLink]="sBtnUrl"
+        type="button"
+        name="next"
+        class="section-btn btn btn-reverse mt-3 mb-4"
+      >
+        {{ sBtnTitle }}
+      </button>
+    </div>
+  </div>
+  <img
+    *ngIf="sAlign === 'left' && sImg"
+    class="col-11 col-xs-9 col-sm-5 col-lg-5 section-img p-0"
+    [src]="sImgUrl"
+    alt="people-in-a-music-band"
+  />
+</div>

@@ -13,9 +13,11 @@ const getUsers = async (req, res = response) => {
       User.find({}, "username firstName lastName email role google img")
         .skip(offset)
         .limit(limit)
-        .setQuery("enabled", true),
-      User.find().count(),
+        .where("enabled")
+        .equals(true),
+      User.find().where("enabled").equals(true).count(),
     ]);
+    console.log(users);
 
     if (users) {
       return res.status(200).json({
@@ -37,7 +39,7 @@ const getUserById = async (req, res = response) => {
   try {
     const uid = req.params.id;
     const user = await User.findById(uid);
-    if (user) {
+    if (user && user.enabled === true) {
       return res.status(200).json({
         ok: true,
         user,

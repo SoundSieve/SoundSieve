@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class JoinComponent {
 
+  public noBtn: boolean = false;
+  public hasImage: boolean = true;
+  public signinUrl: string = '/auth/sign-in';
+
 }

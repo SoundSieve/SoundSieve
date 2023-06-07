@@ -51,6 +51,10 @@ const UserSchema = Schema({
     type: Boolean,
     default: false,
   },
+  enabled: {
+    type: Boolean,
+    default: true,
+  },
   creationTime: {
     type: Date,
     default: new Date(),

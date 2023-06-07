@@ -148,6 +148,7 @@ export class ProfileComponent implements OnInit {
       location: this.profileForm.get('location').value,
       city: this.profileForm.get('city').value,
       role: this.currentUser.role,
+      enabled: true,
     }
 
     const url = this.navigation_urls[0].url + this.currentUser.uid;

@@ -1,113 +1,205 @@
-<section class="m-0 p-0">
-    <div class="container py-3 h-100">
-        <div class="row d-flex align-items-center justify-content-center h-100">
-            <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 form-bg br-2">
-                <!-- first step form -->
-                <form [formGroup]="step1Form" class="msform">
-                    <!-- fieldsets -->
-                    <fieldset *ngIf="step == 1">
-                        <h2 class="text-center my-5 card-title">Join us!</h2>
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="email">Email</label>
-                            <input type="text" formControlName="email" class="form-control form-control-lg"
-                                [ngClass]="{ 'is-invalid': step_1 && step1Form.controls['email'].errors }"
-                                placeholder="Email" />
-                            <div *ngIf="step_1 && step1Form.controls['email'].errors">
-                                <div *ngIf="step1['email'].errors?.['required']">Email is required</div>
-                            </div>
-                        </div>
-                        <!-- Next button -->
-                        <button type="button" (click)="next()" name="next" class="btn btn-reverse w-100 my-5">
-                            Next
-                        </button>
-                    </fieldset>
-                </form>
-                <!-- second step form -->
-                <form [formGroup]="step2Form" class="msform">
-                    <!-- fieldsets -->
-                    <fieldset *ngIf="step == 2">
-                        <h2 class="text-center my-5 card-title">Introduce yourself!</h2>
-                        <!-- Username input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="username">Username</label>
-                            <input type="text" formControlName="username" placeholder="Username"
-                                class="form-control form-control-lg" />
-                            <div *ngIf="step_2 && step2Form.controls['username'].errors">
-                                <div *ngIf="step2['username'].errors?.['required']">Username is required</div>
-                            </div>
-                        </div>
-                        <!-- FirstName input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="firstName">First name</label>
-                            <input type="text" formControlName="firstName" placeholder="First Name"
-                                class="form-control form-control-lg" />
-                            <div *ngIf="step_2 && step2Form.controls['firstName'].errors">
-                                <div *ngIf="step2['firstName'].errors?.['required']">First name is required</div>
-                            </div>
-                        </div>
-                        <!-- LastName input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="lastName">Last name</label>
-                            <input type="text" formControlName="lastName" placeholder="Last Name"
-                                class="form-control form-control-lg" />
-                            <div *ngIf="step_2 && step2Form.controls['lastName'].errors">
-                                <div *ngIf="step2['lastName'].errors?.['required']">Last name is required</div>
-                            </div>
-                        </div>
-                        <!-- Previous-Next button -->
-                        <button (click)="next()" type="button" name="next"
-                            class="btn btn-reverse w-100 mt-5 mb-4">Continue</button>
-                        <button type="button" (click)="previous()" name="previous"
-                            class="btn btn-reverse-secondary w-100 mb-5">Back</button>
-                    </fieldset>
-                </form>
-                <!-- third step form -->
-                <form [formGroup]="step3Form" class="msform">
-                    <!-- fieldsets -->
-                    <fieldset *ngIf="step == 3">
-                        <h2 class="text-center my-5 card-title">Last step!</h2>
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" formControlName="password" placeholder="Password"
-                                class="form-control form-control-lg" />
-                            <div *ngIf="step_3 && step3Form.controls['password'].errors">
-                                <div *ngIf="step3['password'].errors?.['required']">Password is required</div>
-                            </div>
-                        </div>
-                        <!-- Password Confirm input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="passwordConfirm">Confirm password</label>
-                            <input type="password" formControlName="passwordConfirm" placeholder="Confirm password"
-                                class="form-control form-control-lg" />
-                            <div *ngIf="step_3 && step3Form.controls['passwordConfirm'].errors">
-                                <div>Password does not match</div>
-                            </div>
-                        </div>
-                        <!-- Updates Checkbox input -->
-                        <div class="form-outline mb-4 mt-5 me-5 d-flex align-items-center justify-content-between">
-                            <label class="form-label checkbox mx-3" for="updates">I want to get <a class="link-small" routerLink="/es">SoundSieve</a> news and updates</label>
-                            <input type="checkbox" name="updates" id="updates-checkbox">
-                        </div>
-                        <!-- TOS Checkbox input -->
-                        <div class="form-outline mb-4 me-5 d-flex align-items-center justify-content-between">
-                            <label class="form-label checkbox mx-3" for="updates">By checking this box, you agree to our <a class="link-small" routerLink="/es/tos">Terms of Service</a> and <a class="link-small" routerLink="/es/privacy">Privacy Policy</a></label>
-                            <input type="checkbox" name="updates" id="tos-checkbox" [checked]="this.step3Form.controls['terms'].value.id" (change)="checkTOS($event)">
-                        </div>
-                        <!-- Previous-Next button -->
-                        <button (click)="submit()" type="button" name="lastContinue" class="btn btn-reverse w-100 mt-5 mb-4" [disabled]="this.step3Form.invalid || !this.isChecked">Continue</button>
-                        <button (click)="previous()" type="button" name="previous"
-                        class="btn btn-reverse-secondary w-100 mb-5">Back</button>
-                    </fieldset>
-                </form>
-                <!-- progressbar -->
-                <ul id="progressbar">
-                    <li [ngClass]="step>=1 ? 'active ' : 'inactive'"></li>
-                    <li [ngClass]="step>=2 ? 'active' : 'inactive'"></li>
-                    <li [ngClass]="step==3 ? 'active' : 'inactive'"></li>
-                </ul>
+<section class="m-0 p-0 line-bg">
+  <div class="container py-3 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-6 col-lg-5 col-xl-4 offset-xl-1 form-bg br-2">
+        <!-- first step form -->
+        <form [formGroup]="step1Form" class="msform">
+          <!-- fieldsets -->
+          <fieldset *ngIf="step == 1">
+            <h2 class="text-center my-5 card-title">Join us!</h2>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="email">Email</label>
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control form-control-lg"
+                [ngClass]="{
+                  'is-invalid': step_1 && step1Form.controls['email'].errors
+                }"
+                placeholder="Email"
+              />
+              <div *ngIf="step_1 && step1Form.controls['email'].errors">
+                <div *ngIf="step1['email'].errors?.['required']">
+                  Email is required
+                </div>
+              </div>
             </div>
-        </div>
+            <!-- Next button -->
+            <button
+              type="button"
+              (click)="next()"
+              name="next"
+              class="btn btn-reverse w-100 my-5"
+            >
+              Next
+            </button>
+          </fieldset>
+        </form>
+        <!-- second step form -->
+        <form [formGroup]="step2Form" class="msform">
+          <!-- fieldsets -->
+          <fieldset *ngIf="step == 2">
+            <h2 class="text-center my-5 card-title">Introduce yourself!</h2>
+            <!-- Username input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="username">Username</label>
+              <input
+                type="text"
+                formControlName="username"
+                placeholder="Username"
+                class="form-control form-control-lg"
+              />
+              <div *ngIf="step_2 && step2Form.controls['username'].errors">
+                <div *ngIf="step2['username'].errors?.['required']">
+                  Username is required
+                </div>
+              </div>
+            </div>
+            <!-- FirstName input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="firstName">First name</label>
+              <input
+                type="text"
+                formControlName="firstName"
+                placeholder="First Name"
+                class="form-control form-control-lg"
+              />
+              <div *ngIf="step_2 && step2Form.controls['firstName'].errors">
+                <div *ngIf="step2['firstName'].errors?.['required']">
+                  First name is required
+                </div>
+              </div>
+            </div>
+            <!-- LastName input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="lastName">Last name</label>
+              <input
+                type="text"
+                formControlName="lastName"
+                placeholder="Last Name"
+                class="form-control form-control-lg"
+              />
+              <div *ngIf="step_2 && step2Form.controls['lastName'].errors">
+                <div *ngIf="step2['lastName'].errors?.['required']">
+                  Last name is required
+                </div>
+              </div>
+            </div>
+            <!-- Previous-Next button -->
+            <button
+              (click)="next()"
+              type="button"
+              name="next"
+              class="btn btn-reverse w-100 mt-5 mb-4"
+            >
+              Continue
+            </button>
+            <button
+              type="button"
+              (click)="previous()"
+              name="previous"
+              class="btn btn-reverse-secondary w-100 mb-5"
+            >
+              Back
+            </button>
+          </fieldset>
+        </form>
+        <!-- third step form -->
+        <form [formGroup]="step3Form" class="msform">
+          <!-- fieldsets -->
+          <fieldset *ngIf="step == 3">
+            <h2 class="text-center my-5 card-title">Last step!</h2>
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="password">Password</label>
+              <input
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+                class="form-control form-control-lg"
+              />
+              <div *ngIf="step_3 && step3Form.controls['password'].errors">
+                <div *ngIf="step3['password'].errors?.['required']">
+                  Password is required
+                </div>
+              </div>
+            </div>
+            <!-- Password Confirm input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="passwordConfirm"
+                >Confirm password</label
+              >
+              <input
+                type="password"
+                formControlName="passwordConfirm"
+                placeholder="Confirm password"
+                class="form-control form-control-lg"
+              />
+              <div
+                *ngIf="step_3 && step3Form.controls['passwordConfirm'].errors"
+              >
+                <div>Password does not match</div>
+              </div>
+            </div>
+            <!-- Updates Checkbox input -->
+            <div
+              class="form-outline mb-4 mt-5 me-5 d-flex align-items-center justify-content-between"
+            >
+              <label class="form-label checkbox mx-3" for="updates"
+                >I want to get
+                <a class="link-small" routerLink="/es">SoundSieve</a> news and
+                updates</label
+              >
+              <input type="checkbox" name="updates" id="updates-checkbox" />
+            </div>
+            <!-- TOS Checkbox input -->
+            <div
+              class="form-outline mb-4 me-5 d-flex align-items-center justify-content-between"
+            >
+              <label class="form-label checkbox mx-3" for="updates"
+                >By checking this box, you agree to our
+                <a class="link-small" routerLink="/es/tos">Terms of Service</a>
+                and
+                <a class="link-small" routerLink="/es/privacy"
+                  >Privacy Policy</a
+                ></label
+              >
+              <input
+                type="checkbox"
+                name="updates"
+                id="tos-checkbox"
+                [checked]="this.step3Form.controls['terms'].value.id"
+                (change)="checkTOS($event)"
+              />
+            </div>
+            <!-- Previous-Next button -->
+            <button
+              (click)="submit()"
+              type="button"
+              name="lastContinue"
+              class="btn btn-reverse w-100 mt-5 mb-4"
+              [disabled]="this.step3Form.invalid || !this.isChecked"
+            >
+              Continue
+            </button>
+            <button
+              (click)="previous()"
+              type="button"
+              name="previous"
+              class="btn btn-reverse-secondary w-100 mb-5"
+            >
+              Back
+            </button>
+          </fieldset>
+        </form>
+        <!-- progressbar -->
+        <ul id="progressbar">
+          <li [ngClass]="step >= 1 ? 'active ' : 'inactive'"></li>
+          <li [ngClass]="step >= 2 ? 'active' : 'inactive'"></li>
+          <li [ngClass]="step == 3 ? 'active' : 'inactive'"></li>
+        </ul>
+      </div>
     </div>
+  </div>
 </section>
