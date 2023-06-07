@@ -1,6 +1,5 @@
 #SoundSieve gitignore
 SoundSieve-Front/node-modules/
-SoundSieve-Front/dist/
 SoundSieve-Front/package-lock.json
 SoundSieve-Back/node-modules/
 SoundSieve-Back/package-lock.json
