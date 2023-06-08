@@ -183,10 +183,11 @@ a,button {
 }
 
 .line-bg2 {
-    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./assets/images/svg/bg_01.svg');
+    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2) ), url('./assets/images/svg/bg_01.svg');
     background-repeat:no-repeat;
     background-size: cover;
     background-position: 0 100px center;
+    height: 80vh;
     filter: alpha(opacity=20);
 }
 

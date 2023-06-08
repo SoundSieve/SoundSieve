@@ -1,33 +1,34 @@
 <section class="p-0 m-0 w-100 line-bg2">
-  <div class="container-fluid row">
-    <div class="hero">
-      <div class="join-hero-img" alt="hero-img"></div>
+  <div class="join-hero-img" alt="hero-img"></div>
+  <div class="hero">
+    <div class="hero-section-content">
       <app-section
-        class="col-12 p-0 hero-content"
+        class="col-sm-12 col-lg-6 p-0"
         sHeading="Make your music 
-    come alive with SoundSieve!"
+                come alive with SoundSieve!"
         sContent="Discover the easiest and most exciting way to find sheet music and
-    join a passionate community of music lovers. Join now and experience
-    music in a whole new way!"
+                join a passionate community of music lovers. Join now and experience
+                music in a whole new way!"
         sBtnTitle="Join us"
         sAlign="right"
         [sBtnUrl]="signinUrl"
       ></app-section>
     </div>
-    <div class="row w-100 p-0 m-0 mb-5">
-      <app-section
-        class="col-12 p-0"
-        sHeading="Join a community of music lovers"
-        sContent="Connect with fellow musicians, composers, and music fans from around the world. Share your music experiences, ask for advice, and get inspired by other musicians."
-        sBtnTitle="Join community"
-        sAlign="left"
-        [sImg]="hasImage"
-        sImgUrl="../../../../assets/images/share.jpg"
-        [sBtnUrl]="signinUrl"
-      ></app-section>
-    </div>
-    <!-- <div class="row section-2 d-flex align-items-center w-100 p-0 m-0">
-
+  </div>
+  <div class="section-1">
+    <div class="section-1-content"></div>
+  </div>
+  <!-- <app-section
+    class=""
+    sHeading="Join a community of music lovers"
+    sContent="Connect with fellow musicians, composers, and music fans from around the world. Share your music experiences, ask for advice, and get inspired by other musicians."
+    sBtnTitle="Join community"
+    sAlign="left"
+    [sImg]="hasImage"
+    sImgUrl="../../../../assets/images/share.jpg"
+    [sBtnUrl]="signinUrl"
+  ></app-section> -->
+  <!-- <div class="row section-2 d-flex align-items-center w-100 p-0 m-0">
       <app-section
         class="col-12"
         sHeading="Share, play and enjoy the music!"
@@ -36,5 +37,4 @@
         [sBtn]="noBtn"
       ></app-section>
     </div> -->
-  </div>
 </section>
