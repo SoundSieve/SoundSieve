@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { ExploreComponent } from './pages/explore/explore.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ExploreComponent } from './pages/explore/explore.component';
   ],
   imports: [
     CommonModule,
-    ProtectedRoutingModule
+    ProtectedRoutingModule,
+    SharedModule
   ]
 })
 export class ProtectedModule { }
