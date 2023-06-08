@@ -24,7 +24,7 @@
             </div>
             <img
               *ngIf="!imgTemp"
-              [src]="_userService.imageUrl"
+              [src]="currentUser.img | image:'users'"
               height="40"
               class="profile-img"
               alt="profile-photo"

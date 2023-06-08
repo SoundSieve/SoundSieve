@@ -11,9 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TableComponent } from './components/table/table.component';
 import { CardComponent } from './components/card/card.component';
-import { PipesModule } from '../pipes/pipes.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SectionComponent } from './components/section/section/section.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,6 @@ import { SectionComponent } from './components/section/section/section.component
     SpinnerComponent,
     SectionComponent,
   ],
-  imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule],
+  imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule, NgxDocViewerModule],
 })
 export class SharedModule {}

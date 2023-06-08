@@ -8,15 +8,15 @@ const base_url = environment.baseUrl;
 })
 export class ImagePipe implements PipeTransform {
 
-  transform(img: string | undefined): string {
+  transform(img: string | undefined, type: 'users' | 'sheets'): string {
     if(!img) {
-      return `${ base_url }/upload/users/no-image`;
+      return `${ base_url }/upload/image/${type}/no-image`;
     } else if (img.includes('https')) {
       return img;
     } else if ( img ) {
-      return `${ base_url }/upload/users/${ img }`
+      return `${ base_url }/upload/image/${type}/${ img }`
     } else {
-      return `${ base_url }/upload/users/no-image`
+      return `${ base_url }/upload/image/${type}/no-image`
     }
   }
 

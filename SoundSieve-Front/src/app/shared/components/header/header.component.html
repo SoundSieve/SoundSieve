@@ -43,11 +43,11 @@
       <div *ngIf="isLogged && userWasFound()">
         <div class="dropdown profile">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Hi {{currentUser().username}}!
-            <img [src]="_userService.imageUrl" height="40" class="profile-img ms-3" alt="profile-photo" loading="lazy" />
+            Hi {{currentUser.username}}!
+            <img [src]="currentUser.img | image:'users'" height="40" class="profile-img ms-3" alt="profile-photo" loading="lazy" />
           </button>
           <ul class="dropdown-menu dropdown-menu-dark mt-3">
-            <li><a class="dropdown-item" [href]="headerOptions.profile.childs[0].url + '/' + currentUser().uid">{{headerOptions.profile.childs[0].title}}</a></li>
+            <li><a class="dropdown-item" [href]="headerOptions.profile.childs[0].url + '/' + currentUser.uid">{{headerOptions.profile.childs[0].title}}</a></li>
             <li><a class="dropdown-item" (click)="onLogout()">{{headerOptions.profile.childs[1].title}}</a></li>
           </ul>
         </div>

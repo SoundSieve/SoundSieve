@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public isLogged: boolean = false;
   public headerOptions: Header;
   public currentUrl: string = '';
-  public currentUser = signal<User|undefined>(undefined);
+  public currentUser : User;
   public userWasFound = signal(false);
 
   constructor ( private readonly _router: Router ) { 
@@ -57,14 +57,12 @@ export class HeaderComponent implements OnInit {
   loadUser() {
     this._userService.user.subscribe({
       next: (user) => {
-        this.currentUser.update(current => {
-          return current = user;
-        });
+        this.currentUser = user;
         this.userWasFound.set(true);
       },
       error: () => {
         this.userWasFound.set(false);
-        this.currentUser.set(undefined);
+        this.currentUser = null;
       },
     });
   }

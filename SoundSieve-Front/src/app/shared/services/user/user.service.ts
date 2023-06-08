@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone, computed, signal } from '@angular/core';
+import { Injectable, NgZone, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 
@@ -24,6 +24,10 @@ declare const gapi: any;
 })
 export class UserService {
 
+  private readonly _http = inject( HttpClient ); 
+  private readonly router = inject( Router );
+  private readonly ngZone = inject( NgZone );
+
   public auth2: any;
   private storageSub= new Subject<string>();
   private _currentUser = signal<User|null>(null);
@@ -32,9 +36,7 @@ export class UserService {
   public currentUser = computed( () => this._currentUser());
   public authStatus = computed( () => this._authStatus());
 
-  constructor( private readonly _http: HttpClient, 
-                private readonly router: Router,
-                private readonly ngZone: NgZone ) { 
+  constructor() { 
                   // this.googleInit();
                   this.checkAuthStatus().subscribe();
                  }
@@ -199,13 +201,13 @@ export class UserService {
   get imageUrl() {
 
     if ( !this.currentUser().img ) {
-        return `${ base_url }/upload/users/no-user-image`;
+        return `${ base_url }/upload/img/users/no-user-image`;
     } else if ( this.currentUser().img.includes('https') ) {
         return this.currentUser().img;
     } else if ( this.currentUser().img ) {
-        return `${ base_url }/upload/users/${ this.currentUser().img }`;
+        return `${ base_url }/upload/img/users/${ this.currentUser().img }`;
     } else {
-        return `${ base_url }/upload/users/no-user-image`;
+        return `${ base_url }/upload/img/users/no-user-image`;
     }
   }
 }
