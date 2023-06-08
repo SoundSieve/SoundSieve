@@ -13,6 +13,7 @@ import { TableComponent } from './components/table/table.component';
 import { CardComponent } from './components/card/card.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SectionComponent } from './components/section/section/section.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     TableComponent,
     CardComponent,
     SpinnerComponent,
+    SectionComponent,
   ],
   exports: [
     HeaderComponent,
@@ -34,6 +36,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     TableComponent,
     CardComponent,
     SpinnerComponent,
+    SectionComponent,
   ],
   imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule],
 })

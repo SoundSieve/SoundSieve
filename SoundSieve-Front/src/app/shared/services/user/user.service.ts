@@ -159,9 +159,12 @@ export class UserService {
     return this._http.get<UserResponse>( url, this.headers );
   }
 
-  deleteUser( user: User ) {
-    const url = `${ base_url }/usuarios/${ user.uid }`;
-    return this._http.delete( url, this.headers );
+  deleteUser( uid: string, data: UserUpdateData ) {
+    data = {
+      ...data,
+      enabled: false,
+    }
+    this.updateUser( uid, data );
   }
 
   updateUser( uid: string, data: UserUpdateData ) {
@@ -170,10 +173,6 @@ export class UserService {
       // role: this.currentUser.role
     }
     return this._http.put(`${ base_url }/users/${ uid }`, data, this.headers );
-  }
-
-  saveUser( user: User ) {
-    return this._http.put(`${ base_url }/users/${ user.uid }`, user, this.headers );
   }
 
   private setAuthentication( user: User, token: string, menu: Header ): boolean {

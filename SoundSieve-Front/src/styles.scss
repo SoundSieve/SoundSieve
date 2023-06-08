@@ -25,6 +25,10 @@ app-root {
     flex-direction: column;
 }
 
+app-header {
+    margin-bottom: 5rem;
+}
+
 app-main {
     flex-grow: 1;
 }
@@ -170,24 +174,21 @@ a,button {
 
 /* Background patterns */
 
-.bg-img1 {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: -10%;
-    bottom: 50%;
-    z-index: -1;
-
-    opacity: 0.3;
+.line-bg {
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('./assets/images/svg/bg_01.svg');
+    background-color:rgba(0, 0, 0, 0.3);
+    background-repeat:no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
-.bg-img2 {
-    position: absolute;
-    left: 0%;
-    bottom: 0%;
-    z-index: -1;
-    
-    opacity: 0.3;
+.line-bg2 {
+    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2) ), url('./assets/images/svg/bg_01.svg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: 0 100px center;
+    height: 80vh;
+    filter: alpha(opacity=20);
 }
 
 /* Divider */
