@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs';
 import { Sheet } from 'src/app/models/sheet.model';
 import { environment } from 'src/environments/environment';
+import { SheetUpdateData } from '../../interfaces/SheetUpdateData.interface';
 
 const base_url = environment.baseUrl;
 
@@ -31,5 +32,13 @@ export class SheetsService {
               .pipe(
                 map( (resp: {ok: boolean, sheets: Sheet[] }) => resp.sheets )
               );
+  }
+
+  updateSheet( id: string, uid: string, data: SheetUpdateData ) {
+    data = {
+      ...data,
+      uid: uid
+    }
+    return this._http.put(`${ base_url }/sheets/${ id }`, data, this.headers );
   }
 }

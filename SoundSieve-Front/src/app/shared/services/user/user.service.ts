@@ -197,17 +197,4 @@ export class UserService {
     localStorage.removeItem(key);
     this.storageSub.next('removed');
   }
-
-  get imageUrl() {
-
-    if ( !this.currentUser().img ) {
-        return `${ base_url }/upload/img/users/no-user-image`;
-    } else if ( this.currentUser().img.includes('https') ) {
-        return this.currentUser().img;
-    } else if ( this.currentUser().img ) {
-        return `${ base_url }/upload/img/users/${ this.currentUser().img }`;
-    } else {
-        return `${ base_url }/upload/img/users/no-user-image`;
-    }
-  }
 }

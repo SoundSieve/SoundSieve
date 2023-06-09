@@ -6,6 +6,7 @@ const base_url = environment.baseUrl;
 export class Sheet {
 
     constructor(
+        public id: string,
         public name: string,
         public author: Author,
         public year: number,

@@ -1,5 +1,12 @@
 <section class="p-0 m-0 w-100 line-bg2">
   <div *ngIf="isLoading" class="my-sheets">
-    <app-table tTitle="My projects" [tDisplays]="sheets"></app-table>
+    <app-table
+      tTitle="My projects"
+      [tDisplays]="sheets"
+      [tAddButton]="addButton"
+      [tAddButtonUrl]="addUrl"
+      (delete)="deleteSheet($event)"
+      (edit)="editSheet($event)"
+    ></app-table>
   </div>
 </section>

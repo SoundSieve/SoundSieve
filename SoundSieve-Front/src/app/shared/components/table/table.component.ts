@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Sheet } from 'src/app/models/sheet.model';
 
 @Component({
@@ -10,10 +10,22 @@ export class TableComponent implements OnInit {
   @Input() tTitle: string;
   @Input() tHeaders: string[];
   @Input() tDisplays: Sheet[];
-  @Input() addButton: boolean = false;
+  @Input() tAddButton: boolean = false;
+  @Input() tAddButtonUrl: string;
+  @Output() delete = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<string>();
+
+   '/browse/my-music-sheets/add';
   
   ngOnInit(): void {
     
+  }
+
+  editRowId(value: string) {
+    this.edit.emit(value);
+  }
+  deleteRowId(value: string) {
+    this.delete.emit(value);
   }
 
 }

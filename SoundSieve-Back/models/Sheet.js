@@ -35,10 +35,15 @@ const SheetSchema = Schema({
   instruments: {
     type: Array,
   },
+  enabled: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 SheetSchema.method("toJSON", function () {
-  const { __v, ...Object } = this.toObject();
+  const { __v, _id, ...Object } = this.toObject();
+  Object.id = _id;
   return Object;
 });
 

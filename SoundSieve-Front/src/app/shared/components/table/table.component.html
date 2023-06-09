@@ -22,7 +22,7 @@
           <td class="flex-shrink-1 ms-3 my-2">
             <img
               class="item-preview"
-              [src]="item.pdfPreview | image:'sheets'"
+              [src]="item.pdfPreview | image : 'sheets'"
               alt="no-preview"
             />
           </td>
@@ -53,9 +53,40 @@
             </div>
           </td>
           <td class="row-btns d-flex align-items-center flex-shrink-1">
-            <a class="btn btn-light btn-reverse me-3" [routerLink]="">Edit</a>
-            <a class="btn btn-light btn-outline" [routerLink]="">Delete</a>
+            <a
+              class="btn btn-light btn-reverse me-3"
+              (click)="editRowId(item.id)"
+              >Edit</a
+            >
+            <a class="btn btn-light btn-outline" (click)="deleteRowId(item.id)"
+              >Delete</a
+            >
           </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="tAddButton">
+        <tr>
+          <a
+            class="table-row-button d-flex align-items-center justify-content-start ps-3"
+            [href]="tAddButtonUrl"
+          >
+            <td class="flex-shrink-1 mx-3 my-2">
+              <img
+                class="item-preview"
+                src="../../../../assets/images/svg/NewProject.svg"
+                alt="no-preview"
+              />
+            </td>
+            <td class="d-flex flex-column w-lg-50 w-sm-100 ms-5">
+              <div class="item-data">
+                <p class="item-title">New project</p>
+                <small class="item-description"
+                  >Get feedback, views, and appreciations. Public project can be
+                  featured by our curators.</small
+                >
+              </div>
+            </td>
+          </a>
         </tr>
       </tbody>
     </table>
