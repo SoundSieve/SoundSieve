@@ -6,10 +6,9 @@ import { User } from 'src/app/models/user.model';
 import { environment } from '../../../../environments/environment';
 import { UsersResponse } from '../../interfaces/UsersResponse.interface';
 import { UserResponse } from '../../interfaces/UserResponse.interface';
-import { Observable, Subject, catchError, map, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, map, of, tap, throwError } from 'rxjs';
 import { RegisterForm } from '../../interfaces/RegisterForm.interface';
 import { LoginForm } from '../../interfaces/LoginForm.interface';
-import { AuthStatus } from 'src/app/auth/interfaces/auth.interface';
 import { Header } from '../../components/header/header.interface';
 import { AuthStatusResponse } from '../../interfaces/AuthStatusResponse.interface';
 import { LoginResponse } from '../../interfaces/LoginResponse.interface';
@@ -17,7 +16,7 @@ import { RegisterResponse } from '../../interfaces/RegisterResponse,interface';
 import { UserUpdateData } from '../../interfaces/UserUpdateData.interface';
 
 const base_url = environment.baseUrl;
-declare const gapi: any;
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -31,15 +30,12 @@ export class UserService {
   public auth2: any;
   private storageSub= new Subject<string>();
   private _currentUser = signal<User|null>(null);
-  private _authStatus = signal<AuthStatus>(AuthStatus.checking);
+
 
   public currentUser = computed( () => this._currentUser());
-  public authStatus = computed( () => this._authStatus());
+  public authUser: User;
 
-  constructor() { 
-                  // this.googleInit();
-                  this.checkAuthStatus().subscribe();
-                 }
+  constructor() { }
 
   get user(): Observable<User> {
     return of(this._currentUser());
@@ -57,54 +53,36 @@ export class UserService {
     }
   }
 
-  // googleInit() {
-  //   return new Promise<void>( resolve => {
-  //     gapi.load('auth2', () => {
-  //       this.auth2 = gapi.auth2.init({
-  //         client_id: '1045072534136-oqkjcjvo449uls0bttgvl3aejelh22f5.apps.googleusercontent.com',
-  //         cookiepolicy: 'single_host_origin',
-  //       });
-  //       resolve();
-  //     });
-  //   })
-  // }
-
   saveLocalStorage( token: string, menu: any ) {
-    this.setItem('token', token );
-    this.setItem('menu', JSON.stringify(menu) );
+    localStorage.setItem('token', token );
+    localStorage.setItem('menu', JSON.stringify(menu) );
   }
 
   logout() {
-    this.removeItem('token');
-    this.removeItem('menu');
+    localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this._currentUser.set(null);
-    this._authStatus.set(AuthStatus.notAuthenticated);
-    this.router.navigateByUrl('/auth/sign-up');
-    
-    // this.auth2.signOut().then(() => {
-    //   this.ngZone.run(() => {
-    //     this.router.navigateByUrl('/login');
-    //   })
-    // });
 
+    google.accounts.id.revoke( 'quizasdudas@gmail.com', () => {
+      this.router.navigateByUrl('/auth/sign-up');
+    })
+    this.router.navigateByUrl('/auth/sign-up');
   }
 
-  checkAuthStatus(): Observable<boolean> {
-    if(!this.token) {
-      this._authStatus.set(AuthStatus.notAuthenticated);
-      return of(false);
-    } else {
-
-      const url = `${ base_url }/auth/renew`;
-      
-      return this._http.get<AuthStatusResponse>( url, this.headers ).pipe(
-        map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
-        catchError( error => {
-          this._authStatus.set(AuthStatus.notAuthenticated);
-          return of(false); 
-        })
-      );
+    private hasToken() : boolean {
+      return !!localStorage.getItem('token');
     }
+
+  checkAuthStatus(): Observable<boolean> {
+    const token = this.token;
+    return this._http.get(`${ base_url }/auth/renew`, this.headers)
+                .pipe(
+                  tap((resp: any) => {
+                    localStorage.setItem('token', resp.token)
+                  }),
+                  map( resp => true ),
+                  catchError(error => of(false))
+                );
   }
 
   login( formData: LoginForm ): Observable<boolean> {
@@ -112,18 +90,17 @@ export class UserService {
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
-                    this._authStatus.set(AuthStatus.notAuthenticated);
+
                     return throwError(() => err.error );
                   })
                 );
   }
 
-  loginGoogle( token ) {
+  loginGoogle( token: string ) {
     return this._http.post<LoginResponse>(`${ base_url }/auth/login/google`, { token } )
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
-                    this._authStatus.set(AuthStatus.notAuthenticated);
                     return throwError(() => err.error );
                   })
                 );
@@ -134,7 +111,6 @@ export class UserService {
               .pipe(
                 map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                 catchError( err => {
-                  this._authStatus.set(AuthStatus.notAuthenticated);
                   return throwError(() => err.error );
                 })
               );
@@ -178,7 +154,6 @@ export class UserService {
   }
 
   private setAuthentication( user: User, token: string, menu: Header ): boolean {
-    this._authStatus.set(AuthStatus.authenticated);
     this._currentUser.set(user);
     this.saveLocalStorage( token, menu );
     return true;
@@ -186,15 +161,5 @@ export class UserService {
 
   watchStorage(): Observable<any> {
     return this.storageSub.asObservable();
-  }
-
-  setItem(key: string, data: any) {
-    localStorage.setItem(key, data);
-    this.storageSub.next('added');
-  }
-
-  removeItem(key) {
-    localStorage.removeItem(key);
-    this.storageSub.next('removed');
   }
 }

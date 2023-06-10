@@ -5,7 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from '../../services/user/user.service';
 
 import { DEFAULT_HEADER } from './header.config'
-import { AuthStatus } from 'src/app/auth/interfaces/auth.interface';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,14 +13,12 @@ import { AuthStatus } from 'src/app/auth/interfaces/auth.interface';
 })
 export class HeaderComponent implements OnInit {
 
-  public readonly _userService = inject( UserService );
-
+  public _userService = inject( UserService );
+  public isLogged: boolean = true;
   public isSearchPage: boolean = false;
-  public isLogged: boolean = false;
   public headerOptions: Header;
   public currentUrl: string = '';
   public currentUser : User;
-  public userWasFound = signal(false);
 
   constructor ( private readonly _router: Router ) { 
     this._router.events.subscribe((event) => {
@@ -31,40 +29,22 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._router.events.subscribe((val:any) => {
-      if(val.url) {
-        if(this._userService.authStatus() === AuthStatus.authenticated) {
-          this.isLogged = true;
-          this.loadUser();
-          this._userService.watchStorage().subscribe({
-            next: (result) => {
-              if(result === 'added'){
-                this.headerOptions = JSON.parse(localStorage.getItem('menu'));
-              } 
-            },
-            error: () => {
-              this.headerOptions = DEFAULT_HEADER;
-            }
-          })
-          
-        } else {
-          this.isLogged = false;
-        }
-      }
-    })
-  }
-
-  loadUser() {
-    this._userService.user.subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.userWasFound.set(true);
-      },
-      error: () => {
-        this.userWasFound.set(false);
-        this.currentUser = null;
-      },
-    });
+    // this._router.events.subscribe((val:any) => {
+    //   if(val.url) {
+    //     if(this._userService.isLoggedIn ) {
+    //       this._userService.watchStorage().subscribe({
+    //         next: (result) => {
+    //           if(result === 'added'){
+    //             this.headerOptions = JSON.parse(localStorage.getItem('menu'));
+    //           } 
+    //         },
+    //         error: () => {
+    //           this.headerOptions = DEFAULT_HEADER;
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
   }
 
   onLogout() {
