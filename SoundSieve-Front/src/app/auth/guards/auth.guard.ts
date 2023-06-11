@@ -1,22 +1,27 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { catchError, of, tap } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
-import { AuthStatus } from '../interfaces/auth.interface';
 
 /** PrivateGuard - PublicGuard  */
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
 
-export const AuthGuard: CanActivateFn = (route, state) => {
-  
-  const _userService = inject( UserService );
-  const _router      = inject( Router );
+  constructor( 
+              private _userService: UserService,
+              private _router: Router 
+              ) {}
 
-  const url = state.url;
-  localStorage.setItem('path', url);
-
-  if ( _userService.authStatus() === AuthStatus.authenticated ) {
-    return true;
+  canActivate() {
+    return this._userService.checkAuthStatus()
+    .pipe(
+      tap( isAuth => {
+        if( !isAuth ) {
+          this._router.navigateByUrl('/auth');
+        }
+      })
+    );
   }
-
-  _router.navigateByUrl('/auth/sign-up');
-  return false;
 }

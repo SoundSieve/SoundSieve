@@ -1,1 +1,144 @@
-<p>add-sheet works!</p>
+<section class="p-0 m-0 w-100 line-bg2">
+  <form
+    class="sheet-form d-flex flex-xl-row flex-column align-items-center justify-content-center gap-5 w-100"
+    autocomplete="off"
+    [formGroup]="sheetForm"
+    (ngSubmit)="saveSheet()"
+  >
+    <div class="sheet-preview d-flex align-items-center justify-content-end">
+      <div
+        *ngIf="!isEditing"
+        class="add-preview d-flex flex-column align-items-center justify-content-center"
+      >
+        <h5 *ngIf="!imgPreview" class="text-center image-preview-text">
+          Add a thumbnail for your project!
+        </h5>
+        <img
+          *ngIf="!imgPreview"
+          class="image-preview-icon mt-3"
+          src="./../../../../../../assets/images/svg/NewProject.svg"
+          alt="new-project-icon"
+        />
+        <img *ngIf="imgPreview" class="imgPreview" [src]="imgPreview" />
+        <div class="add_icon input-group">
+          <input
+            class="file-input form-control"
+            (change)="updateImage($any($event.target).files[0])"
+            type="file"
+            id="sheet-thumbnail"
+            accept="image/png, image/jpeg"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="sheet-data-container container-fluid col-xl-6 col-10 ms-5 d-flex align-items-center justify-content-center mt-5 p-5 mb-5"
+    >
+      <div class="sheet-data row col-5 mx-5">
+        <div class="row col-12 p-0 d-flex gap-5">
+          <div class="field-group col-xl-6 col-12 d-flex flex-column">
+            <label class="sheet-label" for="title">Title:</label>
+            <input
+              class="sheet-input w-100 mt-2"
+              type="text"
+              formControlName="title"
+            />
+          </div>
+          <div class="field-group col-xl-3 col-12 d-flex flex-column">
+            <label class="sheet-label" for="author">Author:</label>
+            <input
+              class="author-field mt-2"
+              type="text"
+              formControlName="author"
+            />
+          </div>
+        </div>
+        <div class="row col-12 p-0 d-flex mt-5">
+          <div class="field-group col-12 d-flex flex-column">
+            <label class="sheet-label" for="year">Creation date:</label>
+            <input
+              class="sheet-input w-50 w-lg-100 mt-2"
+              type="date"
+              formControlName="creationDate"
+            />
+          </div>
+        </div>
+        <div class="row col-12 p-0 d-flex mt-5">
+          <div class="field-group bio-field col-12 d-flex flex-column">
+            <label class="sheet-label" for="bio">Description:</label>
+            <textarea
+              class="sheet-input w-100 mt-2 bio-textarea"
+              type="text"
+              formControlName="description"
+              id="description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row col-12 p-0 d-flex mt-5">
+          <div class="field-group col-6 col-lg-12 w-100 d-flex flex-column">
+            <label class="sheet-label" for="license">License:</label>
+            <select
+              formControlName="license"
+              class="form-select form-select-lg w-50 w-lg-100 mt-2"
+              aria-label=".form-select-lg"
+            >
+              <option *ngFor="let item of licenses" [value]="item.id" selected>
+                {{ item.viewValue }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row col-12 p-0 d-flex mt-5">
+          <div class="field-group col-12 d-flex flex-column">
+            <label class="sheet-label" for="genre">Genre:</label>
+            <select
+              formControlName="genres"
+              class="form-select form-select-lg w-50 mt-2"
+              aria-label=".form-select-lg"
+            >
+              <option disabled selected [value]="null">
+                Select an genre...
+              </option>
+              <option *ngFor="let item of genres" [value]="item.id">
+                {{ item.viewValue }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row col-12 p-0 d-flex mt-5 gap-5">
+          <div class="col-xl-6 col-12 field-group d-flex flex-column">
+            <label class="sheet-label" for="instruments">Instruments:</label>
+            <app-multi-select
+              class="w-100"
+              [options]="instrumentsOptions"
+              [placeholder]="'Select instruments...'"
+              (valid)="hasValueValidator($event)"
+              (values)="selectedInstruments($event)"
+            >
+            </app-multi-select>
+          </div>
+          <div class="col-xl-4 col-12 mb-5 field-group d-flex flex-column">
+            <label class="sheet-label" for="pdf">Pdf:</label>
+            <div class="input-group">
+              <input
+                type="file"
+                class="form-control pdf-file w-100"
+                id="inputGroupFile04"
+                (change)="updatePdf($any($event.target).files[0])"
+                aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload"
+                accept="application/pdf"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="profile-form-btns d-flex justify-content-center">
+          <button type="submit" class="btn btn-light btn-reverse mt-5 me-3">
+            Save
+          </button>
+          <a (click)="discard()" class="btn btn-light btn-r mt-5"> Discard </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

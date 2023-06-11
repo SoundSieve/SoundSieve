@@ -1,117 +1,209 @@
 /** Upload Controller */
 
 // Imports
-const path = require('path');
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
 const { response } = require("express");
-const { v4: uuidv4 } = require('uuid');
-const { updateFile } = require('../utilities/uploadFile');
+const { v4: uuidv4 } = require("uuid");
+const { updateImage, updatePdf } = require("../utilities/uploadFile");
 
-const upload = async (req, res = response) => {
-    try {
-        const type = req.params.type;
-        const id = req.params.id;
+const uploadImage = async (req, res = response) => {
+  try {
+    const type = req.params.type;
+    const id = req.params.id;
 
-        const validTypes = ['sheets', 'users']
-        if(!validTypes.includes(type)) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'File type not valid'
-            })
-        }
+    const validTypes = ["sheets", "users"];
+    if (!validTypes.includes(type)) {
+      return res.status(400).json({
+        ok: false,
+        msg: "File type not valid",
+      });
+    }
 
-        if(!req.files || Object.keys(req.files).lenght === 0) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'No files were upload'});
-        }
+    if (!req.files || Object.keys(req.files).lenght === 0) {
+      return res.status(400).json({
+        ok: false,
+        msg: "No files were upload",
+      });
+    }
 
-        // Process the file
-        const file = req.files.file;
-        
-        const splitName = file.name.split('.');
-        const fileExtension = splitName[ splitName.length - 1 ];
+    // Process the file
+    const file = req.files.image;
 
-        let validExtension;
-        // Valid extensions
-        switch(type) {
-            case 'sheets':
-                validExtension = ['pdf', 'doc'];
-                break;
-            case 'users':
-                validExtension = ['png', 'jpg', 'jpeg', 'gif'];
-                break;
-        }
-        
-        if(!validExtension.includes(fileExtension)) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'File extension not valid'
-            });
-        }
+    const splitName = file.name.split(".");
+    const fileExtension = splitName[splitName.length - 1];
 
-        // Generate file name
-        const fileName = `${ uuidv4() }.${ fileExtension }`;
+    // Valid extensions
+    let validExtension = ["png", "jpg", "jpeg", "gif"];
 
-        // Save upload path
-        const path = `./uploads/${ type }/${ fileName }`;
+    if (!validExtension.includes(fileExtension)) {
+      return res.status(400).json({
+        ok: false,
+        msg: "File extension not valid",
+      });
+    }
 
-        // Move the file to the folder
-        file.mv(path, (err) => {
-            if(err) {
-                console.log(error);
-                return res.status(500).json({
-                    ok: false,
-                    msg: 'Error moving the file'
-                });
-            }
-        });
+    // Generate file name
+    const fileName = `${uuidv4()}.${fileExtension}`;
 
-        // Update database
-        updateFile(type, id, fileName);
+    // Save upload path
+    const path = `./uploads/image/${type}/${fileName}`;
 
-        return res.status(200).json({
-            ok: true,
-            msg: 'File uploaded',
-            file_name: fileName
-        })
-
-    } catch (error) {
+    // Move the file to the folder
+    file.mv(path, (err) => {
+      if (err) {
         console.log(error);
         return res.status(500).json({
-            ok: false,
-            msg: 'Server error'
+          ok: false,
+          msg: "Error moving the file",
         });
-    }
-}
+      }
+    });
 
-const getFile = ( req, res = response ) => {
+    // Update database
+    updateImage(type, id, fileName);
+
+    return res.status(200).json({
+      ok: true,
+      msg: "File uploaded",
+      file_name: fileName,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: "Server error",
+    });
+  }
+};
+
+const uploadPdf = async (req, res = response) => {
+  try {
     const type = req.params.type;
-    const file = req.params.file;
+    const id = req.params.id;
 
-    const filePath = path.join( __dirname, `../uploads/${ type }/${ file }`);
-
-    // Default image
-    if(!fs.existsSync(filePath)) {
-        switch(type) {
-            case 'users': {
-                const filePath = path.join( __dirname, `../uploads/${ type }/no-user-image.gif`);
-                res.sendFile(filePath);
-                break;
-            }
-            case 'sheets': {
-                const filePath = path.join( __dirname, `../uploads/${ type }/no-sheets-image.png`);
-                res.sendFile(filePath);
-                break;
-            }
-        }
-    } else {
-        res.sendFile( filePath );
+    const validTypes = ["sheets"];
+    if (!validTypes.includes(type)) {
+      return res.status(400).json({
+        ok: false,
+        msg: "File type not valid",
+      });
     }
 
-}
+    if (!req.files || Object.keys(req.files).lenght === 0) {
+      return res.status(400).json({
+        ok: false,
+        msg: "No files were upload",
+      });
+    }
+
+    // Process the file
+    const file = req.files.file;
+
+    const splitName = file.name.split(".");
+    const fileExtension = splitName[splitName.length - 1];
+
+    // Valid extensions
+    let validExtension = ["pdf"];
+
+    if (!validExtension.includes(fileExtension)) {
+      return res.status(400).json({
+        ok: false,
+        msg: "File extension not valid",
+      });
+    }
+
+    // Generate file name
+    const fileName = `${uuidv4()}.${fileExtension}`;
+
+    // Save upload path
+    const path = `./uploads/pdf/${type}/${fileName}`;
+
+    // Move the file to the folder
+    file.mv(path, (err) => {
+      if (err) {
+        console.log(error);
+        return res.status(500).json({
+          ok: false,
+          msg: "Error moving the file",
+        });
+      }
+    });
+
+    // Update database
+    updatePdf(type, id, fileName);
+
+    return res.status(200).json({
+      ok: true,
+      msg: "File uploaded",
+      file_name: fileName,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: "Server error",
+    });
+  }
+};
+
+const getImage = (req, res = response) => {
+  const type = req.params.type;
+  const image = req.params.image;
+
+  const filePath = path.join(__dirname, `../uploads/image/${type}/${image}`);
+
+  // Default image
+  if (!fs.existsSync(filePath)) {
+    switch (type) {
+      case "users": {
+        const filePath = path.join(
+          __dirname,
+          `../uploads/image/${type}/no-user-image.gif`
+        );
+        res.sendFile(filePath);
+        break;
+      }
+      case "sheets": {
+        const filePath = path.join(
+          __dirname,
+          `../uploads/image/${type}/no-sheets-image.png`
+        );
+        res.sendFile(filePath);
+        break;
+      }
+    }
+  } else {
+    res.sendFile(filePath);
+  }
+};
+
+const getPdf = (req, res = response) => {
+  const type = req.params.type;
+  const file = req.params.pdf;
+
+  const filePath = path.join(__dirname, `../uploads/pdf/${type}/${file}`);
+  console.log(filePath);
+  // Default image
+  if (!fs.existsSync(filePath)) {
+    switch (type) {
+      case "sheets": {
+        const filePath = path.join(
+          __dirname,
+          `../uploads/pdf/${type}/no-sheets-image.png`
+        );
+        res.sendFile(filePath);
+        break;
+      }
+    }
+  } else {
+    res.sendFile(filePath);
+  }
+};
 
 module.exports = {
-    upload,
-    getFile
-}
+  uploadImage,
+  getImage,
+  uploadPdf,
+  getPdf,
+};

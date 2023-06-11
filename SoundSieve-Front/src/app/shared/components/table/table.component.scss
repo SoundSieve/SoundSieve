@@ -34,13 +34,21 @@
         border-bottom: 1px solid $dark-medium;
         border-bottom-width: 90%;
         .item-preview {
-            height: 90px;
+            max-width: 80px;
+            cursor: pointer;
+        }
+        .item-data {
+            min-width: 200px;
         }
         .item-title {
             color: $light;
             font-size: $fs-3;
             font-weight: $fw-6;
             margin-bottom: -.1rem;
+            cursor: pointer;
+            &:hover {
+                color: $hover-secondary-color;
+            }
         }
         .item-author {
             color: $light;
@@ -70,5 +78,24 @@
         }
     }
 
+    .table-row-button {
+        margin-top: 2rem;
+        height: 120px;
+        border: 1px dashed $dark-medium;
+        border-width: 90%;
+        border-radius: $br-3;
+
+        .item-title {
+            color: $light;
+            font-size: $fs-3;
+            font-weight: $fw-6;
+            margin-bottom: -.1rem;
+        }
+        .item-description {
+            color: $light;
+            font-size: $fs-2;
+            font-weight: $fw-3;
+        }
+    }
 
 }

@@ -4,15 +4,22 @@
 // Imports
 const { Router } = require("express");
 // Controllers
-const { upload, getFile } = require("../controllers/upload.controller");
+const {
+  uploadImage,
+  getImage,
+  uploadPdf,
+  getPdf,
+} = require("../controllers/upload.controller");
 const expressFileUpload = require("express-fileupload");
 const { validateJWT } = require("../middlewares/validate-jwt");
 
 const router = Router();
 router.use(expressFileUpload());
 
-router.put("/:type/:id", [validateJWT], upload);
+router.put("/image/:type/:id", [validateJWT], uploadImage);
+router.put("/pdf/:type/:id", [validateJWT], uploadPdf);
 
-router.get("/:type/:file", getFile);
+router.get("/image/:type/:image", getImage);
+router.get("/pdf/:type/:pdf", getPdf);
 
 module.exports = router;

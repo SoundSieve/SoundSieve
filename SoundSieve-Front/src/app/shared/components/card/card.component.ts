@@ -13,6 +13,10 @@ export class CardComponent implements OnChanges {
   @Input() cSheet!: Sheet;
   @Input() cUser!: User;
 
+  public navigationUrls = {
+    sheetDetails: '/es/search/details/'
+  }
+
   constructor( private readonly _router: Router ) {}
 
   ngOnChanges(changes: SimpleChanges) {

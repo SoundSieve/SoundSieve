@@ -17,13 +17,17 @@ const getUsers = async (req, res = response) => {
         .equals(true),
       User.find().where("enabled").equals(true).count(),
     ]);
-    console.log(users);
 
     if (users) {
       return res.status(200).json({
         ok: true,
         users,
         total: totalRows,
+      });
+    } else {
+      return res.status(400).json({
+        ok: false,
+        msg: "The user database is empty",
       });
     }
   } catch (error) {

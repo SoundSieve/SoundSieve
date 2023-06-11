@@ -21,17 +21,4 @@ export class User {
         public uid?: string,
         public creationTime?: Date,
     ) {}
-
-    get imageUrl() {
-
-        if ( !this.img ) {
-            return `${ base_url }/upload/users/no-user-image`;
-        } else if ( this.img.includes('https') ) {
-            return this.img;
-        } else if ( this.img ) {
-            return `${ base_url }/upload/users/${ this.img }`;
-        } else {
-            return `${ base_url }/upload/users/no-user-image`;
-        }
-      }
 }
