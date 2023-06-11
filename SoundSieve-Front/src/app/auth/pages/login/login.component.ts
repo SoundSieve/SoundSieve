@@ -57,8 +57,10 @@ export class LoginComponent implements AfterViewInit {
         }
           // Navegar al Dashboard
           this._ngZone.run(() => {
-            setTimeout
-            this._router.navigateByUrl('/browse');
+            Swal.fire('Login successful', 'Redirecting to browse', 'success');
+            setTimeout(() => {
+              this._router.navigateByUrl('/browse');
+            }, 2000);
           })
       }, error: (err) => {
         // Si sucede un error

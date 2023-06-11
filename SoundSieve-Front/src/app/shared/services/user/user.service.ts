@@ -14,6 +14,7 @@ import { AuthStatusResponse } from '../../interfaces/AuthStatusResponse.interfac
 import { LoginResponse } from '../../interfaces/LoginResponse.interface';
 import { RegisterResponse } from '../../interfaces/RegisterResponse,interface';
 import { UserUpdateData } from '../../interfaces/UserUpdateData.interface';
+import Swal from 'sweetalert2';
 
 const base_url = environment.baseUrl;
 declare const google: any;
@@ -66,9 +67,15 @@ export class UserService {
     this._currentUser.set(null);
     this.isAuthenticated = false;
     google.accounts.id.revoke( this.currentUser().email, () => {
-      this.router.navigateByUrl('/auth/sign-up');
+      Swal.fire('Logout!', 'See you soon!', 'info');
+      setTimeout(() => {
+        this.router.navigateByUrl('/auth/sign-up');
+      }, 2000);
     })
-    this.router.navigateByUrl('/auth/sign-up');
+    Swal.fire('Logout!', 'See you soon!', 'info');
+    setTimeout(() => {
+      this.router.navigateByUrl('/auth/sign-up');
+    }, 2000);
   }
 
   checkAuthStatus(): Observable<boolean> {
