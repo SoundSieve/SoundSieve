@@ -9,6 +9,10 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 })
 export class ExploreComponent {
 
+  public noBtn: boolean = false;
+  public hasImage: boolean = true;
+  public resultUrl: string = '/es/search/?q=all';
+
   constructor( private _router: Router,
     private _userService: UserService ) {
 
