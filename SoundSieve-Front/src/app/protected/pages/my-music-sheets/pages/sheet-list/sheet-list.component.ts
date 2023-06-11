@@ -19,6 +19,7 @@ export class SheetListComponent implements OnInit {
   public isLoading: boolean = true;
   public addButton: boolean = true;
   public url: string = '/browse/my-music-sheets';
+  public urlDetails: string = '/es/search/details/';
   public addUrl: string = this.url + '/add';
 
   constructor(  private _sheetService : SheetsService,
@@ -32,7 +33,6 @@ export class SheetListComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.sheets = resp.filter((x: Sheet) => x.author._id === this.currentUser.uid);
-          console.log(this.sheets)
         },
         error: (error) => {
           console.log(error);
@@ -40,6 +40,9 @@ export class SheetListComponent implements OnInit {
       })
   }
 
+  goToDetails(id: string) {
+    this._router.navigateByUrl( this.urlDetails + id);
+  }
   editSheet(id: string) {
     this._router.navigateByUrl(this.url + '/edit/' + id);
   }

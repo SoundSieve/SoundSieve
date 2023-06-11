@@ -5,6 +5,7 @@
       [tDisplays]="sheets"
       [tAddButton]="addButton"
       [tAddButtonUrl]="addUrl"
+      (details)="goToDetails($event)"
       (delete)="deleteSheet($event)"
       (edit)="editSheet($event)"
     ></app-table>

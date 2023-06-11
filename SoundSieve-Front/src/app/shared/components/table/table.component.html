@@ -19,8 +19,9 @@
         <tr
           class="table-row d-flex align-items-center justify-content-between pe-3"
         >
-          <td class="flex-shrink-1 ms-3 my-2">
+          <td class="flex-shrink-1 ms-3 my-2" >
             <img
+              (click)="goToDetails(item.id)"
               class="item-preview"
               [src]="item.pdfPreview | image : 'sheets'"
               alt="no-preview"
@@ -28,7 +29,7 @@
           </td>
           <td class="d-flex flex-column w-100 ms-5">
             <div class="item-data">
-              <p class="item-title">{{ item.name }}</p>
+              <p class="item-title" (click)="goToDetails(item.id)">{{ item.name }}</p>
               <small class="item-author">{{
                 item.author.firstName + " " + item.author.lastName
               }}</small>

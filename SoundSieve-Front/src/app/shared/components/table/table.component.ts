@@ -12,15 +12,17 @@ export class TableComponent implements OnInit {
   @Input() tDisplays: Sheet[];
   @Input() tAddButton: boolean = false;
   @Input() tAddButtonUrl: string;
+  @Output() details = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<string>();
 
-   '/browse/my-music-sheets/add';
-  
   ngOnInit(): void {
     
   }
 
+  goToDetails(value: string) {
+    this.details.emit(value);
+  }
   editRowId(value: string) {
     this.edit.emit(value);
   }
