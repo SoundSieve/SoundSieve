@@ -5,7 +5,6 @@ import { AuthGuard, NoAuthGuard } from './auth/guards';
 const routes: Routes = [
   {
     path: 'auth',
-    canActivate: [ NoAuthGuard ],
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
   },
   {

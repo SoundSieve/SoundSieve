@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
 
-declare const gapi:any;
+declare const google:any;
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,9 @@ export class LoginComponent implements AfterViewInit {
     email: [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['123456', [Validators.required, Validators.minLength(6)]],
     remember: [false]
-  })
+  });
+
+  @ViewChild('googleBtn') googleBtn!: ElementRef;
 
   errors: Map<string,string> = new Map<string,string>();
 
@@ -30,8 +32,41 @@ export class LoginComponent implements AfterViewInit {
                private readonly _ngZone: NgZone ) { }
 
   ngAfterViewInit(): void {
-    // this.renderButton();
+    this.googleInit();
   }
+
+  googleInit() {
+    google.accounts.id.initialize({
+      client_id: "1027260749299-6s5bhbp6tu6lqeo9bqsess82dale8of8.apps.googleusercontent.com",
+      callback: (response) => this.handleCredentialResponse(response)
+    });
+    google.accounts.id.renderButton(
+      this.googleBtn.nativeElement,
+      { theme: "outline", locale: "en-GB", shape:"pill", type: "standard", text:"signin_with", logo_alignment: "center"  } // customization attributes
+    );
+  }
+
+  handleCredentialResponse( response: any ) {
+    this._userService.loginGoogle( response.credential )
+    .subscribe({
+      next: () => {
+        if ( this.myForm.get('remember').value ){ 
+          localStorage.setItem('email', this.myForm.get('email').value );
+        } else {
+          localStorage.removeItem('email');
+        }
+          // Navegar al Dashboard
+          this._ngZone.run(() => {
+            setTimeout
+            this._router.navigateByUrl('/browse');
+          })
+      }, error: (err) => {
+        // Si sucede un error
+        if(err.error) {
+          Swal.fire('Error', err.error.msg, 'error');
+        }
+      }});
+  } 
 
   public login() {
     this._userService.login( this.myForm.value )
@@ -58,40 +93,4 @@ export class LoginComponent implements AfterViewInit {
         }
       }});
   }
-
-  // renderButton() {
-  //   gapi.signin2.render('my-signin2', {
-  //     'scope': 'profile email',
-  //     'width': 320,
-  //     'height': 40,
-  //     'longtitle': true,
-  //     'theme': 'flat',
-  //   });
-
-  //   this.startApp();
-
-  // }
-
-  // async startApp() {
-  //   await this._userService.googleInit();
-  //   this.auth2 = this._userService.auth2;
-
-  //   this.attachSignin( document.getElementById('my-signin2') );
-  // };
-
-  // attachSignin(element) {
-  //   this.auth2.attachClickHandler( element, {},
-  //       (googleUser) => {
-  //           const id_token = googleUser.getAuthResponse().id_token;
-  //           this._userService.loginGoogle( id_token )
-  //             .subscribe( resp => {
-  //               this._ngZone.run( () => {
-  //                 this._router.navigateByUrl('/browse');
-  //               })
-  //             });
-  //       }, (error) => {
-  //           alert(JSON.stringify(error, undefined, 2));
-  //       });
-  // }
-
 }

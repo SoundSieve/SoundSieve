@@ -4,9 +4,18 @@
   <div class="container-fluid align-items-center mx-4" fxFlexLayout="row">
     <!-- Collapsible wrapper -->
     <!-- Navbar brand -->
-    <a class="navbar-brand" fxFlex [href]="headerOptions.main[userWasFound()?1:0].url">
+    <a
+      class="navbar-brand"
+      fxFlex
+      [href]="headerOptions.main[_userService.isAuthenticated ? 1 : 0].url"
+    >
       <div class="brand-logo d-flex align-items-center gap-2">
-        <img src="../../../../assets/images/svg/SoundSieve_Logo.svg" height="40" alt="SoundSieve-logo" loading="lazy" />
+        <img
+          src="../../../../assets/images/svg/SoundSieve_Logo.svg"
+          height="40"
+          alt="SoundSieve-logo"
+          loading="lazy"
+        />
         <p class="logo__title">SoundSieve</p>
       </div>
     </a>
@@ -17,38 +26,86 @@
     <!--Links & buttons-->
     <div class="right__links d-flex align-items-center gap-5" fxFlex="30">
       <!--Links-->
-      <div *ngIf="!isLogged && !userWasFound" class="me-2">
-        <a class="nav-item dropdown" [href]="headerOptions.links[0].url">{{headerOptions.links[0].title}}</a>
+      <div *ngIf="!_userService.isAuthenticated" class="me-2">
+        <a class="nav-item dropdown" [href]="headerOptions.links[0].url">{{
+          headerOptions.links[0].title
+        }}</a>
       </div>
-      <div *ngIf="isLogged && userWasFound()" class="me-2">
+      <div
+        *ngIf="_userService.isAuthenticated"
+        class="me-2 d-flex flex-row align-items-center"
+      >
         <div *ngFor="let link of headerOptions.links">
+          <a *ngIf="!link.childs" class="nav-item" [href]="link.url">{{
+            link.title
+          }}</a>
           <a *ngIf="link.childs" class="nav-item dropdown" href="#">
-            <button class="btn btn-dark dropdown-toggle py-3 px-5" data-bs-toggle="dropdown" aria-expanded="false">
-              {{link.title}}
+            <button
+              class="btn btn-dark dropdown-toggle py-3 px-5"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ link.title }}
             </button>
-            <ul class="dropdown-menu dropdown-menu-dark" >
-              <li *ngFor="let child of link.childs"><a class="dropdown-item d-flex align-items-center" [href]="child.url"><img [class]="child.type" [src]="child.img" alt="">{{child.title}}</a></li>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li *ngFor="let child of link.childs">
+                <a
+                  class="dropdown-item d-flex align-items-center"
+                  [href]="child.url"
+                  ><img [class]="child.type" [src]="child.img" alt="" />{{
+                    child.title
+                  }}</a
+                >
+              </li>
             </ul>
             <!-- <li><a class="dropdown-item d-flex align-items-center" [href]="child.url"><img [class]="child.type" [src]="child.img" alt="">{{child.title}}</a></li> -->
           </a>
         </div>
       </div>
       <!--Buttons-->
-      <div *ngIf="!isLogged" class="auth__btns d-flex align-items-center gap-3">
+      <div
+        *ngIf="!_userService.isAuthenticated"
+        class="auth__btns d-flex align-items-center gap-3"
+      >
         <div *ngFor="let button of headerOptions.buttons">
-          <a [class]="button.type" [routerLink]="button.url">{{button.title}}</a>
+          <a [class]="button.type" [routerLink]="button.url">{{
+            button.title
+          }}</a>
         </div>
       </div>
       <!--Profile-->
-      <div *ngIf="isLogged && userWasFound()">
+      <div *ngIf="_userService.isAuthenticated">
         <div class="dropdown profile">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Hi {{currentUser().username}}!
-            <img [src]="_userService.imageUrl" height="40" class="profile-img ms-3" alt="profile-photo" loading="lazy" />
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Hi {{ this._userService.currentUser()?.username }}!
+            <img
+              [src]="this._userService.currentUser()?.img | image : 'users'"
+              height="40"
+              class="profile-img ms-3"
+              alt="profile-photo"
+              loading="lazy"
+            />
           </button>
           <ul class="dropdown-menu dropdown-menu-dark mt-3">
-            <li><a class="dropdown-item" [href]="headerOptions.profile.childs[0].url + '/' + currentUser().uid">{{headerOptions.profile.childs[0].title}}</a></li>
-            <li><a class="dropdown-item" (click)="onLogout()">{{headerOptions.profile.childs[1].title}}</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                [href]="
+                  headerOptions.profile.childs[0].url +
+                  '/' +
+                  this._userService.currentUser()?.uid
+                "
+                >View profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="onLogout()"> Logout </a>
+            </li>
           </ul>
         </div>
       </div>

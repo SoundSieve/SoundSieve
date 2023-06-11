@@ -1,6 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { UserService } from '../user/user.service';
 
 const base_url = environment.baseUrl;
 
@@ -14,14 +13,22 @@ export class FileUploadService {
   async updateFile(
     file: File,
     type: 'users'| 'sheets',
-    file_id: string
+    fileType: 'img' | 'pdf',
+    id: string
   ) {
     try {
-
-      const url = `${ base_url }/upload/${ type }/${ file_id }`;
-      const formData = new FormData();
-      formData.append('file', file);
-
+      let url;
+      let formData = new FormData();
+      if(fileType === 'img') {
+        url = `${ base_url }/upload/image/${ type }/${ id }`;
+        formData.append('image', file);
+      } else if(fileType === 'pdf') {
+        url = `${ base_url }/upload/pdf/${ type }/${ id }`;
+        formData.append('file', file);
+      } else {
+        return false;
+      }
+      
       const response = await fetch( url, {
         method: 'PUT',
         headers: {

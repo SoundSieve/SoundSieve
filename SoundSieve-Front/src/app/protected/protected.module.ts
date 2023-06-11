@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { SharedModule } from '../shared/shared.module';
+import { PipesModule } from '../pipes/pipes.module';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ProtectedRoutingModule,
-    SharedModule
+    SharedModule,
+    PipesModule,
   ]
 })
 export class ProtectedModule { }

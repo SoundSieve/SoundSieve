@@ -1,0 +1,138 @@
+<section class="bgimage">
+  <div class="container-fluid row">
+    <div class="profile-bg" alt="profile-bg"></div>
+    <div class="row profile d-flex flex-column">
+      <div
+        class="profile-box d-flex flex-column justify-content-center pt-5 px-5"
+      >
+        <h2 class="text-center mb-5 profile-title">Profile</h2>
+        <div class="container">
+          <div class="outer">
+            <img
+              [src]="user?.img | image : 'users'"
+              height="40"
+              class="profile-img"
+              alt="profile-photo"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="profile-box-form d-flex flex-column align-items-center">
+          <div class="profile-box-username">
+            <h4 class="profile-box-input username-text text-center mt-5">
+              {{ user?.username }}
+            </h4>
+          </div>
+          <div class="profile-box-location row mt-3">
+            <div class="col-12 d-flex align-items-center">
+              <img
+                src="../../../../../../assets/images/svg/Location.svg"
+                height="20"
+                alt="location-icon"
+                class="me-2"
+                loading="lazy"
+              />
+              <p
+                class="profile-box-input location-text mb-0 mt-1 me-1"
+                id="profile-box-input-location"
+              >
+                {{ user?.location || 'Nowhere' }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="creation-time mt-5 mb-3">
+            MEMBER SINCE: {{ formatDate() }}
+          </p>
+        </div>
+      </div>
+      <div class="profile-data-container container-fluid col-4 d-flex p-5 mb-5">
+        <div class="space col-4 col-sm-6 col-lg-5"></div>
+        <div class="profile-data col-4 col-sm-3 mx-5">
+          <form autocomplete="off" [formGroup]="profileForm">
+            <div class="row d-flex gx-5">
+              <div
+                class="field-group firstName-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="firstName">First Name:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="firstName"
+                />
+              </div>
+              <div
+                class="field-group lastName-field col-3 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="lastName">Last Name:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="lastName"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div
+                class="field-group bio-field col-9 col-sm-11 d-flex flex-column"
+              >
+                <label class="profile-label" for="bio">Bio:</label>
+                <textarea
+                  class="profile-input bio-textarea"
+                  type="text"
+                  formControlName="bio"
+                  id="bio"
+                ></textarea>
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div class="field-group col-4 d-flex flex-column">
+                <label class="profile-label" for="ocupation">Ocupation:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="ocupation"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5 gx-5">
+              <div
+                class="field-group location-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="location">Location:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="location"
+                />
+              </div>
+              <div
+                class="field-group city-field col-3 col-sm-6 col-lg-3 d-flex flex-column"
+              >
+                <label class="profile-label" for="city">City:</label>
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="city"
+                />
+              </div>
+            </div>
+            <div class="row d-flex mt-5">
+              <div class="col-4 field-group d-flex flex-column">
+                <label class="profile-label" for="instruments"
+                  >Instruments:</label
+                >
+                <input
+                  class="profile-input"
+                  type="text"
+                  formControlName="instruments"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

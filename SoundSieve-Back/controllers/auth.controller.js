@@ -44,12 +44,9 @@ const newUser = async (req, res = response) => {
     // Return succesful response
     return res.status(201).json({
       ok: true,
-      uid: dbUser.id,
-      username,
-      firstName,
-      lastName,
-      role: dbUser.role,
       token,
+      user: dbUser,
+      menu: getMenuFrontend(dbUser.role),
     });
   } catch (error) {
     console.log(error);
@@ -110,15 +107,17 @@ const loginUser = async (req, res = response) => {
 };
 
 const googleSignIn = async (req, res = response) => {
-  console.log(req.body.token);
   try {
-    const { email, name, picture } = await googleVerify(req.body.token);
+    const { email, name, given_name, picture } = await googleVerify(
+      req.body.token
+    );
     const userDb = await User.findOne({ email });
     let user;
 
     if (!userDb) {
       user = new User({
-        email,
+        email: email,
+        username: given_name,
         firstName: name,
         lastName: "",
         password: "@@@",

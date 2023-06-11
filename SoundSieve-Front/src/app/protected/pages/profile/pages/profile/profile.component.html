@@ -24,7 +24,7 @@
             </div>
             <img
               *ngIf="!imgTemp"
-              [src]="_userService.imageUrl"
+              [src]="currentUser.img | image : 'users'"
               height="40"
               class="profile-img"
               alt="profile-photo"
@@ -59,7 +59,7 @@
                 class="profile-box-input location-text mb-0 mt-1 me-1"
                 id="profile-box-input-location"
               >
-                {{ currentUser.location }}
+                {{ currentUser.location || "Wakanda" }}
               </p>
             </div>
           </div>
@@ -214,7 +214,7 @@
         <div class="feed-interaction row mt-5 ms-5">
           <div class="interaction-avatar col-1">
             <img
-              [src]="_userService.imageUrl"
+              [src]="currentUser.img | image : 'users'"
               height="40"
               class="profile-img"
               alt="profile-photo"
@@ -241,7 +241,7 @@
         <div class="feed-interaction row mt-5 ms-5">
           <div class="interaction-avatar col-1">
             <img
-              [src]="_userService.imageUrl"
+              [src]="currentUser.img | image : 'users'"
               height="40"
               class="profile-img"
               alt="profile-photo"
@@ -268,7 +268,7 @@
         <div class="feed-interaction row mt-5 ms-5">
           <div class="interaction-avatar col-1">
             <img
-              [src]="_userService.imageUrl"
+              [src]="currentUser.img | image : 'users'"
               height="40"
               class="profile-img"
               alt="profile-photo"
