@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
+import { UserService } from './shared/services/user/user.service';
+import { AuthStatus } from './auth/interfaces/auth.interface';
+import { Router } from '@angular/router';
+import { User } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'SoundSieve-Front';
+
 }

@@ -1,0 +1,101 @@
+@import './../../../../assets/base';
+
+.card-body {
+    width: 90%;
+    margin: 0 auto;
+    @include glass-bg;
+    border-radius: $br-3;
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+    .divider {
+        width: 30%;
+    }
+
+    .table-borderless {
+        .table-borderless > tbody > tr > td,
+        .table-borderless > tbody > tr > th,
+        .table-borderless > tfoot > tr > td,
+        .table-borderless > tfoot > tr > th,
+        .table-borderless > thead > tr > td,
+        .table-borderless > thead > tr > th {
+            border: none;
+        }
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+    .table-row {
+        padding-top: 1rem;
+        height: 150px;
+        border-bottom: 1px solid $dark-medium;
+        border-bottom-width: 90%;
+        .item-preview {
+            max-width: 80px;
+            cursor: pointer;
+        }
+        .item-data {
+            min-width: 200px;
+        }
+        .item-title {
+            color: $light;
+            font-size: $fs-3;
+            font-weight: $fw-6;
+            margin-bottom: -.1rem;
+            cursor: pointer;
+            &:hover {
+                color: $hover-secondary-color;
+            }
+        }
+        .item-author {
+            color: $light;
+            font-size: $fs-2;
+            font-weight: $fw-3;
+        }
+        .item-interactions {
+            gap: 1rem;
+            img {
+                height: 12px;
+                &.like-icon {
+                    margin-bottom: .3rem;
+                }
+                &.view-icon {
+                    margin-bottom: .1rem;
+                }
+            }
+            p {
+                color: $light;
+                font-weight: $fw-3;
+                font-size: $fs-1;
+            }
+            .item-likes,
+            .item-views {
+                gap: .5rem;
+            }
+        }
+    }
+
+    .table-row-button {
+        margin-top: 2rem;
+        height: 120px;
+        border: 1px dashed $dark-medium;
+        border-width: 90%;
+        border-radius: $br-3;
+
+        .item-title {
+            color: $light;
+            font-size: $fs-3;
+            font-weight: $fw-6;
+            margin-bottom: -.1rem;
+        }
+        .item-description {
+            color: $light;
+            font-size: $fs-2;
+            font-weight: $fw-3;
+        }
+    }
+
+}

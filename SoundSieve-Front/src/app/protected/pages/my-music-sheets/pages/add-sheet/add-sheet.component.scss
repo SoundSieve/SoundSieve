@@ -1,0 +1,220 @@
+@import './../../../../../../assets/base';
+
+section{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    max-height: 100vh;
+    max-width: 100vw;
+    margin-bottom: 10rem !important;
+    @include max-1200 {
+        margin-bottom: 45rem !important;
+    }
+    .sheet-form {
+        padding: 0;
+        width: 100%;
+        margin-bottom: 10rem;
+        .sheet-preview{
+            width: 35%;
+            border-radius: $br-1;
+            @include max-700 {
+                width: 70%;
+            }
+            @include max-1000 {
+                width: 45%;
+            }
+
+            .creation-time {
+                color: $light;
+                font-size: $fs-2;
+                font-weight: $fw-3;
+                text-align: center;
+            }
+
+            .add-preview {
+                border: 1px dotted $light;
+                border-radius: $br-2;
+                padding: 3rem 5rem;
+                height: 400px;
+                width: auto;
+
+                
+                @include max-1200 {
+                    margin: 0 auto;
+                    margin-top: 18rem;
+                    
+                }
+                @include max-700 {
+                    margin-top: 7rem;
+                }
+
+                .image-preview-text {
+                    color: $light;
+                    font-size: $fs-4;
+                }
+
+                .image-preview-icon {
+                    width: 80px;
+                    height: 80px;
+                }
+                .imgPreview{
+                    position: relative;
+                    width: 70%;
+                    left: 0;
+
+                    @include max-1200 {
+                        top: 100%;
+                        left: 100%;
+                        transform: translate(-100%, -100%);
+                        width: 100%;
+                    }
+ 
+                }
+                .input-group {
+                    position: absolute;
+                    top: 25%;
+                    left: 15%;
+                    width: 23%;
+                    @include min-1200 {
+                        left: 15%;
+                    }
+                    @include max-1200 {
+                        top: 26%;
+                        left: 35%;
+                        width: 30%;
+                    }
+                    @include max-1000 {
+                        left: 32%;
+                        width: 36%;
+                    }
+                    @include max-900 {
+                        left: 30%;
+                        width: 40%;
+                    }
+
+                    .file-input {
+                        opacity: 0;
+                        height: 382px;
+                        @include max-1200 {
+                            position: relative;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        .sheet-data-container {
+            padding: 0;
+            margin: 0;
+            margin-right: 6rem;
+            padding-top: 6rem;
+            .sheet-data {
+                width: 100%;
+                .row {
+                    @include min-700 {
+                        margin-top: 0 !important;
+                    }  
+                }
+                .field-group {
+                    @include min-700 {
+                        margin-bottom: 3rem;
+                    }
+                    height:auto;
+                    .sheet-label{
+                        font-size: $fs-4;
+                        font-weight: $fw-5;
+                        color: $light;
+                    }
+                    .sheet-input {
+                        font-size: $fs-3;
+                        font-size: $fs-3;
+                        font-weight: $fw-3;
+                        color: $light;
+                        background: $dark-tooltip;
+                        padding: .5rem 1rem;
+                        border: none;
+                        border-radius: $br-1;
+                        width: 49%;
+                        box-shadow: 5px 5px 5px $shadow;
+
+                        
+                        @include max-700 {
+                            width: 90%;
+                        }
+                        &.description-textarea {
+                            width: 100%;
+                            @include max-700 {
+                                width: 185%;
+                            }
+                        }
+                    }
+
+                    textarea { 
+                        overflow-x: none;
+                        overflow-y: hidden;
+                        resize: none;
+                    }
+                    .input-group {
+                        font-size: $fs-3;
+                        font-size: $fs-3;
+                        font-weight: $fw-3;
+                        color: $light;
+                        .form-control {
+                            background: $dark-tooltip;
+                            box-shadow: 5px 5px 5px $shadow;
+                            color: $light;
+                            input {
+                                font-size: $fs-3;
+                                font-size: $fs-3;
+                                font-weight: $fw-3;
+                                color: $light;
+
+                            }
+                        }
+
+                    
+                    }
+                } 
+                .form-select {
+                    font-size: $fs-3;
+                    font-size: $fs-3;
+                    font-weight: $fw-3;
+                    color: $light;
+                    background: $dark-tooltip;
+                    box-shadow: 5px 5px 5px $shadow;
+                }
+                .description-field {
+                    @include min-700 {
+                        width: 50%;
+                    }
+                }
+
+                .firstName-field,
+                .lastName-field,
+                .location-field,
+                .city-field {
+                    @include min-700 {
+                        width: 100%;
+                    }
+
+                    @include min-1000 {
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.no-border{
+    border: none !important;
+}
+
+.author-field {
+    font-size: $fs-3 !important;
+    font-weight: $fw-3 !important;
+    color: $light !important;
+    pointer-events:none !important;
+    background: transparent !important;
+    border: none !important;
+}

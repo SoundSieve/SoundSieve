@@ -1,0 +1,88 @@
+@import './../../../../assets/base';
+
+.navbar {
+    height: 80px;
+    position: fixed;
+    z-index: 1000;
+    width: 100vw;
+    @include glass-bg;
+
+    .nav-item {
+        button {
+            background-color: transparent;
+            border: none;
+            font-family: $ff-inter;
+            font-size: $fs-3;
+            &:hover {
+                color:$hover-primary-color;
+                font-family: $ff-inter;
+                font-size: $fs-3;
+            }
+        }
+        .dropdown-menu {
+            left: 2.5rem;
+            top: 3rem;
+            // border-radius: 0;
+            padding: 0;
+            margin: 0;
+            .dropdown-item {
+                gap:1rem;
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            li {
+                width: 100%; 
+                a {
+                    padding: 1rem 1.5rem;
+                    width: 100%;
+                }               
+            }
+
+
+        }
+    }
+    .profile {
+        .dropdown-toggle {
+            font-family: $ff-inter;
+            font-size: $fs-3;
+            color: $light;
+            background-color: transparent;
+            border: none;
+            &:focus {
+                border: none;
+            }
+            .profile-img {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 3px solid $primary-color;
+            }
+        }
+        .dropdown-menu {
+            left: 2rem;
+            padding: 0;
+            margin: 0;
+            li {
+                width: 100%; 
+                a {
+                    padding: 1rem 1.5rem;
+                    width: 100%;
+                }               
+            }   
+        }
+    }
+}
+
+.logo__title {
+    font-size: $fs-4;
+    font-weight: $fw-6;
+    margin-bottom: 0;
+    color: $light;
+}
+
+.search__bar {
+    width: 40%;
+}

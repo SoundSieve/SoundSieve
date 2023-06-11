@@ -1,0 +1,95 @@
+<div class="card-body py-3 mt-5">
+  <div class="table-title d-flex align-items-center">
+    <h3 class="w-100 pt-4">{{ tTitle }}</h3>
+    <div class="flex-shrink-1">
+      <img src="../../../../assets/images/svg/filter.svg" alt="filter-icon" />
+    </div>
+  </div>
+  <div class="divider mt-2"></div>
+  <div class="table-responsive">
+    <table class="table table-borderless">
+      <thead *ngIf="tHeaders && tHeaders.length > 0">
+        <tr *ngFor="let header of tHeaders">
+          <th>
+            {{ header }}
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of tDisplays">
+        <tr
+          class="table-row d-flex align-items-center justify-content-between pe-3"
+        >
+          <td class="flex-shrink-1 ms-3 my-2" >
+            <img
+              (click)="goToDetails(item.id)"
+              class="item-preview"
+              [src]="item.pdfPreview | image : 'sheets'"
+              alt="no-preview"
+            />
+          </td>
+          <td class="d-flex flex-column w-100 ms-5">
+            <div class="item-data">
+              <p class="item-title" (click)="goToDetails(item.id)">{{ item.name }}</p>
+              <small class="item-author">{{
+                item.author.firstName + " " + item.author.lastName
+              }}</small>
+            </div>
+            <div class="item-interactions d-flex flex-wrap h-100 mt-5">
+              <div class="item-likes d-flex align-items-center">
+                <img
+                  class="like-icon"
+                  src="./../../../../assets/images/svg/like.svg"
+                  alt="like-icon"
+                />
+                <p class="align-middle m-0">223</p>
+              </div>
+              <div class="item-views d-flex align-items-center flex-shrink-1">
+                <img
+                  class="view-icon"
+                  src="./../../../../assets/images/svg/view.svg"
+                  alt="view-icon"
+                />
+                <p class="align-middle m-0">1.4k</p>
+              </div>
+            </div>
+          </td>
+          <td class="row-btns d-flex align-items-center flex-shrink-1">
+            <a
+              class="btn btn-light btn-reverse me-3"
+              (click)="editRowId(item.id)"
+              >Edit</a
+            >
+            <a class="btn btn-light btn-outline" (click)="deleteRowId(item.id)"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="tAddButton">
+        <tr>
+          <a
+            class="table-row-button d-flex align-items-center justify-content-start ps-3"
+            [href]="tAddButtonUrl"
+          >
+            <td class="flex-shrink-1 mx-3 my-2">
+              <img
+                class="item-preview"
+                src="../../../../assets/images/svg/NewProject.svg"
+                alt="no-preview"
+              />
+            </td>
+            <td class="d-flex flex-column w-lg-50 w-sm-100 ms-5">
+              <div class="item-data">
+                <p class="item-title">New project</p>
+                <small class="item-description"
+                  >Get feedback, views, and appreciations. Public project can be
+                  featured by our curators.</small
+                >
+              </div>
+            </td>
+          </a>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
