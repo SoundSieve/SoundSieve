@@ -9,7 +9,7 @@ export class Sheet {
         public id: string,
         public name: string,
         public author: Author,
-        public year: number,
+        public creationDate: Date,
         public license: string,
         public genres: string[],
         public instruments: string[],

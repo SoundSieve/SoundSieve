@@ -9,6 +9,12 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 })
 export class NoAuthGuard implements CanActivate {
 
+  private forbiddenRoutes = [
+    '/es',
+    '/auth/login',
+    '/auth/sign-in'
+  ]
+
   constructor( 
               private _userService: UserService,
               private _router: Router 
@@ -17,14 +23,16 @@ export class NoAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-    
-    return this._userService.checkAuthStatus()
-    .pipe(
-      tap( isAuth => {
-        if( isAuth ) {
-          this._router.navigateByUrl('browse');
-        }
-      })
-    );
+
+      return this._userService.checkAuthStatus()
+      .pipe(
+        tap( isAuth => {
+          if( isAuth ) {
+            console.log(isAuth)
+            this._router.navigateByUrl('/browse');
+          }
+        })
+      );
+      
   }
 }

@@ -7,7 +7,7 @@
     <a
       class="navbar-brand"
       fxFlex
-      [href]="headerOptions.main[isLogged ? 1 : 0].url"
+      [href]="headerOptions.main[_userService.isAuthenticated ? 1 : 0].url"
     >
       <div class="brand-logo d-flex align-items-center gap-2">
         <img
@@ -26,13 +26,19 @@
     <!--Links & buttons-->
     <div class="right__links d-flex align-items-center gap-5" fxFlex="30">
       <!--Links-->
-      <div *ngIf="!isLogged" class="me-2">
+      <div *ngIf="!_userService.isAuthenticated" class="me-2">
         <a class="nav-item dropdown" [href]="headerOptions.links[0].url">{{
           headerOptions.links[0].title
         }}</a>
       </div>
-      <div *ngIf="isLogged" class="me-2">
+      <div
+        *ngIf="_userService.isAuthenticated"
+        class="me-2 d-flex flex-row align-items-center"
+      >
         <div *ngFor="let link of headerOptions.links">
+          <a *ngIf="!link.childs" class="nav-item" [href]="link.url">{{
+            link.title
+          }}</a>
           <a *ngIf="link.childs" class="nav-item dropdown" href="#">
             <button
               class="btn btn-dark dropdown-toggle py-3 px-5"
@@ -57,7 +63,10 @@
         </div>
       </div>
       <!--Buttons-->
-      <div *ngIf="!isLogged" class="auth__btns d-flex align-items-center gap-3">
+      <div
+        *ngIf="!_userService.isAuthenticated"
+        class="auth__btns d-flex align-items-center gap-3"
+      >
         <div *ngFor="let button of headerOptions.buttons">
           <a [class]="button.type" [routerLink]="button.url">{{
             button.title
@@ -65,7 +74,7 @@
         </div>
       </div>
       <!--Profile-->
-      <div *ngIf="isLogged">
+      <div *ngIf="_userService.isAuthenticated">
         <div class="dropdown profile">
           <button
             class="btn btn-secondary dropdown-toggle"
@@ -73,9 +82,9 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Hi {{ currentUser.username }}!
+            Hi {{ this._userService.currentUser()?.username }}!
             <img
-              [src]="currentUser.img | image : 'users'"
+              [src]="this._userService.currentUser()?.img | image : 'users'"
               height="40"
               class="profile-img ms-3"
               alt="profile-photo"
@@ -87,9 +96,11 @@
               <a
                 class="dropdown-item"
                 [href]="
-                  headerOptions.profile.childs[0].url + '/' + currentUser.uid
+                  headerOptions.profile.childs[0].url +
+                  '/' +
+                  this._userService.currentUser()?.uid
                 "
-                >{{ headerOptions.profile.childs[0].title }}</a
+                >View profile</a
               >
             </li>
             <li>

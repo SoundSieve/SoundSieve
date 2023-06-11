@@ -107,9 +107,10 @@ const loginUser = async (req, res = response) => {
 };
 
 const googleSignIn = async (req, res = response) => {
-  console.log(req.body.token);
   try {
-    const { email, name, given_name, picture } = await googleVerify(req.body.token);
+    const { email, name, given_name, picture } = await googleVerify(
+      req.body.token
+    );
     const userDb = await User.findOne({ email });
     let user;
 

@@ -1,0 +1,14 @@
+<div class="container">
+  <div #selectBtn (click)="openSelect()" class="select-btn">
+    <span #textBtn class="btn-text">{{ placeholder }}</span>
+    <span class="arrow-dwn"><fa-icon [icon]="faChevron"></fa-icon></span>
+  </div>
+  <ul class="list-items">
+    <li class="item" *ngFor="let item of options">
+      <span class="checkbox">
+        <fa-icon class="check-icon" [icon]="faCheck"></fa-icon>
+      </span>
+      <span class="item-text">{{ item }}</span>
+    </li>
+  </ul>
+</div>

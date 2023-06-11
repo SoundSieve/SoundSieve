@@ -13,14 +13,22 @@ export class FileUploadService {
   async updateFile(
     file: File,
     type: 'users'| 'sheets',
-    user_id: string
+    fileType: 'img' | 'pdf',
+    id: string
   ) {
     try {
-
-      const url = `${ base_url }/upload/image/${ type }/${ user_id }`;
-      const formData = new FormData();
-      formData.append('image', file);
-
+      let url;
+      let formData = new FormData();
+      if(fileType === 'img') {
+        url = `${ base_url }/upload/image/${ type }/${ id }`;
+        formData.append('image', file);
+      } else if(fileType === 'pdf') {
+        url = `${ base_url }/upload/pdf/${ type }/${ id }`;
+        formData.append('file', file);
+      } else {
+        return false;
+      }
+      
       const response = await fetch( url, {
         method: 'PUT',
         headers: {

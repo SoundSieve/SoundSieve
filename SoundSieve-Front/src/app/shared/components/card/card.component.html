@@ -5,7 +5,11 @@
     alt="..."
   />
   <div class="card-body ps-2 d-flex flex-column h-auto">
-    <h5 class="card-title">{{ cSheet.name }}</h5>
+    <a
+      class="card-title"
+      [routerLink]="navigationUrls.sheetDetails + cSheet.id"
+      >{{ cSheet.name }}</a
+    >
     <p class="card-author">
       {{ cSheet.author.firstName + " " + cSheet.author.lastName }}
     </p>

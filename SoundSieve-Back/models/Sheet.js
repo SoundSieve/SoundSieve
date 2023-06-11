@@ -15,8 +15,8 @@ const SheetSchema = Schema({
   description: {
     type: String,
   },
-  year: {
-    type: Number,
+  creationDate: {
+    type: Date,
     required: true,
   },
   license: {

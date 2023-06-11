@@ -3,7 +3,7 @@ import { User } from "src/app/models/user.model";
 export interface SheetUpdateData { 
     name?: string,
     author?: string,
-    year?: number,
+    creationDate?: Date,
     license?: string,
     genres?: string[],
     instruments?: string[],

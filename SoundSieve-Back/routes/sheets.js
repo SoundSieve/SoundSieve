@@ -9,6 +9,7 @@ const {
   getSheetById,
   addSheet,
   updateSheet,
+  deleteSheet,
 } = require("../controllers/sheets.controller");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
@@ -25,14 +26,16 @@ router.post(
   [
     validateJWT,
     check("name", "The sheet name is mandatory").not().isEmpty(),
-    check("year", "The year is mandatory").not().isEmpty(),
-    check("year", "Must be a valid year")
-      .isLength("4")
-      .isBefore((new Date().getFullYear() + 1).toString()),
+    check("creationDate", "The creationDate is mandatory").not().isEmpty(),
+    // check("creationDate", "Must be a valid year")
+    //   .isLength("4")
+    //   .isBefore((new Date().getFullYear() + 1).toString()),
     validateFields,
   ],
   addSheet
 );
+
+router.delete("/:id", [validateJWT], deleteSheet);
 
 router.put("/:id", [validateJWT], updateSheet);
 

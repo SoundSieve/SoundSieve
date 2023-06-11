@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './pipes/pipes.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

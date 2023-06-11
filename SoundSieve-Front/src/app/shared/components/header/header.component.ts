@@ -14,9 +14,9 @@ import { DEFAULT_HEADER } from './header.config'
 export class HeaderComponent implements OnInit {
 
   public _userService = inject( UserService );
-  public isLogged: boolean = true;
+  public isLogged: boolean = false;
   public isSearchPage: boolean = false;
-  public headerOptions: Header;
+  public headerOptions: Header = DEFAULT_HEADER;
   public currentUrl: string = '';
   public currentUser : User;
 
@@ -25,26 +25,11 @@ export class HeaderComponent implements OnInit {
       event instanceof NavigationEnd ? 
         this.currentUrl = event.url : null 
     });
-    this.headerOptions = DEFAULT_HEADER;
+    this.currentUser = this._userService.currentUser();
+    this.isLogged = this._userService.isAuthenticated;
   }
 
   ngOnInit(): void {
-    // this._router.events.subscribe((val:any) => {
-    //   if(val.url) {
-    //     if(this._userService.isLoggedIn ) {
-    //       this._userService.watchStorage().subscribe({
-    //         next: (result) => {
-    //           if(result === 'added'){
-    //             this.headerOptions = JSON.parse(localStorage.getItem('menu'));
-    //           } 
-    //         },
-    //         error: () => {
-    //           this.headerOptions = DEFAULT_HEADER;
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
   }
 
   onLogout() {

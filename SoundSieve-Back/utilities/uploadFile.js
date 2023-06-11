@@ -17,9 +17,10 @@ const updateImage = async (type, id, fileName) => {
         console.log("Error id doesn`t exist");
         return false;
       }
-
-      const oldPath = `./uploads/image/${type}/${sheet.pdfPreview}`;
-      deleteOld(oldPath);
+      if(sheet.pdfPreview) {
+        const oldPath = `./uploads/image/${type}/${sheet.pdfPreview}`;
+        deleteOld(oldPath);
+      }
 
       sheet.pdfPreview = fileName;
       await sheet.save();
@@ -33,9 +34,10 @@ const updateImage = async (type, id, fileName) => {
         console.log("Error id doesn`t exist");
         return false;
       }
-
-      const oldPath = `./uploads/image/${type}/${user.img}`;
-      deleteOld(oldPath);
+      if(user.img) {
+        const oldPath = `./uploads/image/${type}/${user.img}`;
+        deleteOld(oldPath);
+      }
 
       user.img = fileName;
       await user.save();
@@ -52,9 +54,10 @@ const updatePdf = async (type, id, fileName) => {
         console.log("Error id doesn`t exist");
         return false;
       }
-
-      const oldPath = `./uploads/pdf/${type}/${sheet.pdf}`;
-      deleteOld(oldPath);
+      if(sheet.pdf) {
+        const oldPath = `./uploads/pdf/${type}/${sheet.pdf}`;
+        deleteOld(oldPath);
+      }
 
       sheet.pdf = fileName;
       await sheet.save();

@@ -1,0 +1,118 @@
+@import './../../../../../assets/base';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $ff-inter;
+    
+}
+
+.container {
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+
+
+    .select-btn {
+        display: flex;
+        height: auto;
+        align-items: center;
+        justify-content: space-between;
+        padding: .5rem 1rem;
+        background: $dark-tooltip;
+        cursor: pointer;
+        border: none;
+        border-radius: $br-1;
+        box-shadow: 0px 5px 10px $shadow;
+        &.open {
+            &~.list-items {
+                display: block;
+            }
+            .arrow-dwn {
+                transform: rotate(-180deg);
+            }
+        }
+
+        .btn-text {
+            font-size: $fs-3;
+            font-weight: $fw-3;
+            color: $light;
+        }
+        .arrow-dwn {
+            display: flex;
+            height: 18px;
+            width: 18px;
+            color: $light;
+            background: $primary-color;
+            align-items: center;
+            justify-content: center;
+            border-radius: $br-all;
+            transition: .3s;
+        }
+    }
+
+
+    .list-items {
+        position: absolute;
+        z-index: 10;
+        top: 100%;
+        width: 320px;
+        background-color: $dark-tooltip;
+        margin-top: 1rem;
+        border-radius: $br-1;
+        padding: .8rem;
+        box-shadow: 0px 5px 10px $shadow;
+        display: none;
+
+        .item {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            height: 3.4rem;
+            cursor: pointer;
+            border-radius: $br-1;
+            transition: .3s;
+            padding: 0 1rem;
+
+            &:hover {
+                background-color: $dark-medium;
+            }
+
+            .checkbox {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 16px;
+                width: 16px;
+                border-radius: 4px;
+                margin-right: 1rem;
+                background-color: $light;
+                transition: all .3s ease-in-out;
+
+                .check-icon {
+                    font-size: 11px;
+                    transform: scale(0);
+                    transition: all .3s ease-in-out;
+                }
+            }
+
+            .item-text {
+                font-size: $fs-2;
+                font-weight: $fw-3;
+                color: $light;
+            }
+
+            &.checked {
+                .checkbox {
+                    background-color: $primary-color;
+                    border-color: $primary-color;
+                    .check-icon {
+                        color: $light;
+                        transform: scale(1);
+                    }
+                }
+            }
+        }
+    }
+}

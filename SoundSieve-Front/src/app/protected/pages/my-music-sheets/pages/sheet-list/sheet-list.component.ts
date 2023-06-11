@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { SheetUpdateData } from 'src/app/shared/interfaces/SheetUpdateData.interface';
 import { SheetsService } from 'src/app/shared/services/sheet/sheets.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sheet-list',
@@ -31,6 +32,10 @@ export class SheetListComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.sheets = resp.filter((x: Sheet) => x.author._id === this.currentUser.uid);
+          console.log(this.sheets)
+        },
+        error: (error) => {
+          console.log(error);
         }
       })
   }
@@ -40,10 +45,21 @@ export class SheetListComponent implements OnInit {
   }
 
   deleteSheet(id: string) {
-    const data: SheetUpdateData = {
-      enabled: false,
-    }
-    this._sheetService.updateSheet(id, this.currentUser.uid, data);
+
+    this._sheetService.deleteSheet(id)
+      .subscribe({
+        next: (response) => {
+          Swal.fire('Updated', 'The sheet was deleted!', 'success'); 
+          console.log(response);
+        },
+        error: (error) => {
+          Swal.fire('Error', 'Error deleting sheet', 'error');
+          console.log(error);
+        }
+      })
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
   
 }

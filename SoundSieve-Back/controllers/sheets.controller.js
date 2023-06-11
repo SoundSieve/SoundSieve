@@ -79,7 +79,7 @@ const addSheet = async (req, res = response) => {
 
     return res.status(200).json({
       ok: true,
-      Sheet: sheetDB,
+      sheet: sheetDB,
     });
   } catch (error) {
     console.log(error);
@@ -134,9 +134,36 @@ const updateSheet = async (req, res = response) => {
   }
 };
 
+deleteSheet = async (req, res = response) => {
+  const id = req.params.id;
+  try {
+    const sheet = await Sheet.findById(id);
+    if (!sheet) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Sheet doesn`t exist",
+      });
+    }
+
+    await Sheet.findByIdAndDelete(id);
+
+    res.json({
+      ok: true,
+      msg: "Sheet deleted",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Server error",
+    });
+  }
+};
+
 module.exports = {
   getSheets,
   getSheetById,
   addSheet,
   updateSheet,
+  deleteSheet,
 };

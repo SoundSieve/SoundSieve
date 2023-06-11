@@ -33,9 +33,11 @@ export class UserService {
 
 
   public currentUser = computed( () => this._currentUser());
-  public authUser: User;
+  public isAuthenticated: boolean = false;
 
-  constructor() { }
+  constructor() {
+    this.checkAuthStatus().subscribe()
+   }
 
   get user(): Observable<User> {
     return of(this._currentUser());
@@ -62,26 +64,28 @@ export class UserService {
     localStorage.removeItem('token');
     localStorage.removeItem('menu');
     this._currentUser.set(null);
-
-    google.accounts.id.revoke( 'quizasdudas@gmail.com', () => {
+    this.isAuthenticated = false;
+    google.accounts.id.revoke( this.currentUser().email, () => {
       this.router.navigateByUrl('/auth/sign-up');
     })
     this.router.navigateByUrl('/auth/sign-up');
   }
 
-    private hasToken() : boolean {
-      return !!localStorage.getItem('token');
-    }
-
   checkAuthStatus(): Observable<boolean> {
     const token = this.token;
-    return this._http.get(`${ base_url }/auth/renew`, this.headers)
+    if(!token) {
+      this.isAuthenticated = false;
+      return of(false);
+    }
+
+    return this._http.get<AuthStatusResponse>(`${ base_url }/auth/renew`, this.headers)
                 .pipe(
-                  tap((resp: any) => {
-                    localStorage.setItem('token', resp.token)
-                  }),
-                  map( resp => true ),
-                  catchError(error => of(false))
+                  map(({user, token, menu}) => this.setAuthentication(user, token, menu)),
+                  catchError(error => {
+                    this.isAuthenticated = false;
+                    console.log(error); 
+                    return of(false);
+                  })
                 );
   }
 
@@ -90,7 +94,7 @@ export class UserService {
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
-
+                    this.isAuthenticated = false;
                     return throwError(() => err.error );
                   })
                 );
@@ -101,6 +105,7 @@ export class UserService {
                 .pipe(
                   map( ({user, token, menu}) => this.setAuthentication(user, token, menu)),
                   catchError( err => {
+                    this.isAuthenticated = false;
                     return throwError(() => err.error );
                   })
                 );
@@ -134,7 +139,26 @@ export class UserService {
 
   getUserById(uid: string) {
     const url = `${ base_url }/users/${uid}`;
-    return this._http.get<UserResponse>( url, this.headers );
+    return this._http.get<UserResponse>( url, this.headers )
+    .pipe(
+      map( resp => new User(
+        resp.user?.firstName || '',
+        resp.user?.lastName || '',
+        resp.user?.username || '',
+        resp.user?.email || '',
+        '',
+        resp.user?.bio || '',
+        resp.user?.ocupation || '',
+        resp.user?.location|| '',
+        resp.user?.city || '',
+        resp.user?.instruments || [''],
+        resp.user?.img || '',
+        resp.user?.google,
+        resp.user?.role,
+        resp.user?.uid,
+        resp.user?.creationTime as Date || new Date()
+      ))
+    )
   }
 
   deleteUser( uid: string, data: UserUpdateData ) {
@@ -156,6 +180,7 @@ export class UserService {
   private setAuthentication( user: User, token: string, menu: Header ): boolean {
     this._currentUser.set(user);
     this.saveLocalStorage( token, menu );
+    this.isAuthenticated = true;
     return true;
   }
 

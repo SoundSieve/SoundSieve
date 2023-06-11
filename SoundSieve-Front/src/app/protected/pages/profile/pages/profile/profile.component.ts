@@ -43,11 +43,6 @@ export class ProfileComponent implements OnInit {
     },
   ];
 
-  profileBoxForm: FormGroup = this._fb.group({
-    username: [''],
-    location: [''],
-  });
-
   profileForm: FormGroup = this._fb.group({
     firstName: [''],
     lastName: [''],
@@ -70,9 +65,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
       this.mapValues(this.currentUser);
-
       this.resizeInputHeight ( 'bio', 1.8 );
-      this.resizeInputWidth ( 'profile-box-input-location',  this.profileBoxForm.value.length );
+      this.resizeInputWidth ( 'profile-box-input-location',  this.profileForm.value.length );
 
     if(this.currentUrl.includes('edit')) {
       this.isEditing = true;
@@ -122,7 +116,7 @@ export class ProfileComponent implements OnInit {
 
     this.profileForm.patchValue({
       firstName: user.firstName,
-      lastName: user.lastName,
+      lastName: user.lastName || 'Fill your last name...',
       username: user.username,
       email: user.email,
       bio: user?.bio || 'Fill your bio...',
@@ -131,11 +125,6 @@ export class ProfileComponent implements OnInit {
       city: user?.city || 'Birnin Zana',
       instruments: this.userInstruments || 'Zambomba',
     });
-
-    this.profileBoxForm.patchValue({
-      username: user.username,
-      location: user?.location || 'Wakanda',
-    })
   }
 
   saveProfileChanges() {
@@ -193,7 +182,7 @@ export class ProfileComponent implements OnInit {
   }
 
   saveImage() {
-      this._fileUpload.updateFile(this.fileImage, 'users', this.currentUser.uid)
+      this._fileUpload.updateFile(this.fileImage, 'users', 'img', this.currentUser.uid)
         .then( img => {
          this.currentUser.img = img;
          Swal.fire('Updated', 'The changes were saved!', 'success'); 

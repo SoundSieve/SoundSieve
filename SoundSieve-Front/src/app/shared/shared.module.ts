@@ -15,6 +15,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SectionComponent } from './components/section/section/section.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { MultiSelectComponent } from './components/multi-select/multi-select/multi-select.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     CardComponent,
     SpinnerComponent,
     SectionComponent,
+    MultiSelectComponent,
   ],
   exports: [
     HeaderComponent,
@@ -38,7 +41,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     CardComponent,
     SpinnerComponent,
     SectionComponent,
+    MultiSelectComponent
   ],
-  imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule, NgxDocViewerModule],
+  imports: [CommonModule, SharedRoutingModule, RouterModule, FormsModule, PipesModule, NgxDocViewerModule, FontAwesomeModule],
 })
 export class SharedModule {}

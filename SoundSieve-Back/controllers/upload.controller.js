@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const { response } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { updateImage } = require("../utilities/uploadFile");
+const { updateImage, updatePdf } = require("../utilities/uploadFile");
 
 const uploadImage = async (req, res = response) => {
   try {
@@ -104,7 +104,7 @@ const uploadPdf = async (req, res = response) => {
     const fileExtension = splitName[splitName.length - 1];
 
     // Valid extensions
-    let validExtension = ["pdf", "doc"];
+    let validExtension = ["pdf"];
 
     if (!validExtension.includes(fileExtension)) {
       return res.status(400).json({
@@ -180,10 +180,10 @@ const getImage = (req, res = response) => {
 
 const getPdf = (req, res = response) => {
   const type = req.params.type;
-  const file = req.params.file;
+  const file = req.params.pdf;
 
   const filePath = path.join(__dirname, `../uploads/pdf/${type}/${file}`);
-
+  console.log(filePath);
   // Default image
   if (!fs.existsSync(filePath)) {
     switch (type) {

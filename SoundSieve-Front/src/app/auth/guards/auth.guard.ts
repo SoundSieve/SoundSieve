@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
 /** PrivateGuard - PublicGuard  */
@@ -14,15 +14,12 @@ export class AuthGuard implements CanActivate {
               private _router: Router 
               ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {
-    
+  canActivate() {
     return this._userService.checkAuthStatus()
     .pipe(
       tap( isAuth => {
         if( !isAuth ) {
-          this._router.navigateByUrl('auth/sign-up');
+          this._router.navigateByUrl('/auth');
         }
       })
     );
